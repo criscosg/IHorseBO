@@ -1,0 +1,13 @@
+IHorse\UserBundle\Entity\User:
+    city: LocationBundle:City__id__1
+    email: "jiminy@cricket.com"
+    password: "MNVcqP/TlOHsEHQ8snI1MWDAnSleMHHMrJCnnVGBfPVymDAyORxCv3R0JQ3ymQ5OF1jung5MNlPzeTr0Szt1fw=="
+    salt: "657bc0f28b00b2e0ebe9f968fe26b9db"
+    birthDate: "__date__1940-02-23"
+    validated: "__date__2013-02-23"
+    lastname: "don't have one"
+    typeUser: 0
+    aboutMe: "Esto es un test"
+    name: 'Pepe'
+    phone: 954123456
+    facebookId: "e0ebe9f968fe26b9db"

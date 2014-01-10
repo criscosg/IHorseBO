@@ -1,0 +1,7 @@
+home:
+    pattern: /
+    defaults: { _controller: BackendBundle:Backend:example }
+
+login:
+    pattern: /login
+    defaults: { _controller: BackendBundle:Backend:login }

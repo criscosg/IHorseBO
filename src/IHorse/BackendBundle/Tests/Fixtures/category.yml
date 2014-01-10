@@ -1,0 +1,3 @@
+IHorse\CategoryBundle\Entity\ItemCategory:
+    name: Name category
+    description: A description for category

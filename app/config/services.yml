@@ -1,0 +1,24 @@
+services:
+    twig.extension.ajax:
+        class: IHorse\BackendBundle\Twig\Extension\AjaxExtension
+        arguments: 
+            container: @service_container
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.interface:
+        class: IHorse\BackendBundle\Twig\Extension\InterfaceExtension
+        arguments: 
+            container: @service_container
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.javascript:
+            class: IHorse\BackendBundle\Twig\Extension\JavascriptExtension
+            tags:
+                - { name: twig.extension }
+
+    twig.extension.breadcrumb:
+            class: IHorse\BackendBundle\Twig\Extension\BreadCrumbExtension
+            tags:
+                - { name: twig.extension }

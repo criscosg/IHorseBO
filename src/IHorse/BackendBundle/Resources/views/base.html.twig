@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{{"Panel de administración de iHorse" | trans }}</title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('bundles/backend/img/favicon.ico') }}">
+		<link rel="stylesheet" href="{{ asset('bundles/backend/css/bootstrap.min.css') }}" />
+		<link rel="stylesheet" href="{{ asset('bundles/backend/css/font-awesome.css') }}" />
+		<script src="{{ asset('bundles/backend/js/jquery.min.js') }}"></script>
+		<script src="{{ asset('bundles/backend/js/jquery-ui.custom.js') }}"></script>
+		{% block stylesheets %}{% endblock %}
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/respond.min.js"></script>
+		<![endif]-->	
+	</head>	
+	<body data-color="blue" class="flat">
+		<div id="wrapper">		
+			{% block header %}{% endblock %}
+			{% block sidenav %}{% endblock %}
+			{% block body %}{% endblock %}
+			{% block footer %}{% endblock %}
+	            
+	        {% block javascripts %}{% endblock %}
+    	</div>
+	</body>
+</html>

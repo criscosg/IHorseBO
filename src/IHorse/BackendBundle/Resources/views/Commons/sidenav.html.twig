@@ -1,0 +1,17 @@
+{% set action = app.request.attributes.get('_route') %}
+{% set params = app.request.attributes.get('_route_params') %}
+<div id="sidebar">
+	{#<div id="search">
+		<input type="text" placeholder="Search here..."/><button type="submit" class="tip-right" title="Search"><i class="fa fa-search"></i></button>
+	</div>#}
+	<ul>
+		{#<li class="active"><a href="{{ path('admin') }}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>#}
+        <li class="submenu {# if action == 'admin_category_index' or action == 'admin_category_create' or action == 'admin_category_edit' %}active open{% endif #}">
+            <a href="#"><i class="fa fa-folder-open"></i> <span>{{ "Categorias"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {# if action == 'admin_category_index' %}class="active"{% endif #}><a href="{# path('admin_category_index') #}">{{ "Listado"|trans }}</a></li>
+                <li><a href="#">{{ "Nueva"|trans }}</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
