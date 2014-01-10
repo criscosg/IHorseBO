@@ -1,0 +1,13 @@
+IHorse\LocationBundle\Entity\Address:
+    address: "fake street 1234"
+    city: LocationBundle:City__id__1
+
+IHorse\ItemBundle\Entity\Item:
+    title: "itemNoValidate"
+    description: "Bla bla bla"
+    user: UserBundle:User__id__1
+    requirements: "Bla bla bla"
+    price: 100
+    metres: 39
+    category: CategoryBundle:ItemCategory__id__1
+    address: LocationBundle:Address__id__2
