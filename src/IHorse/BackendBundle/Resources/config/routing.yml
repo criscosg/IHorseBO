@@ -5,3 +5,15 @@ home:
 login:
     pattern: /login
     defaults: { _controller: BackendBundle:Backend:login }
+    
+users:
+    resource: "@BackendBundle/Resources/config/routing/admin-user.yml"
+    prefix: /users/
+    
+veterinaries:
+    resource: "@BackendBundle/Resources/config/routing/veterinary.yml"
+    prefix: /veterinaries/    
+    
+clinics:
+    resource: "@BackendBundle/Resources/config/routing/clinic.yml"
+    prefix: /clinics/        

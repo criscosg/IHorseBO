@@ -1,0 +1,29 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Clinica" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Listado de clínicas administradores':'#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "clínica"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            
+                {% if clinic.name is defined %}{{ clinic.name }}{% endif %}
+                {% if clinic.created is defined %}{{ clinic.created }}{% endif %}
+      
+        </div>
+    </div>
+{% endblock %}

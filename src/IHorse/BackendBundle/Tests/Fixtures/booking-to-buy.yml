@@ -1,6 +1,0 @@
-IHorse\BookingBundle\Entity\Booking:
-    user: UserBundle:User__id__3
-    item: ItemBundle:Item__id__1
-    initDate: "__date__2015-07-05"
-    finalDate: "__date__2015-08-06"
-    state: 1

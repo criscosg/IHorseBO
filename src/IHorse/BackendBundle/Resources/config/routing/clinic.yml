@@ -1,0 +1,27 @@
+clinics_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:Clinic:listClinics }
+    
+show_clinic:
+    pattern: /clinic/{id}
+    defaults: { _controller: BackendBundle:Clinic:clinicShow }  
+    
+new_clinic:
+    pattern: /new
+    defaults: { _controller: BackendBundle:Clinic:newClinic }
+    
+edit_clinic:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:Clinic:editClinic }    
+    
+create_clinic:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Clinic:createClinic }
+    
+put_clinic:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:Clinic:putClinic }
+    
+delete_clinic:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Clinic:deleteClinic }    

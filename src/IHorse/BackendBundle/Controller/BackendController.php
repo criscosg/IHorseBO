@@ -16,4 +16,8 @@ class BackendController extends IHorseController
         return $this->renderLoginTemplate('BackendBundle:Backend:login.html.twig');
     }
 
+    public function listUsersAction()
+    {
+        $users = $this->get('user.model')->getUsers();
+    }
 }
