@@ -2,6 +2,7 @@ parameters:
     admin.user.model.class: IHorse\BackendBundle\Model\Handler\AdminUserHandler
     veterinary.handler.class: IHorse\BackendBundle\Model\Handler\VeterinaryHandler
     clinic.handler.class: IHorse\BackendBundle\Model\Handler\ClinicHandler
+    clinic.json.type: IHorse\BackendBundle\Form\Type\JsonClinicType
 
 services:
     user.model:
@@ -13,4 +14,10 @@ services:
     clinic.handler.model:
         class: %clinic.handler.class%
         arguments: [@ihorse.client]    
-           
+    form.type.json.clinic:
+        class: %clinic.json.type%
+        arguments:
+            - @clinic.handler.model
+        tags:
+            - { name: form.type, alias: json_clinic }
+               
