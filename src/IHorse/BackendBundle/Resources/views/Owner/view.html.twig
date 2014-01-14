@@ -28,6 +28,7 @@
                         <th>{{ "Apellidos"|trans }}</th>
                         <th>{{ "Ciudad"|trans }}</th>
                         <th>{{ "Email"|trans }}</th>
+                        <th>{{ "Clínica"|trans }}</th>
                         <th>{{ "Creado"|trans }}</th>
                         <th>{{ "Acciones"|trans }}</th>
                     </tr>
@@ -38,6 +39,11 @@
                             <td>{% if owner.last_name is defined %}{{ owner.last_name }}{% endif %}</td>
                             <td>{% if owner.city is defined %}{{ owner.city }}{% endif %}</td>
                             <td>{% if owner.email is defined %}{{ owner.email }}{% endif %}</td>
+                            <td>
+                                {% if owner.clinic is defined %}
+                                    <a title="{{ "Ver clínica"|trans }}" href="{{ path('show_clinic', { 'id': owner.clinic.id }) }}">{{ owner.clinic.name }}</a>
+                                {% endif %}
+                            </td>
                             <td>{% if owner.created is defined %}{{ owner.created |date('d/m/Y') }}{% endif %}</td>
                             <td class="taskOptions">
                                 <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}"><i class="fa fa-pencil"></i></a>

@@ -12,6 +12,7 @@ class OwnerType extends AbstractType
         $builder->add('email', 'email', array('required' => true))
             ->add('name', 'text', array('required' => true))
             ->add('lastName', 'text', array('required' => false))
+            ->add('clinic', 'json_clinic', array('required'=>true))
             ->add('city', 'text', array('required' => false));
     }
 
