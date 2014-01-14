@@ -16,4 +16,8 @@ veterinaries:
     
 clinics:
     resource: "@BackendBundle/Resources/config/routing/clinic.yml"
-    prefix: /clinics/        
+    prefix: /clinics/
+
+owners:
+    resource: "@BackendBundle/Resources/config/routing/owner.yml"
+    prefix: /owners/

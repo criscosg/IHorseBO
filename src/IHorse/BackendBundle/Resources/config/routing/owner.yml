@@ -1,0 +1,27 @@
+owners_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:Owner:listOwners }
+
+show_owner:
+    pattern: /owner/{id}
+    defaults: { _controller: BackendBundle:Owner:ownerShow }
+
+new_owner:
+    pattern: /new
+    defaults: { _controller: BackendBundle:Owner:newOwner }
+
+edit_owner:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:Owner:editOwner }
+
+create_owner:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Owner:createOwner }
+
+put_owner:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:Owner:putOwner }
+
+delete_owner:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Owner:deleteOwner }

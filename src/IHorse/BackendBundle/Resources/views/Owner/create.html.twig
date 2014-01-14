@@ -1,0 +1,89 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+{%  set edit = "Edición de dueño"|trans %}
+{%  set create = "Creación de dueño"|trans %}
+
+{% block title_section %}
+    {% if edition is defined %}
+        {{ edit }}
+    {% else %}
+        {{ create }}
+    {% endif %}
+
+{% endblock %}
+
+{% block breadcrumb %}
+    {% if edition is defined %}
+        {% set crumbs = {(edit):'#'} %}
+    {% else %}
+        {% set crumbs = {create:'#'} %}
+    {% endif %}
+
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-th"></i>
+            </span>
+            {% if edition is defined %}
+                <h5>{{ edit }}</h5>
+            {% else %}
+                <h5>{{ "Nuevo dueño"|trans }}</h5>
+            {% endif %}
+        </div>
+        <div class="widget-content nopadding">
+            <form class="form-horizontal" id="form-create-item" role="form"
+                  action="{% if edition is defined %}{{ path('put_owner',{'id':id}) }} {% else %} {{ path('create_owner') }} {% endif %}"
+                  method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
+                
+                <div class="form-group">
+                    <label id="label_name" for="owner_name" class="col-sm-3 control-label owner-active is-public"><span class="red">*</span> {{ "Nombre" |trans}}</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.name, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_lastName" for="owner_last_name" class="col-sm-3 control-label owner-active is-public"> {{ "Apellidos" |trans}}</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.lastName, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_email" for="owner_email" class="col-sm-3 control-label owner-active is-public"><span class="red">*</span> {{ "Email" |trans}}</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.email, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_city" for="owner_city" class="col-sm-3 control-label owner-active is-public"> {{ "Ciudad" |trans}}</label>
+                    <div class="col-sm-9">
+                        {{ form_widget(form.city, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+
+
+                {{ form_rest(form) }}
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-sm-10">
+                        <button id="register" type="submit" class="btn btn-large btn-blue">
+                            {{ "Guardar cambios"|trans }}
+                        </button>
+                        <img style="display:none;" class="ml15 loader pull-lef" src="{{ asset('bundles/frontend/img/ajax-loader.gif') }}">
+                    </div>
+                    <p class="col-md-offset-2 col-sm-10 help-block">
+                        <span class="red">*</span> {{"Campos obligatorios" | trans }}
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

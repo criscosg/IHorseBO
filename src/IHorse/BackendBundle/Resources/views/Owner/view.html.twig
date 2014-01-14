@@ -1,0 +1,91 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Dueño" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Listado de dueños':'#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% if owner %}
+        <div class="widget-box">
+            <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+                <h5>{{ "Dueño"|trans }}</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>{{ "Nombre"|trans }}</th>
+                        <th>{{ "Apellidos"|trans }}</th>
+                        <th>{{ "Ciudad"|trans }}</th>
+                        <th>{{ "Email"|trans }}</th>
+                        <th>{{ "Creado"|trans }}</th>
+                        <th>{{ "Acciones"|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{% if owner.name is defined %}{{ owner.name }}{% endif %}</td>
+                            <td>{% if owner.last_name is defined %}{{ owner.last_name }}{% endif %}</td>
+                            <td>{% if owner.city is defined %}{{ owner.city }}{% endif %}</td>
+                            <td>{% if owner.email is defined %}{{ owner.email }}{% endif %}</td>
+                            <td>{% if owner.created is defined %}{{ owner.created |date('d/m/Y') }}{% endif %}</td>
+                            <td class="taskOptions">
+                                <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}"><i class="fa fa-pencil"></i></a>
+                                <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if owner.horses | length > 0 %}
+            <div class="widget-box">
+                <div class="widget-title">
+                <span class="icon">
+                    <i class="fa fa-align-justify"></i>
+                </span>
+                    <h5>{{ "Caballos"|trans }}</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>{{ "Nombre"|trans }}</th>
+                            <th>{{ "Acciones"|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for horse in owner.horses %}
+                            <tr>
+                                <td>{% if horse.name is defined %}{{ horse.name }}{% endif %}</td>
+                                <td class="taskOptions">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-info mt">
+                <strong>{{"Información!" | trans }}</strong>
+                {{"No tiene caballos" | trans }}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

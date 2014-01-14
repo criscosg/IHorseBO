@@ -18,7 +18,7 @@ abstract class RESTHandler
     public function getList($path, $dataName)
     {
         $request = $this->client->get($path);
-        $response=$request->send();
+        $response = $request->send();
         $data = $response->json();
 
         return $data[$dataName];
@@ -27,7 +27,7 @@ abstract class RESTHandler
     public function get($path, $dataName)
     {
         $request = $this->client->get($path);
-        $response=$request->send();
+        $response = $request->send();
         $data = $response->json();
 
         return $data[$dataName];
@@ -36,7 +36,7 @@ abstract class RESTHandler
     public function post($path, $params)
     {
         $request = $this->client->post($path, array(), $params);
-        $response=$request->send();
+        $response = $request->send();
 
         return $response->json();
     }
@@ -44,7 +44,7 @@ abstract class RESTHandler
     public function put($path, $params)
     {
         $request = $this->client->put($path, array(), $params);
-        $response=$request->send();
+        $response = $request->send();
 
         return $response->json();
     }
@@ -52,7 +52,7 @@ abstract class RESTHandler
     public function delete($path)
     {
         $request = $this->client->delete($path);
-        $response=$request->send();
+        $response = $request->send();
 
         return $response->json();
     }
