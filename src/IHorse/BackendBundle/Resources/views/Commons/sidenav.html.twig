@@ -13,5 +13,12 @@
                 <li><a href="#">{{ "Nueva"|trans }}</a></li>
             </ul>
         </li>
+        <li class="submenu {%  if action == 'owners_list' or action == 'new_owner' or action == 'show_owner' or action == 'edit_owner' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-folder-open"></i> <span>{{ "Dueños"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {% if action == 'owners_list' %}class="active"{% endif %}><a href="{{ path('owners_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_owner' %}class="active"{% endif %}><a href="{{ path('new_owner') }}">{{ "Nuevo"|trans }}</a></li>
+            </ul>
+        </li>
     </ul>
 </div>
