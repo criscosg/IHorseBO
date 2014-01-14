@@ -21,3 +21,7 @@ clinics:
 owners:
     resource: "@BackendBundle/Resources/config/routing/owner.yml"
     prefix: /owners/
+
+horses:
+    resource: "@BackendBundle/Resources/config/routing/horse.yml"
+    prefix: /horses/

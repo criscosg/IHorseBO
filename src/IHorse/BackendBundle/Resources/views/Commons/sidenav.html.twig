@@ -34,5 +34,12 @@
                 <li {% if action == 'new_owner' %}class="active"{% endif %}><a href="{{ path('new_owner') }}">{{ "Nuevo"|trans }}</a></li>
             </ul>
         </li>
+        <li class="submenu {%  if action == 'horses_list' or action == 'new_horse' or action == 'show_horse' or action == 'edit_horse' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-folder-open"></i> <span>{{ "Caballos"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {% if action == 'horses_list' %}class="active"{% endif %}><a href="{{ path('horses_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_horse' %}class="active"{% endif %}><a href="{{ path('new_horse') }}">{{ "Nuevo"|trans }}</a></li>
+            </ul>
+        </li>
     </ul>
 </div>

@@ -1,0 +1,27 @@
+horses_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:Horse:listHorses }
+
+show_horse:
+    pattern: /horse/{id}
+    defaults: { _controller: BackendBundle:Horse:horseShow }
+
+new_horse:
+    pattern: /new
+    defaults: { _controller: BackendBundle:Horse:newHorse }
+
+edit_horse:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:Horse:editHorse }
+
+create_horse:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Horse:createHorse }
+
+put_horse:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:Horse:putHorse }
+
+delete_horse:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Horse:deleteHorse }

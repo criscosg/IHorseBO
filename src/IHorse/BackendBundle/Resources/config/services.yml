@@ -4,6 +4,8 @@ parameters:
     clinic.handler.class: IHorse\BackendBundle\Model\Handler\ClinicHandler
     owner.handler.class: IHorse\BackendBundle\Model\Handler\OwnerHandler
     clinic.json.type: IHorse\BackendBundle\Form\Type\JsonClinicType
+    horse.handler.class: IHorse\BackendBundle\Model\Handler\HorseHandler
+    owner.json.type: IHorse\BackendBundle\Form\Type\JsonOwnerType
 
 services:
     user.model:
@@ -18,9 +20,20 @@ services:
     owner.handler.model:
         class: %owner.handler.class%
         arguments: [@ihorse.client]
+    horse.handler.model:
+        class: %horse.handler.class%
+        arguments: [@ihorse.client]
+
     form.type.json.clinic:
         class: %clinic.json.type%
         arguments:
             - @clinic.handler.model
         tags:
             - { name: form.type, alias: json_clinic }
+
+    form.type.json.owner:
+            class: %owner.json.type%
+            arguments:
+                - @owner.handler.model
+            tags:
+                - { name: form.type, alias: json_owner }

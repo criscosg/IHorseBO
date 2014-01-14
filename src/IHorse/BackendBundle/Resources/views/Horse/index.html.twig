@@ -1,0 +1,64 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Listado de caballos" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Listado de caballos':'#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <a href="{{ path('new_horse') }}" class="btn btn-success">
+            <i class="fa fa-plus"></i> {{ "Nuevo caballo" | trans }}
+        </a>
+    </div>
+
+    {% if horses | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de caballos"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{{ "Nombre"|trans }}</th>
+                    <th>{{ "Dueño"|trans }}</th>
+                    <th>{{ "Creado"|trans }}</th>
+                    <th>{{ "Acciones"|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for horse in horses %}
+                        <tr>
+                            <td>{% if horse.name is defined %}{{ horse.name }}{% endif %}</td>
+                            <td>{% if horse.owner is defined %}
+                                    <a title="{{ "Ver dueño"|trans }}" href="{{ path('show_owner',{'id':horse.owner.id}) }}">{{ horse.owner.name }} {{ horse.owner.last_name }}</a>
+                                {% endif %}
+                            </td>
+                            <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>
+                            <td class="taskOptions">
+                                <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}"><i class="fa fa-pencil"></i></a>
+                                <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}
