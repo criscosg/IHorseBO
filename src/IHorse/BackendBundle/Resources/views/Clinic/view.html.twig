@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de clínicas administradores':'#'} %}
+    {% set crumbs = {'Listado de clínicas': path('clinics_list')} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -20,10 +20,21 @@
             <h5>{{ "clínica"|trans }}</h5>
         </div>
         <div class="widget-content nopadding">
-            
-                {% if clinic.name is defined %}{{ clinic.name }}{% endif %}
-                {% if clinic.created is defined %}{{ clinic.created }}{% endif %}
-      
+            <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <td>{{ "Nombre"|trans }}</td>
+                        <td>{% if clinic.name is defined %}{{ clinic.name }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Creación"|trans }}</td>
+                        <td>{% if clinic.created is defined %}{{ clinic.created }}{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+    <a title="Modificar" href="{{ path('edit_clinic', { 'id': clinic.id }) }}" class="btn btn-primary btn-s" ><i class="fa fa-pencil"></i></a>
+    <a title="Borrar" href="{{ path('delete_clinic', { 'id': clinic.id }) }}" class="btn btn-danger btn-s"><i class="fa fa-trash-o"></i></a>
+
 {% endblock %}

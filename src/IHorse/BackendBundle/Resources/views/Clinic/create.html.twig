@@ -15,7 +15,7 @@
     {% if edition is defined %}
         {% set crumbs = {(edit):'#'} %}
     {% else %}
-        {% set crumbs = {create:'#'} %}
+        {% set crumbs = {(create):'#'} %}
     {% endif %}
 
     {{ setCrumbs(crumbs) }}
@@ -41,7 +41,7 @@
                 
                 <div class="form-group">
                     <label id="label_name" for="clinic_name" class="col-sm-3 control-label clinic-active is-public"><span class="red">*</span> {{ "Nombre" |trans}}</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-4">
                         {{ form_widget(form.name, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>

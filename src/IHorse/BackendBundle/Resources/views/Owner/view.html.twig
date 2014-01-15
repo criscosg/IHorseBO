@@ -22,38 +22,41 @@
             </div>
             <div class="widget-content nopadding">
                 <table class="table table-bordered table-striped table-hover">
-                    <thead>
-                    <tr>
-                        <th>{{ "Nombre"|trans }}</th>
-                        <th>{{ "Apellidos"|trans }}</th>
-                        <th>{{ "Ciudad"|trans }}</th>
-                        <th>{{ "Email"|trans }}</th>
-                        <th>{{ "Clínica"|trans }}</th>
-                        <th>{{ "Creado"|trans }}</th>
-                        <th>{{ "Acciones"|trans }}</th>
-                    </tr>
-                    </thead>
                     <tbody>
                         <tr>
+                            <td>{{ "Nombre"|trans }}</td>
                             <td>{% if owner.name is defined %}{{ owner.name }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Apellidos"|trans }}</td>
                             <td>{% if owner.last_name is defined %}{{ owner.last_name }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Ciudad"|trans }}</td>
                             <td>{% if owner.city is defined %}{{ owner.city }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Email"|trans }}</td>
                             <td>{% if owner.email is defined %}{{ owner.email }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Clínica"|trans }}</td>
                             <td>
                                 {% if owner.clinic is defined %}
                                     <a title="{{ "Ver clínica"|trans }}" href="{{ path('show_clinic', { 'id': owner.clinic.id }) }}">{{ owner.clinic.name }}</a>
                                 {% endif %}
                             </td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Creación"|trans }}</td>
                             <td>{% if owner.created is defined %}{{ owner.created |date('d/m/Y') }}{% endif %}</td>
-                            <td class="taskOptions">
-                                <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}"><i class="fa fa-pencil"></i></a>
-                                <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}"><i class="fa fa-trash-o"></i></a>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}" class="btn btn-primary btn-s" ><i class="fa fa-pencil"></i></a>
+        <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}" class="btn btn-danger btn-s"><i class="fa fa-trash-o"></i></a>
         {% if owner.horses | length > 0 %}
             <div class="widget-box">
                 <div class="widget-title">
@@ -73,8 +76,14 @@
                         <tbody>
                         {% for horse in owner.horses %}
                             <tr>
-                                <td>{% if horse.name is defined %}{{ horse.name }}{% endif %}</td>
+                                <td>
+                                    {% if horse.name is defined %}
+                                        <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}">{{ horse.name }}</a>
+                                    {% endif %}
+                                </td>
                                 <td class="taskOptions">
+                                    <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}"><i class="fa fa-pencil"></i></a>
+                                    <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}
