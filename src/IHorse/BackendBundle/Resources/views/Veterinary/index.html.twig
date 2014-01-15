@@ -13,7 +13,9 @@
 {% block content %}
 
     <div class="row">
-        
+        <a href="{{ path('new_veterinary') }}" class="btn btn-success btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo veterinario" | trans }}
+        </a>
     </div>
 
     {% if veterinaries | length > 0 %}
