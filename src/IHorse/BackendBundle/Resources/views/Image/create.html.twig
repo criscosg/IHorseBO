@@ -1,13 +1,11 @@
 {% extends "BackendBundle:Layouts:2column.html.twig" %}
-{%  set edit = "Edición de imagen"|trans %}
-{%  set create = "Creación de imagen"|trans %}
 
 {% block title_section %}
-    new image
+    {{"Nueva imagen" | trans }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'upload image':'#'} %}
+    {% set crumbs = {'Caballos':path('horses_list'), (horse.name):path('show_horse', {id:horse.id}), 'Nueva imagen':''} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -16,31 +14,29 @@
     <div class="widget-box">
         <div class="widget-title">
             <span class="icon">
-                <i class="fa fa-th"></i>
+                <i class="fa fa-picture-o"></i>
             </span>
-                <h5>{{ "New image"|trans }}</h5>
+                <h5>{{ "Nueva imagen"|trans }}</h5>
         </div>
         <div class="widget-content nopadding">
             <form class="form-horizontal" id="form-create-item" role="form" action="{{ path('create_image') }}" method="post" {{ form_enctype(form) }}>
                 <div class="form-group">
-                    <label id="label_name" for="admin_user_email" class="col-sm-3 control-label user-active is-public"><span class="red">*</span> {{ "Email" |trans}}</label>
+                    <label id="label_name" for="admin_user_email" class="col-sm-3 control-label user-active is-public"><span class="red">*</span> {{ "Imagen" |trans}}</label>
                     <div class="col-sm-9">
-                        {{ form_widget(form.file, { 'attr': { 'class': 'form-control'} }) }}
+                        {{ form_widget(form.file) }}
                     </div>
                 </div>
-                        {{ form_widget(form.horse, { 'attr': { 'class': 'form-control', 'value': horse }}) }}
+                {{ form_widget(form.horse, { 'attr': { 'class': 'form-control', 'value': horse.id }}) }}
 
                 {{ form_rest(form) }}
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-large btn-blue">
-                            {{ "Upload image"|trans }}
-                        </button>
-                        <img style="display:none;" class="ml15 loader pull-lef" src="{{ asset('bundles/frontend/img/ajax-loader.gif') }}">
-                    </div>
-                    <p class="col-md-offset-2 col-sm-10 help-block">
+                <div class="form-actions">
+                    <button id="register" type="submit" class="btn btn-large btn-primary">
+                        {{ "Guardar cambios"|trans }}
+                    </button>
+                    <img style="display:none;" src="{{ asset('bundles/backend/img/spinner.gif') }}">
+                    <div class="help-block mt10">
                         <span class="red">*</span> {{"Campos obligatorios" | trans }}
-                    </p>
+                    </div>
                 </div>
             </form>
         </div>

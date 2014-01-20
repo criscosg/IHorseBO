@@ -1,6 +1,6 @@
 home:
     pattern: /
-    defaults: { _controller: BackendBundle:Backend:example }
+    defaults: { _controller: BackendBundle:Clinic:listClinics }
 
 login:
     pattern: /login

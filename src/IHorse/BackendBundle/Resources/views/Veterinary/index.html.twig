@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de veterinarios':'#'} %}
+    {% set crumbs = {'Veterinarios':'#'} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -13,8 +13,8 @@
 {% block content %}
 
     <div class="row">
-        <a href="{{ path('new_veterinary') }}" class="btn btn-success btn-m">
-            <i class="fa fa-plus"></i> {{ "Nuevo veterinario" | trans }}
+        <a href="{{ path('new_veterinary') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
         </a>
     </div>
 
@@ -47,6 +47,7 @@
                         <td>{% if veterinary.created is defined %}{{ veterinary.created |date('d/m/Y') }}{% endif %}</td>
                         <td>{% if veterinary.clinic is defined %}<a href="{{ path('show_clinic', {'id': veterinary.clinic.id}) }}"> {{ veterinary.clinic.name }}</a>{% endif %}</td>
                         <td class="taskOptions">
+                            <a title="Ver" href="{{ path('show_veterinary', { 'id': veterinary.id }) }}"><i class="fa fa-eye"></i></a>
                             <a title="Modificar" href="{{ path('edit_veterinary', { 'id': veterinary.id }) }}"><i class="fa fa-pencil"></i></a>
                             <a title="Borrar" href="{{ path('delete_veterinary', { 'id': veterinary.id }) }}"><i class="fa fa-trash-o"></i></a>
                         </td>
