@@ -25,3 +25,4 @@ put_horse:
 delete_horse:
     pattern: /delete/{id}
     defaults: { _controller: BackendBundle:Horse:deleteHorse }
+    

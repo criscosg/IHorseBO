@@ -8,20 +8,20 @@ use Guzzle\Http\Client;
 
 abstract class RESTHandler
 {
-    private $client;
+    protected $client;
 
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
-    public function getList($path, $dataName)
+    public function getList($path, $dataName=null)
     {
         $request = $this->client->get($path);
         $response = $request->send();
         $data = $response->json();
 
-        return $data[$dataName];
+        return $data;
     }
 
     public function get($path, $dataName)
@@ -30,7 +30,7 @@ abstract class RESTHandler
         $response = $request->send();
         $data = $response->json();
 
-        return $data[$dataName];
+        return $data;
     }
 
     public function post($path, $params)

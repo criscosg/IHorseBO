@@ -41,7 +41,7 @@
                         <tr>
                             <td>{% if horse.name is defined %}{{ horse.name }}{% endif %}</td>
                             <td>{% if horse.owner is defined %}
-                                    <a title="{{ "Ver dueño"|trans }}" href="{{ path('show_owner',{'id':horse.owner.id}) }}">{{ horse.owner.name }} {{ horse.owner.last_name }}</a>
+                                    <a title="{{ "Ver dueño"|trans }}" href="{{ path('show_owner',{'id':horse.owner.id}) }}">{% if horse.owner.name is defined %}{{ horse.owner.name }}{% endif %} {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}</a>
                                 {% endif %}
                             </td>
                             <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>

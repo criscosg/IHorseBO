@@ -30,7 +30,7 @@
                         <tr>
                             <td>{{ "Dueño"|trans }}</td>
                             <td>{% if horse.owner is defined %}
-                                    <a title="{{ "Ver dueño"|trans }}" href="{{ path('show_owner',{'id':horse.owner.id}) }}">{{ horse.owner.name }} {{ horse.owner.last_name }}</a>
+                                    <a title="{{ "Ver dueño"|trans }}" href="{{ path('show_owner',{'id':horse.owner.id}) }}">{% if horse.owner.name is defined %}{{ horse.owner.name }}{% endif %} {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}</a>
                                 {% endif %}
                             </td>
                         </tr>
@@ -40,8 +40,13 @@
                         </tr>
                     </tbody>
                 </table>
+
+                {% for image in images %}
+                    <img src={{ "http://rest.ihorse.me/" ~ image }}>
+                {% endfor %}
             </div>
         </div>
+        <a title="Añadir imagen" href="{{ path('new_image', { 'horseId': horse.id }) }}" class="btn btn-primary btn-s" ><i class="fa fa-picture-o"></i></a>
         <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}" class="btn btn-primary btn-s" ><i class="fa fa-pencil"></i></a>
         <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}" class="btn btn-danger btn-s"><i class="fa fa-trash-o"></i></a>
         {% if horse.images is defined and horse.images|length > 0 %}

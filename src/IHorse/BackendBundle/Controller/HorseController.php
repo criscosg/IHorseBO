@@ -17,8 +17,9 @@ class HorseController extends IHorseController
     public function horseShowAction($id)
     {
         $horse = $this->get('horse.handler.model')->getHorse($id);
+        $images = $this->get('image.handler.model')->getImagesThumb(array('horse'=>$id));
 
-        return $this->render('BackendBundle:Horse:view.html.twig', array('horse' => $horse));
+        return $this->render('BackendBundle:Horse:view.html.twig', array('horse' => $horse, 'images'=>$images));
     }
 
     public function newHorseAction()

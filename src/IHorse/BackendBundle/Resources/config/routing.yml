@@ -25,3 +25,7 @@ owners:
 horses:
     resource: "@BackendBundle/Resources/config/routing/horse.yml"
     prefix: /horses/
+    
+images:
+    resource: "@BackendBundle/Resources/config/routing/image.yml"
+    prefix: /horses/images    

@@ -6,6 +6,7 @@ parameters:
     clinic.json.type: IHorse\BackendBundle\Form\Type\JsonClinicType
     horse.handler.class: IHorse\BackendBundle\Model\Handler\HorseHandler
     owner.json.type: IHorse\BackendBundle\Form\Type\JsonOwnerType
+    image.handler.class: IHorse\BackendBundle\Model\Handler\ImageHandler
 
 services:
     user.model:
@@ -23,6 +24,9 @@ services:
     horse.handler.model:
         class: %horse.handler.class%
         arguments: [@ihorse.client]
+    image.handler.model:
+        class: %image.handler.class%
+        arguments: [@ihorse.client]    
 
     form.type.json.clinic:
         class: %clinic.json.type%
