@@ -10,7 +10,6 @@ class ClinicController extends IHorseController
     public function listClinicsAction()
     {
         $session = $this->getRequest()->getSession();
-        ldd($session->get('token'));
         $clinics = $this->get('clinic.handler.model')->getClinics();
 
         return $this->render('BackendBundle:Clinic:index.html.twig', array('clinics' => $clinics));

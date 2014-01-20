@@ -1,11 +1,11 @@
 {% extends "BackendBundle:Layouts:2column.html.twig" %}
 
 {% block title_section %}
-    {{ "Dueño" | trans }}
+    {{ "Dueños" | trans }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de dueños':'#'} %}
+    {% set crumbs = {'Dueños':path('owners_list'), (owner.name): ''} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -13,10 +13,20 @@
 {% block content %}
 
     {% if owner %}
+
+        <div class="row">
+            <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}" class="btn btn-primary btn-s">
+                <i class="fa fa-pencil"></i> {{"Editar" | trans}}
+            </a>
+            <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}" class="btn btn-danger btn-s">
+                <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
+            </a>
+        </div>
+
         <div class="widget-box">
             <div class="widget-title">
             <span class="icon">
-                <i class="fa fa-align-justify"></i>
+                <i class="fa fa-th-list"></i>
             </span>
                 <h5>{{ "Dueño"|trans }}</h5>
             </div>
@@ -43,7 +53,10 @@
                             <td>{{ "Clínica"|trans }}</td>
                             <td>
                                 {% if owner.clinic is defined %}
-                                    <a title="{{ "Ver clínica"|trans }}" href="{{ path('show_clinic', { 'id': owner.clinic.id }) }}">{{ owner.clinic.name }}</a>
+                                    {{ owner.clinic.name }}
+                                    &nbsp;
+                                    <a title="{{ "Ver"|trans }}" href="{{ path('show_clinic', { 'id': owner.clinic.id }) }}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                                    <a title="{{ "Editar"|trans }}" href="{{ path('edit_clinic', { 'id': owner.clinic.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                                 {% endif %}
                             </td>
                         </tr>
@@ -55,8 +68,9 @@
                 </table>
             </div>
         </div>
-        <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}" class="btn btn-primary btn-s" ><i class="fa fa-pencil"></i></a>
-        <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}" class="btn btn-danger btn-s"><i class="fa fa-trash-o"></i></a>
+
+        <h5>{{"Caballos asociados al registro" | trans}}</h5>
+
         {% if owner.horses | length > 0 %}
             <div class="widget-box">
                 <div class="widget-title">
@@ -78,10 +92,11 @@
                             <tr>
                                 <td>
                                     {% if horse.name is defined %}
-                                        <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}">{{ horse.name }}</a>
+                                        {{ horse.name }}</a>
                                     {% endif %}
                                 </td>
                                 <td class="taskOptions">
+                                    <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}"><i class="fa fa-eye"></i></a>
                                     <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}"><i class="fa fa-pencil"></i></a>
                                     <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
                                 </td>

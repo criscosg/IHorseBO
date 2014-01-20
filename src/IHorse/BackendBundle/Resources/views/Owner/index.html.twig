@@ -1,11 +1,11 @@
 {% extends "BackendBundle:Layouts:2column.html.twig" %}
 
 {% block title_section %}
-    {{ "Listado de dueños" | trans }}
+    {{ "Dueños" | trans }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de dueños':'#'} %}
+    {% set crumbs = {'Dueños':''} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -13,8 +13,8 @@
 {% block content %}
 
     <div class="row">
-        <a href="{{ path('new_owner') }}" class="btn btn-success btn-m">
-            <i class="fa fa-plus"></i> {{ "Nuevo dueño" | trans }}
+        <a href="{{ path('new_owner') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
         </a>
     </div>
 
@@ -54,6 +54,7 @@
                         <td>{% if owner.created is defined %}{{ owner.created |date('d/m/Y') }}{% endif %}</td>
                         <td>{{ owner.horses|length }}</td>
                         <td class="taskOptions">
+                            <a title="Ver" href="{{ path('show_owner', { 'id': owner.id }) }}"><i class="fa fa-eye"></i></a>
                             <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}"><i class="fa fa-pencil"></i></a>
                             <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}"><i class="fa fa-trash-o"></i></a>
                         </td>

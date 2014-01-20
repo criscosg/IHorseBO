@@ -70,16 +70,14 @@
                 </div>
 
                 {{ form_rest(form) }}
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-sm-10">
-                        <button id="register" type="submit" class="btn btn-large btn-blue">
-                            {{ "Guardar cambios"|trans }}
-                        </button>
-                        <img style="display:none;" class="ml15 loader pull-lef" src="{{ asset('bundles/frontend/img/ajax-loader.gif') }}">
-                    </div>
-                    <p class="col-md-offset-2 col-sm-10 help-block">
+                <div class="form-actions">
+                    <button id="register" type="submit" class="btn btn-large btn-primary">
+                        {{ "Guardar cambios"|trans }}
+                    </button>
+                    <img style="display:none;" src="{{ asset('bundles/backend/img/spinner.gif') }}">
+                    <div class="help-block mt10">
                         <span class="red">*</span> {{"Campos obligatorios" | trans }}
-                    </p>
+                    </div>
                 </div>
             </form>
         </div>
