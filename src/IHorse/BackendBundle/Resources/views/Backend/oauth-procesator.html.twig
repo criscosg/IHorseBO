@@ -1,0 +1,19 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+	Título de la página
+{% endblock %}
+
+{% block breadcrumb %}
+  {% set crumbs = {'Título de la página':'#'} %}
+  {{ setCrumbs(crumbs) }}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {{ "Procesando su autenticación" | trans }}
+{% endblock %}
+
+{% block javascript %}
+    
+{% endblock %}
