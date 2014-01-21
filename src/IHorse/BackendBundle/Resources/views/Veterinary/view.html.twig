@@ -5,27 +5,50 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de veterinarios':'#'} %}
+    {% set crumbs = {'Veterinarios':path('veterinaries_list'), (veterinary.name): ''} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
 
 {% block content %}
 
+    <div class="row">
+        <a title="Modificar" href="{{ path('edit_veterinary', { 'id': veterinary.id }) }}" class="btn btn-primary btn-s">
+            <i class="fa fa-pencil"></i> {{"Editar" | trans}}
+        </a>
+        <a title="Borrar" href="{{ path('delete_veterinary', { 'id': veterinary.id }) }}" class="btn btn-danger btn-s">
+            <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
+        </a>
+    </div>
+
     <div class="widget-box">
         <div class="widget-title">
             <span class="icon">
-                <i class="fa fa-align-justify"></i>
+                <i class="fa fa-th-list"></i>
             </span>
-            <h5>{{ "usuario"|trans }}</h5>
+            <h5>{{ "Datos del registro"|trans }}</h5>
         </div>
         <div class="widget-content nopadding">
-            
-                {% if veterinary.name is defined %}{{ veterinary.name }}{% endif %}
-                {% if veterinary.last_name is defined %}{{ veterinary.last_name }}{% endif %}
-                {{ veterinary.email }}
-                {% if veterinary.created is defined %}{{ veterinary.created }}{% endif %}
-      
+            <table class="table table-bordered table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <td>{{ "Nombre"|trans }}</td>
+                        <td>{% if veterinary.name is defined %}{{ veterinary.name }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Apellidos"|trans }}</td>
+                        <td>{% if veterinary.last_name is defined %}{{ veterinary.last_name }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Email"|trans }}</td>
+                        <td>{% if veterinary.email is defined %}{{ veterinary.email }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Creado"|trans }}</td>
+                        <td>{% if veterinary.created is defined %}{{ veterinary.created }}{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

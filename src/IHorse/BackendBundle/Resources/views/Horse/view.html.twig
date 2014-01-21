@@ -1,11 +1,11 @@
 {% extends "BackendBundle:Layouts:2column.html.twig" %}
 
 {% block title_section %}
-    {{ "Caballo" | trans }}
+    {{ "Caballos" | trans }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de Caballos':'#'} %}
+    {% set crumbs = {'Caballos':path('horses_list'), (horse.name): ''} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -13,10 +13,25 @@
 {% block content %}
 
     {% if horse %}
+
+        <div class="row">
+            <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}" class="btn btn-primary btn-s">
+                <i class="fa fa-pencil"></i> {{"Editar" | trans}}
+            </a>
+            <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}" class="btn btn-danger btn-s">
+                <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
+            </a>
+
+            <a title="Añadir imagen" href="{{ path('new_image', { 'horseId': horse.id }) }}" class="btn btn-primary btn-s">
+                <i class="fa fa-picture-o"></i> {{"Añadir imagen" | trans}}
+            </a>
+
+        </div>
+
         <div class="widget-box">
             <div class="widget-title">
             <span class="icon">
-                <i class="fa fa-align-justify"></i>
+                <i class="fa fa-th-list"></i>
             </span>
                 <h5>{{ "Caballo"|trans }}</h5>
             </div>
@@ -30,7 +45,14 @@
                         <tr>
                             <td>{{ "Dueño"|trans }}</td>
                             <td>{% if horse.owner is defined %}
-                                    <a title="{{ "Ver dueño"|trans }}" href="{{ path('show_owner',{'id':horse.owner.id}) }}">{% if horse.owner.name is defined %}{{ horse.owner.name }}{% endif %} {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}</a>
+
+                                    {% if horse.owner.name is defined %}{{ horse.owner.name }}{% endif %} 
+                                    {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}
+
+                                    &nbsp;
+                                    <a title="{{ "Ver"|trans }}" href="{{ path('show_owner', { 'id': horse.owner.id }) }}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                                    <a title="{{ "Editar"|trans }}" href="{{ path('edit_owner', { 'id': horse.owner.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+
                                 {% endif %}
                             </td>
                         </tr>
@@ -41,22 +63,17 @@
                     </tbody>
                 </table>
 
-                {% for image in images %}
-                    <img src={{ "http://rest.ihorse.me/" ~ image }}>
-                {% endfor %}
             </div>
         </div>
-        <a title="Añadir imagen" href="{{ path('new_image', { 'horseId': horse.id }) }}" class="btn btn-primary btn-s" ><i class="fa fa-picture-o"></i></a>
-        <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}" class="btn btn-primary btn-s" ><i class="fa fa-pencil"></i></a>
-        <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}" class="btn btn-danger btn-s"><i class="fa fa-trash-o"></i></a>
-        {% if horse.images is defined and horse.images|length > 0 %}
 
-        {% else %}
-            <div class="alert alert-info mt">
-                <strong>{{"Información!" | trans }}</strong>
-                {{"No tiene imágenes" | trans }}
-            </div>
+        {% if images | length > 0 %}
+            <h5>{{"Imágenes asociadas al registro" | trans}}</h5>
+
+            {% for image in images %}
+                <img src={{ "http://rest.ihorse.me/" ~ image }}>
+            {% endfor %}
         {% endif %}
+
     {% else %}
         <div class="alert alert-info mt">
             <strong>{{"Información!" | trans }}</strong>

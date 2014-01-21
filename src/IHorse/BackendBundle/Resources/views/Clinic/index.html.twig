@@ -1,11 +1,11 @@
 {% extends "BackendBundle:Layouts:2column.html.twig" %}
 
 {% block title_section %}
-    {{ "Listado de clinicas" | trans }}
+    {{ "Clinicas" | trans }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de clinicas':'#'} %}
+    {% set crumbs = {'Clínicas':''} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -13,10 +13,9 @@
 {% block content %}
 
     <div class="row">
-        <a href="{{ path('new_clinic') }}" class="btn btn-success btn-m">
-            <i class="fa fa-plus"></i> {{ "Nueva clínica" | trans }}
+        <a href="{{ path('new_clinic') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
         </a>
-        
     </div>
 
     {% if clinics | length > 0 %}
@@ -25,7 +24,7 @@
             <span class="icon">
                 <i class="fa fa-align-justify"></i>
             </span>
-            <h5>{{ "Listado de clinicas"|trans }}</h5>
+            <h5>{{ "Listado de registros"|trans }}</h5>
         </div>
         <div class="widget-content nopadding">
             <table class="table table-bordered table-striped table-hover">
@@ -42,6 +41,7 @@
                         <td>{% if clinic.name is defined %}{{ clinic.name }}{% endif %}</td>
                         <td>{% if clinic.created is defined %}{{ clinic.created |date('d/m/Y') }}{% endif %}</td>
                         <td class="taskOptions">
+                            <a title="Ver" href="{{ path('show_clinic', { 'id': clinic.id }) }}"><i class="fa fa-eye"></i></a>
                             <a title="Modificar" href="{{ path('edit_clinic', { 'id': clinic.id }) }}"><i class="fa fa-pencil"></i></a>
                             <a title="Borrar" href="{{ path('delete_clinic', { 'id': clinic.id }) }}"><i class="fa fa-trash-o"></i></a>
                         </td>

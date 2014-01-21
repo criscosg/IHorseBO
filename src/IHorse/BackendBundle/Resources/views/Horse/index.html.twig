@@ -1,11 +1,11 @@
 {% extends "BackendBundle:Layouts:2column.html.twig" %}
 
 {% block title_section %}
-    {{ "Listado de caballos" | trans }}
+    {{ "Caballos" | trans }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de caballos':'#'} %}
+    {% set crumbs = {'Caballos':''} %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -13,8 +13,8 @@
 {% block content %}
 
     <div class="row">
-        <a href="{{ path('new_horse') }}" class="btn btn-success btn-m">
-            <i class="fa fa-plus"></i> {{ "Nuevo caballo" | trans }}
+        <a href="{{ path('new_horse') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
         </a>
     </div>
 
@@ -46,6 +46,7 @@
                             </td>
                             <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>
                             <td class="taskOptions">
+                                <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}"><i class="fa fa-eye"></i></a>
                                 <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}"><i class="fa fa-pencil"></i></a>
                                 <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
                             </td>

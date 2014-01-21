@@ -9,9 +9,10 @@ class ImageController extends IHorseController
 {
     public function newImageAction($horseId)
     {
+        $horse = $this->get('horse.handler.model')->getHorse($horseId);
         $form = $form = $this->createForm(new ImageType());
 
-        return $this->render('BackendBundle:Image:create.html.twig', array('form' => $form->createView(), 'horse'=>$horseId));
+        return $this->render('BackendBundle:Image:create.html.twig', array('form' => $form->createView(), 'horse'=>$horse));
     }
 
     public function createImageAction()
