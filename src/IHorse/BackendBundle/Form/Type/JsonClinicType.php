@@ -3,15 +3,18 @@ namespace IHorse\BackendBundle\Form\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\AbstractType;
-use IHorse\BackendBundle\Model\Handler\ClinicHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use IHorse\BackendBundle\Model\Handler\RESTHandler;
 
 class JsonClinicType extends AbstractType
 {
     private $handler;
+    private $container;
 
-    public function __construct(ClinicHandler $handler)
+    public function __construct(RESTHandler $handler, ContainerInterface $container)
     {
         $this->handler = $handler;
+        $this->container = $container;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -23,7 +26,7 @@ class JsonClinicType extends AbstractType
 
     private function getChoices()
     {
-        $clinics = $this->handler->getList('clinics', 'clinics');
+        $clinics = $this->handler->getList('clinics', 'clinics', $this->container->get('session')->get('access_token'));
         $final = array();
         $id=1;
         foreach($clinics as $clinic){

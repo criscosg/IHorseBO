@@ -9,14 +9,16 @@ class OwnerController extends IHorseController
 {
     public function listOwnersAction()
     {
-        $owners = $this->get('owner.handler.model')->getOwners();
+        $session = $this->getRequest()->getSession();
+        $owners = $this->get('rest.handler.model')->getList('owners', 'owners', $session->get('access_token'));
 
         return $this->render('BackendBundle:Owner:index.html.twig', array('owners' => $owners));
     }
 
     public function ownerShowAction($id)
     {
-        $owner = $this->get('owner.handler.model')->getOwner($id);
+        $session = $this->getRequest()->getSession();
+        $owner = $this->get('rest.handler.model')->get('owners/'.$id, 'owner', $session->get('access_token'));
 
         return $this->render('BackendBundle:Owner:view.html.twig', array('owner' => $owner));
     }
@@ -30,7 +32,8 @@ class OwnerController extends IHorseController
 
     public function editOwnerAction($id)
     {
-        $owner = $this->get('owner.handler.model')->getOwner($id);
+        $session = $this->getRequest()->getSession();
+        $owner = $this->get('rest.handler.model')->get('owners/'.$id, 'owner', $session->get('access_token'));
         $form = $form = $this->createForm(new OwnerType(), $owner);
 
         return $this->render('BackendBundle:Owner:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id));
@@ -39,7 +42,8 @@ class OwnerController extends IHorseController
     public function createOwnerAction()
     {
         $params = $this->getRequest()->request->get('owner');
-        $owner = $this->get('owner.handler.model')->postOwner(array('owner' => $params));
+        $session = $this->getRequest()->getSession();
+        $owner = $this->get('rest.handler.model')->post("owners", array('owner'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('owners_list'));
     }
@@ -47,15 +51,16 @@ class OwnerController extends IHorseController
     public function putOwnerAction($id)
     {
         $params = $this->getRequest()->request->get('owner');
-
-        $owner = $this->get('owner.handler.model')->putOwner($id, array('owner' => $params));
+        $session = $this->getRequest()->getSession();
+        $owner = $this->get('rest.handler.model')->put("owners/".$id, array('owner'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('owners_list'));
     }
 
     public function deleteOwnerAction($id)
     {
-        $owner = $this->get('owner.handler.model')->deleteOwner($id);
+        $session = $this->getRequest()->getSession();
+        $owner = $this->get('rest.handler.model')->delete("owners/".$id, $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('owners_list'));
     }

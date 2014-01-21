@@ -22,8 +22,12 @@ class ImageHandler extends RESTHandler
                 }
             }
         }
+
+        $request = $this->client->get('images'.$get);
+        $response = $request->send();
+        $data = $response->json();
         
-        return parent::getList('images'.$get, 'images');
+        return $data;
     }
     
     public function getImagesThumb($params=null)
@@ -41,22 +45,24 @@ class ImageHandler extends RESTHandler
             }
         }
 
-        return parent::getList('thumbnails'.$get);
-    }
-
-    public function getImage($id)
-    {
-        return parent::get('images/'.$id, 'image');
-    }
-
-    public function postImage($params, $files)
-    {
-        $request = $this->client->post('images', null, $params)->addPostFiles($files);
+        $request = $this->client->get('thumbnails'.$get);
         $response = $request->send();
-        
+        $data = $response->json();
+
+        return $data;
+    }
+
+    public function getImage($id, $token)
+    {
+        return parent::get('images/'.$id, 'image', $token);
+    }
+
+    public function postImage($params, $files, $token)
+    {
+        $request = $this->client->post('images?access_token='.$token, null, $params)->addPostFiles($files);
+        $response = $request->send();
+
         return $response->json();
-        
-        return parent::post("images", $params);
     }
 
     public function putImage($id, $params)
@@ -64,8 +70,8 @@ class ImageHandler extends RESTHandler
         return parent::put("images/".$id, $params);
     }
 
-    public function deleteImage($id)
+    public function deleteImage($id, $token)
     {
-        return parent::delete("images/".$id);
+        return parent::delete("images/".$id, $token);
     }
 }

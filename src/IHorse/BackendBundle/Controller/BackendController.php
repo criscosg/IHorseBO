@@ -12,16 +12,30 @@ class BackendController extends IHorseController
     public function exampleAction()
     {
         $request=$this->getRequest();
-        $token=$request->query->get('access_token');
         $session = $request->getSession();
-        $session->set('token', $token);
-        
+
         return $this->render('BackendBundle:Backend:example.html.twig');
     }
 
     public function loginAction()
     {
-        return $this->renderLoginTemplate('BackendBundle:Backend:login.html.twig');
+        return $this->redirect($this->container->getParameter('ihorse.rest.uri').'oauth/v2/auth?client_id='.$this->container->getParameter('ihorse.rest.oauth.id').
+                                        '&redirect_uri='.$this->generateUrl('oauth_procesator', array(), true).'&response_type=token');
+    }
+
+    public function OauthProcesatorAction()
+    {
+        $request=$this->getRequest();
+        if ($request->query->get('access_token')) {
+            $session = $request->getSession();
+            $session->set('access_token', $request->query->get('access_token'));
+            $session->set('refresh_token', $request->query->get('refresh_token'));
+            $session->set('expires', $request->query->get('expires_in'));
+            
+            return $this->redirect($this->generateUrl('home'));
+        }
+
+        return $this->render('BackendBundle:Backend:oauth-procesator.html.twig');
     }
 
     public function listUsersAction()

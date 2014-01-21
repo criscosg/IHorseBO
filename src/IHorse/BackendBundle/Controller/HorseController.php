@@ -9,15 +9,17 @@ class HorseController extends IHorseController
 {
     public function listHorsesAction()
     {
-        $horses = $this->get('horse.handler.model')->getHorses();
+        $session = $this->getRequest()->getSession();
+        $horses = $this->get('rest.handler.model')->getList('horses', 'horses', $session->get('access_token'));
 
         return $this->render('BackendBundle:Horse:index.html.twig', array('horses' => $horses));
     }
 
     public function horseShowAction($id)
     {
-        $horse = $this->get('horse.handler.model')->getHorse($id);
-        $images = $this->get('image.handler.model')->getImagesThumb(array('horse'=>$id));
+        $session = $this->getRequest()->getSession();
+        $horse = $this->get('rest.handler.model')->get('horses/'.$id, 'horse', $session->get('access_token'));
+        $images = $this->get('image.handler.model')->getImagesThumb(array('horse'=>$id,'access_token'=> $session->get('access_token')));
 
         return $this->render('BackendBundle:Horse:view.html.twig', array('horse' => $horse, 'images'=>$images));
     }
@@ -31,7 +33,8 @@ class HorseController extends IHorseController
 
     public function editHorseAction($id)
     {
-        $horse = $this->get('horse.handler.model')->getHorse($id);
+        $session = $this->getRequest()->getSession();
+        $horse = $this->get('rest.handler.model')->get('horses/'.$id, 'horse', $session->get('access_token'));
         $form = $form = $this->createForm(new HorseType(), $horse);
 
         return $this->render('BackendBundle:Horse:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id));
@@ -39,8 +42,9 @@ class HorseController extends IHorseController
 
     public function createHorseAction()
     {
+        $session = $this->getRequest()->getSession();
         $params = $this->getRequest()->request->get('horse');
-        $horse = $this->get('horse.handler.model')->postHorse(array('horse' => $params));
+        $horse = $this->get('rest.handler.model')->post("horses", array('horse'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('horses_list'));
     }
@@ -48,15 +52,16 @@ class HorseController extends IHorseController
     public function putHorseAction($id)
     {
         $params = $this->getRequest()->request->get('horse');
-
-        $horse = $this->get('horse.handler.model')->putHorse($id, array('horse' => $params));
+        $session = $this->getRequest()->getSession();
+        $horse = $this->get('rest.handler.model')->put("horses/".$id, array('horse'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('horses_list'));
     }
 
     public function deleteHorseAction($id)
     {
-        $horse = $this->get('horse.handler.model')->deleteHorse($id);
+        $session = $this->getRequest()->getSession();
+        $horse = $this->get('rest.handler.model')->delete("horses/".$id, $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('horses_list'));
     }

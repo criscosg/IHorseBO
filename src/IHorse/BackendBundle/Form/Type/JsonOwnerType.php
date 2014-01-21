@@ -1,17 +1,20 @@
 <?php
 namespace IHorse\BackendBundle\Form\Type;
 
-use IHorse\BackendBundle\Model\Handler\OwnerHandler;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\AbstractType;
+use IHorse\BackendBundle\Model\Handler\RESTHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class JsonOwnerType extends AbstractType
 {
     private $handler;
+    private $container;
 
-    public function __construct(OwnerHandler $handler)
+    public function __construct(RESTHandler $handler, ContainerInterface $container)
     {
         $this->handler = $handler;
+        $this->container = $container;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -23,7 +26,7 @@ class JsonOwnerType extends AbstractType
 
     private function getChoices()
     {
-        $owners = $this->handler->getList('owners', 'owners');
+        $owners = $this->handler->getList('owners', 'owners', $this->container->get('session')->get('access_token'));
         $final = array();
         $id = 1;
         foreach ($owners as $owner) {
