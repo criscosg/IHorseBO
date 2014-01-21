@@ -6,6 +6,10 @@ login:
     pattern: /login
     defaults: { _controller: BackendBundle:Backend:login }
     
+oauth_procesator:
+    pattern: /oauth_procesator
+    defaults: { _controller: BackendBundle:Backend:oauthProcesator }
+    
 users:
     resource: "@BackendBundle/Resources/config/routing/admin-user.yml"
     prefix: /users/

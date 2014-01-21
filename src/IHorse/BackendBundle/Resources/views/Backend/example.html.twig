@@ -327,16 +327,4 @@
 		</div>
 	</div>
 {% endblock %}
-
-{% block javascripts %}
-{{ parent() }}
-    <script type="text/javascript">
-    $(document).ready(function(){
-        url=document.URL;
-        var newurl = url.replace("#","?");
-        if(url!=newurl){
-        	window.location.replace(newurl);
-        }
-    });
-    </script>
-{% endblock %}
+    

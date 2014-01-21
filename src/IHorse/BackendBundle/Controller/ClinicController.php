@@ -10,15 +10,15 @@ class ClinicController extends IHorseController
     public function listClinicsAction()
     {
         $session = $this->getRequest()->getSession();
-        ldd($session->get('token'));
-        $clinics = $this->get('clinic.handler.model')->getClinics();
+        $clinics = $this->get('rest.handler.model')->getList('clinics', 'clinics', $session->get('access_token'));
 
         return $this->render('BackendBundle:Clinic:index.html.twig', array('clinics' => $clinics));
     }
 
     public function clinicShowAction($id)
     {
-        $clinic = $this->get('clinic.handler.model')->getClinic($id);
+        $session = $this->getRequest()->getSession();
+        $clinic = $this->get('rest.handler.model')->get('clinics/'.$id, 'clinic', $session->get('access_token'));
 
         return $this->render('BackendBundle:Clinic:view.html.twig', array('clinic' => $clinic));
     }
@@ -32,7 +32,8 @@ class ClinicController extends IHorseController
 
     public function editClinicAction($id)
     {
-        $clinic = $this->get('clinic.handler.model')->getClinic($id);
+        $session = $this->getRequest()->getSession();
+        $clinic = $this->get('rest.handler.model')->get('clinics/'.$id, 'clinic', $session->get('access_token'));
         $form = $form = $this->createForm(new ClinicType(), $clinic);
 
         return $this->render('BackendBundle:Clinic:create.html.twig', array('form' => $form->createView(),'edition'=>true, 'id'=>$id));
@@ -40,23 +41,26 @@ class ClinicController extends IHorseController
 
     public function createClinicAction()
     {
+        $session = $this->getRequest()->getSession();
         $params=$this->getRequest()->request->get('clinic');
-        $clinic = $this->get('clinic.handler.model')->postClinic(array('clinic'=>$params));
+        $clinic = $this->get('rest.handler.model')->post("clinics", array('clinic'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('clinics_list'));
     }
 
     public function putClinicAction($id)
     {
+        $session = $this->getRequest()->getSession();
         $params=$this->getRequest()->request->get('clinic');
-        $clinic = $this->get('clinic.handler.model')->putClinic($id, array('clinic'=>$params));
+        $clinic = $this->get('rest.handler.model')->put("clinics/".$id, array('clinic'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('clinics_list'));
     }
 
     public function deleteClinicAction($id)
     {
-        $clinic = $this->get('clinic.handler.model')->deleteClinic($id);
+        $session = $this->getRequest()->getSession();
+        $clinic = $this->get('rest.handler.model')->delete("clinics/".$id, $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('clinics_list'));
     }
