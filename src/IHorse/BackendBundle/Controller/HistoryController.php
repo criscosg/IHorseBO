@@ -10,8 +10,8 @@ class HistoryController extends IHorseController
     public function listHistoriesAction($horse)
     {
         $session = $this->getRequest()->getSession();
-        $histories = $this->get('history.handler.model')->getHistories($horse, $session->get('access_token'));
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
+        $histories = $this->get('history.handler.model')->getHistories($horse, $session->get('access_token'));
 
         return $this->render('BackendBundle:History:index.html.twig', array('histories' => $histories, 'horse' => $horse));
     }
@@ -27,7 +27,9 @@ class HistoryController extends IHorseController
 
     public function newHistoryAction($horse)
     {
+        $session = $this->getRequest()->getSession();
         $form = $form = $this->createForm(new HistoryType());
+        $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
 
         return $this->render('BackendBundle:History:create.html.twig', array('form' => $form->createView(), 'horse' => $horse));
     }
@@ -35,9 +37,9 @@ class HistoryController extends IHorseController
     public function editHistoryAction($horse, $id)
     {
         $session = $this->getRequest()->getSession();
+        $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
         $history = $this->get('history.handler.model')->getHistory($horse, $id, $session->get('access_token'));
         $form = $form = $this->createForm(new HistoryType(), $history);
-        $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
 
         return $this->render('BackendBundle:History:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id, 'horse' => $horse));
     }
@@ -46,20 +48,20 @@ class HistoryController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $params = $this->getRequest()->request->get('history');
-        $history = $this->get('history.handler.model')->postHistory($horse, array('history' => $params), $session->get('access_token'));
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
+        $history = $this->get('history.handler.model')->postHistory($horse, array('history' => $params), $session->get('access_token'));
 
-        return $this->redirect($this->generateUrl('histories_list', array('horse' => $horse)));
+        return $this->redirect($this->generateUrl('histories_list', array('horse' => $horse['id'])));
     }
 
     public function putHistoryAction($horse, $id)
     {
         $session = $this->getRequest()->getSession();
         $params = $this->getRequest()->request->get('history');
-        $history = $this->get('history.handler.model')->putHistory($horse, $id, array('history' => $params), $session->get('access_token'));
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
+        $history = $this->get('history.handler.model')->putHistory($horse, $id, array('history' => $params), $session->get('access_token'));
 
-        return $this->redirect($this->generateUrl('histories_list', array('horse' => $horse)));
+        return $this->redirect($this->generateUrl('histories_list', array('horse' => $horse['id'])));
     }
 
     public function deleteHistoryAction($horse, $id)
