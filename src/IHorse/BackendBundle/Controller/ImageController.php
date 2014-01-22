@@ -17,17 +17,19 @@ class ImageController extends IHorseController
 
     public function createImageAction()
     {
+        $session = $this->getRequest()->getSession();
         $file=$this->getRequest()->files->get('image');
         $files['image[file]']="@".$file['file']->getPathname();
         $params = $this->getRequest()->request->all();
-        $image = $this->get('image.handler.model')->postImage($params, $files);
+        $image = $this->get('image.handler.model')->postImage($params, $files, $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('show_horse', array('id'=>$params['image']['horse'])));
     }
 
     public function deleteImageAction($id)
     {
-        $image = $this->get('image.handler.model')->deleteImage($id);
+        $session = $this->getRequest()->getSession();
+        $image = $this->get('image.handler.model')->deleteImage($id, $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('show_horse', array('id'=>$params['horse'])));
     }

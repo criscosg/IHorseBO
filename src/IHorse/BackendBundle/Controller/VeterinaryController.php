@@ -9,14 +9,16 @@ class VeterinaryController extends IHorseController
 {
     public function listVeterinariesAction()
     {
-        $veterinaries = $this->get('veterinary.handler.model')->getVeterinaries();
+        $session = $this->getRequest()->getSession();
+        $veterinaries = $this->get('rest.handler.model')->getList('veterinaries', 'veterinaries', $session->get('access_token'));
 
         return $this->render('BackendBundle:Veterinary:index.html.twig', array('veterinaries' => $veterinaries));
     }
 
     public function veterinaryShowAction($id)
     {
-        $veterinary = $this->get('veterinary.handler.model')->getVeterinary($id);
+        $session = $this->getRequest()->getSession();
+        $veterinary = $this->get('rest.handler.model')->get('veterinaries/'.$id, 'veterinary', $session->get('access_token'));
 
         return $this->render('BackendBundle:Veterinary:view.html.twig', array('veterinary' => $veterinary));
     }
@@ -30,7 +32,8 @@ class VeterinaryController extends IHorseController
 
     public function editVeterinaryAction($id)
     {
-        $veterinary = $this->get('veterinary.handler.model')->getVeterinary($id);
+        $session = $this->getRequest()->getSession();
+        $veterinary = $this->get('rest.handler.model')->get('veterinaries/'.$id, 'veterinary', $session->get('access_token'));
         $form = $form = $this->createForm(new VeterinaryType(), $veterinary);
 
         return $this->render('BackendBundle:Veterinary:create.html.twig', array('form' => $form->createView(),'edition'=>true, 'id'=>$id));
@@ -39,7 +42,8 @@ class VeterinaryController extends IHorseController
     public function createVeterinaryAction()
     {
         $params=$this->getRequest()->request->get('veterinary');
-        $veterinary = $this->get('veterinary.handler.model')->postVeterinary(array('veterinary'=>$params));
+        $session = $this->getRequest()->getSession();
+        $veterinary = $this->get('rest.handler.model')->post("veterinaries", array('veterinary'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('veterinaries_list'));
     }
@@ -47,14 +51,16 @@ class VeterinaryController extends IHorseController
     public function putVeterinaryAction($id)
     {
         $params=$this->getRequest()->request->get('veterinary');
-        $veterinary = $this->get('veterinary.handler.model')->putVeterinary($id, array('veterinary'=>$params));
+        $session = $this->getRequest()->getSession();
+        $veterinary = $this->get('rest.handler.model')->put("veterinaries/".$id, array('veterinary'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('veterinaries_list'));
     }
 
     public function deleteVeterinaryAction($id)
     {
-        $veterinary = $this->get('veterinary.handler.model')->deleteVeterinary($id);
+        $session = $this->getRequest()->getSession();
+        $veterinary = $this->get('rest.handler.model')->delete("veterinaries/".$id, $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('veterinaries_list'));
     }

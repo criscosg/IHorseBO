@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\BrowserKit\Request;
 use Guzzle\Http\Client;
 
-abstract class RESTHandler
+class RESTHandler
 {
     protected $client;
 
@@ -15,45 +15,45 @@ abstract class RESTHandler
         $this->client = $client;
     }
 
-    public function getList($path, $dataName=null)
+    public function getList($path, $dataName=null, $token)
     {
-        $request = $this->client->get($path);
+        $request = $this->client->get($path."?access_token=".$token);
         $response = $request->send();
         $data = $response->json();
 
         return $data;
     }
 
-    public function get($path, $dataName)
+    public function get($path, $dataName, $token)
     {
-        $request = $this->client->get($path);
+        $request = $this->client->get($path."?access_token=".$token);
         $response = $request->send();
         $data = $response->json();
 
         return $data;
     }
 
-    public function post($path, $params)
+    public function post($path, $params, $token)
     {
-        $request = $this->client->post($path, array(), $params);
+        $request = $this->client->post($path."?access_token=".$token, array(), $params);
         $response = $request->send();
 
         return $response->json();
     }
 
-    public function put($path, $params)
+    public function put($path, $params, $token)
     {
-        $request = $this->client->put($path, array(), $params);
+        $request = $this->client->put($path."?access_token=".$token, array(), $params);
         $response = $request->send();
 
         return $response->json();
     }
 
-    public function delete($path)
+    public function delete($path, $token)
     {
-        $request = $this->client->delete($path);
+        $request = $this->client->delete($path."?access_token=".$token);
         $response = $request->send();
 
-        return $response->json();
+        return $response;
     }
 }

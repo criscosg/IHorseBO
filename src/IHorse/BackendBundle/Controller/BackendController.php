@@ -6,26 +6,39 @@ use IHorse\BackendBundle\Controller\IHorseController;
 use Guzzle\Http\Message\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class BackendController extends IHorseController
+class BackendController extends Controller
 {
     public function exampleAction()
     {
         $request=$this->getRequest();
-        $token=$request->query->get('access_token');
         $session = $request->getSession();
-        $session->set('token', $token);
-        
+
         return $this->render('BackendBundle:Backend:example.html.twig');
     }
 
     public function loginAction()
     {
-        return $this->renderLoginTemplate('BackendBundle:Backend:login.html.twig');
+        return $this->redirect($this->container->getParameter('ihorse.rest.uri').'oauth/v2/auth?client_id='.$this->container->getParameter('ihorse.rest.oauth.id').
+                                        '&redirect_uri='.$this->generateUrl('oauth_procesator', array(), true).'&response_type=token');
     }
 
-    public function listUsersAction()
+    public function OauthProcesatorAction()
     {
-        $users = $this->get('user.model')->getUsers();
+        $request=$this->getRequest();
+        if ($request->query->get('access_token')) {
+            $session = $request->getSession();
+            $session->set('access_token', $request->query->get('access_token'));
+            $session->set('refresh_token', $request->query->get('refresh_token'));
+            $now =new \DateTime('now');
+            $interval=new \DateInterval('PT'.$request->query->get('expires_in').'S');
+            $now->add($interval);
+            $session->set('expires', $now->getTimestamp());
+
+            return $this->redirect($this->generateUrl('home'));
+        }
+
+        return $this->render('BackendBundle:Backend:oauth-procesator.html.twig');
     }
 }

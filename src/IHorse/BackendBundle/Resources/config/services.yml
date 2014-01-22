@@ -1,31 +1,17 @@
 parameters:
     admin.user.model.class: IHorse\BackendBundle\Model\Handler\AdminUserHandler
-    veterinary.handler.class: IHorse\BackendBundle\Model\Handler\VeterinaryHandler
-    clinic.handler.class: IHorse\BackendBundle\Model\Handler\ClinicHandler
-    owner.handler.class: IHorse\BackendBundle\Model\Handler\OwnerHandler
+    rest.handler.class: IHorse\BackendBundle\Model\Handler\RESTHandler
     clinic.json.type: IHorse\BackendBundle\Form\Type\JsonClinicType
-    horse.handler.class: IHorse\BackendBundle\Model\Handler\HorseHandler
     owner.json.type: IHorse\BackendBundle\Form\Type\JsonOwnerType
     image.handler.class: IHorse\BackendBundle\Model\Handler\ImageHandler
     history.handler.class: IHorse\BackendBundle\Model\Handler\HistoryHandler
     horse.json.type: IHorse\BackendBundle\Form\Type\JsonHorseType
+    expirable.action.listener.class: IHorse\BackendBundle\EventListener\ExpirableActionListener
 
 services:
-    user.model:
-        class: %admin.user.model.class%
-        arguments: [@ihorse.client]
-    veterinary.handler.model:
-        class: %veterinary.handler.class%
-        arguments: [@ihorse.client]
-    clinic.handler.model:
-        class: %clinic.handler.class%
-        arguments: [@ihorse.client]
-    owner.handler.model:
-        class: %owner.handler.class%
-        arguments: [@ihorse.client]
-    horse.handler.model:
-        class: %horse.handler.class%
-        arguments: [@ihorse.client]
+    rest.handler.model:
+        class: %rest.handler.class%
+        arguments: [@ihorse.client]    
     image.handler.model:
         class: %image.handler.class%
         arguments: [@ihorse.client]
@@ -36,20 +22,29 @@ services:
     form.type.json.clinic:
         class: %clinic.json.type%
         arguments:
-            - @clinic.handler.model
+            - @rest.handler.model
+            - @service_container
         tags:
             - { name: form.type, alias: json_clinic }
 
     form.type.json.owner:
         class: %owner.json.type%
         arguments:
-            - @owner.handler.model
+            - @rest.handler.model
+            - @service_container
         tags:
             - { name: form.type, alias: json_owner }
 
     form.type.json.horse:
         class: %horse.json.type%
         arguments:
-            - @horse.handler.model
+            - @rest.handler.model
+            - @service_container
         tags:
             - { name: form.type, alias: json_horse }
+
+    expirable.action_listener:
+        class: %expirable.action.listener.class%
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
