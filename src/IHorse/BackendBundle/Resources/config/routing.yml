@@ -29,3 +29,6 @@ horses:
 images:
     resource: "@BackendBundle/Resources/config/routing/image.yml"
     prefix: /horses/images    
+
+histories:
+    resource: "@BackendBundle/Resources/config/routing/history.yml"

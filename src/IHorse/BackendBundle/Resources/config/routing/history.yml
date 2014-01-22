@@ -1,0 +1,27 @@
+histories_list:
+    pattern: /horses/{horse}/histories
+    defaults: { _controller: BackendBundle:History:listHistories }
+
+show_history:
+    pattern: /horses/{horse}/history/{id}
+    defaults: { _controller: BackendBundle:History:historyShow }
+
+new_history:
+    pattern: /horses/{horse}/new
+    defaults: { _controller: BackendBundle:History:newHistory }
+
+edit_history:
+    pattern: /horses/{horse}/edit/{id}
+    defaults: { _controller: BackendBundle:History:editHistory }
+
+create_history:
+    pattern: /horses/{horse}/create
+    defaults: { _controller: BackendBundle:History:createHistory }
+
+put_history:
+    pattern: /horses/{horse}/put/{id}
+    defaults: { _controller: BackendBundle:History:putHistory }
+
+delete_history:
+    pattern: /horses/{horse}/delete/{id}
+    defaults: { _controller: BackendBundle:History:deleteHistory }
