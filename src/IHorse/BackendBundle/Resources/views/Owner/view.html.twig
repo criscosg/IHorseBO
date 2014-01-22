@@ -42,12 +42,24 @@
                             <td>{% if owner.last_name is defined %}{{ owner.last_name }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <td>{{ "Ciudad"|trans }}</td>
-                            <td>{% if owner.city is defined %}{{ owner.city }}{% endif %}</td>
+                            <td>{{ "Dirección"|trans }}</td>
+                            <td>{% if owner.address is defined %}{{ owner.address }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Teléfono"|trans }}</td>
+                            <td>{% if owner.phone is defined %}{{ owner.phone }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Móvil"|trans }}</td>
+                            <td>{% if owner.mobile is defined %}{{ owner.mobile }}{% endif %}</td>
                         </tr>
                         <tr>
                             <td>{{ "Email"|trans }}</td>
                             <td>{% if owner.email is defined %}{{ owner.email }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Anotaciones"|trans }}</td>
+                            <td>{% if owner.text is defined %}{{ owner.text }}{% endif %}</td>
                         </tr>
                         <tr>
                             <td>{{ "Clínica"|trans }}</td>
