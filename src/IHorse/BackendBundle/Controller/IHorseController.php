@@ -4,8 +4,10 @@ namespace IHorse\BackendBundle\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Guzzle\Http\Exception\BadResponseException;
 
-class IHorseController extends Controller
+class IHorseController extends Controller implements ExpirableControllerInterface
 {
     protected function resetToken($user, $provider = 'user')
     {
@@ -27,44 +29,32 @@ class IHorseController extends Controller
         $translatedMessage = $this->get('translator')->trans($message);
         $this->get('session')->getFlashBag()->set($class, $translatedMessage);
     }
-
-    protected function checkEmailAvailable($email)
+    
+    public function refreshToken(Request $request, $controller)
     {
-        if (is_array($email)) {
-            $email = $email['email']['first'];
+        try{
+            $restRequest=$this->get('guzzle.client')->get($this->container->getParameter('ihorse.rest.uri').'oauth/v2/token?client_id='.$this->container->getParameter('ihorse.rest.oauth.id').
+                    "&client_secret=".$this->container->getParameter('ihorse.rest.oauth.secret')."&grant_type=refresh_token&refresh_token=".
+                    $this->get('session')->get('refresh_token'));
+            $response=$restRequest->send();
+        } catch (BadResponseException $e) {
+            return $true;
         }
-        $user = $this->getDoctrine()->getManager()->getRepository('UserBundle:User')->findOneBy(array('email' => $email));
-        if (!$user) {
-            return true;
-        }
 
-        return false;
+        $session=$request->getSession();
+        $this->saveOauthSession($response->json(), $session);
+
+        return;
     }
-
-    /**
-     * @return \Doctrine\ORM\EntityManager
-     */
-    protected function getEntityManager()
+    
+    private function saveOauthSession($params, $session)
     {
-        return $this->getDoctrine()->getManager();
+        $session->set('access_token', $params['access_token']);
+        $session->set('refresh_token', $params['refresh_token']);
+        $now =new \DateTime('now');
+        $interval=new \DateInterval('PT'.$params['expires_in'].'S');
+        $now->add($interval);
+        $session->set('expires', $now->getTimestamp());
     }
 
-    protected function renderLoginTemplate($template)
-    {
-        $request = $this->getRequest();
-        $sesion = $request->getSession();
-        $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));
-
-        return $this->render($template, array(
-            'last_username' => $sesion->get(SecurityContext::LAST_USERNAME),
-            'error' => $error));
-    }
-
-    /**
-     * @return \IHorse\UserBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return parent::getUser();
-    }
 }

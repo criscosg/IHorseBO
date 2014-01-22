@@ -4,6 +4,7 @@ parameters:
     clinic.json.type: IHorse\BackendBundle\Form\Type\JsonClinicType
     owner.json.type: IHorse\BackendBundle\Form\Type\JsonOwnerType
     image.handler.class: IHorse\BackendBundle\Model\Handler\ImageHandler
+    expirable.action.listener.class: IHorse\BackendBundle\EventListener\ExpirableActionListener
 
 services:
     rest.handler.model:
@@ -22,9 +23,15 @@ services:
             - { name: form.type, alias: json_clinic }
 
     form.type.json.owner:
-            class: %owner.json.type%
-            arguments:
-                - @rest.handler.model
-                - @service_container
-            tags:
-                - { name: form.type, alias: json_owner }
+        class: %owner.json.type%
+        arguments:
+            - @rest.handler.model
+            - @service_container
+        tags:
+            - { name: form.type, alias: json_owner }
+                
+    expirable.action_listener:
+        class: %expirable.action.listener.class%
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
