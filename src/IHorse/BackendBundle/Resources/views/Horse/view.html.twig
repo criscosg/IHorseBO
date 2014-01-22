@@ -60,6 +60,10 @@
                             <td>{{ "Creación"|trans }}</td>
                             <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>
                         </tr>
+                        <tr>
+                            <td>{{ "Historial"|trans }}</td>
+                            <td>{% if history |length > 0 %} <a href="{{ path('histories_list', {'horse' : horse.id}) }}">"ver"</a> {% endif %}</td>
+                        </tr>
                     </tbody>
                 </table>
 

@@ -7,6 +7,8 @@ parameters:
     horse.handler.class: IHorse\BackendBundle\Model\Handler\HorseHandler
     owner.json.type: IHorse\BackendBundle\Form\Type\JsonOwnerType
     image.handler.class: IHorse\BackendBundle\Model\Handler\ImageHandler
+    history.handler.class: IHorse\BackendBundle\Model\Handler\HistoryHandler
+    horse.json.type: IHorse\BackendBundle\Form\Type\JsonHorseType
 
 services:
     user.model:
@@ -26,7 +28,10 @@ services:
         arguments: [@ihorse.client]
     image.handler.model:
         class: %image.handler.class%
-        arguments: [@ihorse.client]    
+        arguments: [@ihorse.client]
+    history.handler.model:
+        class: %history.handler.class%
+        arguments: [@ihorse.client]
 
     form.type.json.clinic:
         class: %clinic.json.type%
@@ -36,8 +41,15 @@ services:
             - { name: form.type, alias: json_clinic }
 
     form.type.json.owner:
-            class: %owner.json.type%
-            arguments:
-                - @owner.handler.model
-            tags:
-                - { name: form.type, alias: json_owner }
+        class: %owner.json.type%
+        arguments:
+            - @owner.handler.model
+        tags:
+            - { name: form.type, alias: json_owner }
+
+    form.type.json.horse:
+        class: %horse.json.type%
+        arguments:
+            - @horse.handler.model
+        tags:
+            - { name: form.type, alias: json_horse }
