@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\BrowserKit\Request;
 use Guzzle\Http\Client;
+use IHorse\BackendBundle\Util\StringHelper;
 
 class RESTHandler
 {
@@ -15,9 +16,14 @@ class RESTHandler
         $this->client = $client;
     }
 
-    public function getList($path, $dataName=null, $token)
+    public function getList($path, $dataName=null, $params)
     {
-        $request = $this->client->get($path."?access_token=".$token);
+        if (is_array($params)) {
+            $get=StringHelper::getQueryArrayFromArray($params);
+            $request = $this->client->get($path.$get);
+        } else {
+            $request = $this->client->get($path."?access_token=".$params);
+        }
         $response = $request->send();
         $data = $response->json();
 

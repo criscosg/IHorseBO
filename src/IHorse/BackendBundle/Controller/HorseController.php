@@ -4,15 +4,20 @@ namespace IHorse\BackendBundle\Controller;
 
 use IHorse\BackendBundle\Controller\IHorseController;
 use IHorse\BackendBundle\Form\HorseType;
+use IHorse\BackendBundle\Form\Search\HorseSearchType;
+use IHorse\BackendBundle\Util\StringHelper;
 
 class HorseController extends IHorseController
 {
     public function listHorsesAction()
     {
+        $form=$this->createForm(new HorseSearchType(), $this->getRequest()->query->get('search_horse'));
+        $form->handleRequest($this->getRequest());
         $session = $this->getRequest()->getSession();
-        $horses = $this->get('rest.handler.model')->getList('horses', 'horses', $session->get('access_token'));
+        $params=array('access_token'=>$session->get('access_token'), 'search_horse'=> $this->getRequest()->query->get('search_horse'));
+        $horses = $this->get('rest.handler.model')->getList('horses', 'horses', $params);
 
-        return $this->render('BackendBundle:Horse:index.html.twig', array('horses' => $horses));
+        return $this->render('BackendBundle:Horse:index.html.twig', array('horses' => $horses, 'form'=>$form->createView()));
     }
 
     public function horseShowAction($id)

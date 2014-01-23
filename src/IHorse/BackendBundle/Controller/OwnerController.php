@@ -4,15 +4,19 @@ namespace IHorse\BackendBundle\Controller;
 
 use IHorse\BackendBundle\Controller\IHorseController;
 use IHorse\BackendBundle\Form\OwnerType;
+use IHorse\BackendBundle\Form\Search\OwnerSearchType;
 
 class OwnerController extends IHorseController
 {
     public function listOwnersAction()
     {
+        $form=$this->createForm(new OwnerSearchType(), $this->getRequest()->query->get('search_owner'));
+        $form->handleRequest($this->getRequest());
         $session = $this->getRequest()->getSession();
-        $owners = $this->get('rest.handler.model')->getList('owners', 'owners', $session->get('access_token'));
+        $params=array('access_token'=>$session->get('access_token'), 'search_owner'=> $this->getRequest()->query->get('search_owner'));
+        $owners = $this->get('rest.handler.model')->getList('owners', 'owners', $params);
 
-        return $this->render('BackendBundle:Owner:index.html.twig', array('owners' => $owners));
+        return $this->render('BackendBundle:Owner:index.html.twig', array('owners' => $owners, 'form'=>$form->createView()));
     }
 
     public function ownerShowAction($id)

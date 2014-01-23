@@ -17,6 +17,34 @@
             <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
         </a>
     </div>
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Búsqueda de caballos"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form action="{{ path('horses_list') }}" method="get" class="form-inline" role="form">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{ form_widget(form.name, { 'attr': { 'class': 'form-control', 'placeholder': "Nombre"|trans} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{ form_widget(form.owner, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+
+                {{ form_rest(form) }}
+                <button id="register" type="submit" class="btn btn-large btn-primary">
+                    {{ "Buscar"|trans }}
+                </button>
+            </form>
+        </div>
+    </div>
+    
 
     {% if horses | length > 0 %}
     <div class="widget-box">
