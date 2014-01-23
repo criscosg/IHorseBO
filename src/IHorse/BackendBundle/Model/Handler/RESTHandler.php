@@ -55,6 +55,14 @@ class RESTHandler
         return $response->json();
     }
 
+    public function patch($path, $params, $token)
+    {
+        $request = $this->client->patch($path."?access_token=".$token, array(), $params);
+        $response = $request->send();
+
+        return $response->json();
+    }
+
     public function delete($path, $token)
     {
         $request = $this->client->delete($path."?access_token=".$token);

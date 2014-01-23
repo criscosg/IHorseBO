@@ -47,6 +47,10 @@
                         <td>{{ "Creado"|trans }}</td>
                         <td>{% if veterinary.created is defined %}{{ veterinary.created }}{% endif %}</td>
                     </tr>
+                    <tr>
+                        <td>{{ "Idioma"|trans }}</td>
+                        <td>{% if veterinary.idiom is defined %}{{ veterinary.idiom }}{% endif %}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
