@@ -24,14 +24,15 @@ class HorseController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $horse = $this->get('rest.handler.model')->get('horses/'.$id, 'horse', $session->get('access_token'));
-        $images = $this->get('image.handler.model')->getImagesThumb(array('horse'=>$id,'access_token'=> $session->get('access_token')));
+        $images = $this->get('image.handler.model')->getImagesThumb(array('horse' => $id,'access_token' => $session->get('access_token')));
+        $history = $this->get('history.handler.model')->getHistories($horse, $session->get('access_token'));
 
-        return $this->render('BackendBundle:Horse:view.html.twig', array('horse' => $horse, 'images'=>$images));
+        return $this->render('BackendBundle:Horse:view.html.twig', array('horse' => $horse, 'images' => $images, 'history' => $history));
     }
 
     public function newHorseAction()
     {
-        $form = $form = $this->createForm(new HorseType());
+        $form = $this->createForm(new HorseType());
 
         return $this->render('BackendBundle:Horse:create.html.twig', array('form' => $form->createView()));
     }
