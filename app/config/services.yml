@@ -14,11 +14,17 @@ services:
             - { name: twig.extension }
 
     twig.extension.javascript:
-            class: IHorse\BackendBundle\Twig\Extension\JavascriptExtension
-            tags:
-                - { name: twig.extension }
+        class: IHorse\BackendBundle\Twig\Extension\JavascriptExtension
+        tags:
+            - { name: twig.extension }
 
     twig.extension.breadcrumb:
-            class: IHorse\BackendBundle\Twig\Extension\BreadCrumbExtension
-            tags:
-                - { name: twig.extension }
+        class: IHorse\BackendBundle\Twig\Extension\BreadCrumbExtension
+        tags:
+            - { name: twig.extension }
+                
+    ihorse.client:
+        class: %guzzle.client.class%
+        tags:
+            - { name: guzzle.client }
+        arguments: [%ihorse.rest.uri%]

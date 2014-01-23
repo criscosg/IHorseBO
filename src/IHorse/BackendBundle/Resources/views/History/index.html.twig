@@ -1,0 +1,65 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Historial" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Caballos':path('horses_list'), (horse.name): path('show_horse', {'id':horse.id})} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <a href="{{ path('new_history', {'horse':horse.id}) }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
+        </a>
+    </div>
+
+    {% if histories | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de caballos"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{{ "Historia"|trans }}</th>
+                    <th>{{ "Caballo"|trans }}</th>
+                    <th>{{ "Creado"|trans }}</th>
+                    <th>{{ "Acciones"|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for history in histories %}
+                        <tr>
+                            <td>{% if history.text is defined %}{{ history.text }}{% endif %}</td>
+                            <td>{% if history.horse is defined %}
+                                    <a title="{{ "Ver caballo"|trans }}" href="{{ path('show_horse',{'id':history.horse.id}) }}">{% if history.horse.name is defined %}{{ history.horse.name }}{% endif %} {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}</a>
+                                {% endif %}
+                            </td>
+                            <td>{% if history.created is defined %}{{ history.created |date('d/m/Y') }}{% endif %}</td>
+                            <td class="taskOptions">
+                                <a title="Ver" href="{{ path('show_history', {'horse':horse.id, 'id': history.id }) }}"><i class="fa fa-eye"></i></a>
+                                <a title="Modificar" href="{{ path('edit_history', {'horse':horse.id, 'id': history.id }) }}"><i class="fa fa-pencil"></i></a>
+                                <a title="Borrar" href="{{ path('delete_history', {'horse':horse.id, 'id': history.id }) }}"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

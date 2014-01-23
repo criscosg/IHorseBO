@@ -1,3 +1,0 @@
-IHorse\LocationBundle\Entity\Address:
-    address: "fake street 123"
-    city: LocationBundle:City__id__1

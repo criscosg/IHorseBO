@@ -1,6 +1,9 @@
 imports:
     - { resource: config.yml }
 
+parameters:
+    ihorse.rest.uri: "http://www.rest.ihorse.com"
+
 #framework:
 #    validation:
 #        cache: apc

@@ -1,0 +1,66 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Listado de veterinarios" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Veterinarios':'#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <a href="{{ path('new_veterinary') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
+        </a>
+    </div>
+
+    {% if veterinaries | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de veterinarios"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{{ "Nombre"|trans }}</th>
+                    <th>{{ "Apellido"|trans }}</th>
+                    <th>{{ "Email"|trans }}</th>
+                    <th>{{ "Creado"|trans }}</th>
+                    <th>{{ "Clínica"|trans }}</th>
+                    <th>{{ "Acciones"|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for veterinary in veterinaries %}
+                    <tr>
+                        <td>{% if veterinary.name is defined %}{{ veterinary.name }}{% endif %}</td>
+                        <td>{% if veterinary.last_name is defined %}{{ veterinary.last_name }}{% endif %}</td>
+                        <td>{{ veterinary.email }}</td>
+                        <td>{% if veterinary.created is defined %}{{ veterinary.created |date('d/m/Y') }}{% endif %}</td>
+                        <td>{% if veterinary.clinic is defined %}<a href="{{ path('show_clinic', {'id': veterinary.clinic.id}) }}"> {{ veterinary.clinic.name }}</a>{% endif %}</td>
+                        <td class="taskOptions">
+                            <a title="Ver" href="{{ path('show_veterinary', { 'id': veterinary.id }) }}"><i class="fa fa-eye"></i></a>
+                            <a title="Modificar" href="{{ path('edit_veterinary', { 'id': veterinary.id }) }}"><i class="fa fa-pencil"></i></a>
+                            <a title="Borrar" href="{{ path('delete_veterinary', { 'id': veterinary.id }) }}"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

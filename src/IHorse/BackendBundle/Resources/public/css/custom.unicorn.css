@@ -6,6 +6,10 @@
   margin-top: 16px;
 }
 
+.mt10{
+  margin-top: 10px;
+}
+
 .image-item{
   display:inline-block;
   background-position:center;
@@ -102,4 +106,8 @@ span.error{
     height:100%;
     width:100%;
     border:1px solid #ccc;
+}
+
+.help-block{
+  font-size: 12px;
 }

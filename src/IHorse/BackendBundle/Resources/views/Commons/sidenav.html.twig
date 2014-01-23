@@ -5,12 +5,32 @@
 		<input type="text" placeholder="Search here..."/><button type="submit" class="tip-right" title="Search"><i class="fa fa-search"></i></button>
 	</div>#}
 	<ul>
-		{#<li class="active"><a href="{{ path('admin') }}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>#}
-        <li class="submenu {# if action == 'admin_category_index' or action == 'admin_category_create' or action == 'admin_category_edit' %}active open{% endif #}">
-            <a href="#"><i class="fa fa-folder-open"></i> <span>{{ "Categorias"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+        <li class="submenu {%  if action == 'home' or action == 'clinics_list' or action == 'new_clinic' or action == 'edit_clinic' or action == 'show_clinic' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-hospital-o"></i> <span>{{ "Clínicas"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
             <ul>
-                <li {# if action == 'admin_category_index' %}class="active"{% endif #}><a href="{# path('admin_category_index') #}">{{ "Listado"|trans }}</a></li>
-                <li><a href="#">{{ "Nueva"|trans }}</a></li>
+                <li {% if action == 'clinics_list' %}class="active"{% endif %}><a href="{{ path('clinics_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_clinic' %}class="active"{% endif %}><a href="{{ path('new_clinic') }}">{{ "Nuevo"|trans }}</a></li>
+            </ul>
+        </li>
+        <li class="submenu {%  if action == 'veterinaries_list' or action == 'show_veterinary' or action == 'new_veterinary' or action == 'edit_veterinary' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-user-md"></i> <span>{{ "Veterinarios"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {% if action == 'veterinaries_list' %}class="active"{% endif %}><a href="{{ path('veterinaries_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_veterinary' %}class="active"{% endif %}><a href="{{ path('new_veterinary') }}">{{ "Nuevo"|trans }}</a></li>
+            </ul>
+        </li>
+        <li class="submenu {%  if action == 'owners_list' or action == 'new_owner' or action == 'show_owner' or action == 'edit_owner' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-users"></i><span>{{ "Dueños"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {% if action == 'owners_list' %}class="active"{% endif %}><a href="{{ path('owners_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_owner' %}class="active"{% endif %}><a href="{{ path('new_owner') }}">{{ "Nuevo"|trans }}</a></li>
+            </ul>
+        </li>
+        <li class="submenu {%  if action == 'horses_list' or action == 'new_horse' or action == 'show_horse' or action == 'edit_horse' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-bars"></i> <span>{{ "Caballos"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <ul>
+                <li {% if action == 'horses_list' %}class="active"{% endif %}><a href="{{ path('horses_list') }}">{{ "Listado"|trans }}</a></li>
+                <li {% if action == 'new_horse' %}class="active"{% endif %}><a href="{{ path('new_horse') }}">{{ "Nuevo"|trans }}</a></li>
             </ul>
         </li>
     </ul>

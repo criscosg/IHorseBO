@@ -5,3 +5,34 @@ home:
 login:
     pattern: /login
     defaults: { _controller: BackendBundle:Backend:login }
+    
+oauth_procesator:
+    pattern: /oauth_procesator
+    defaults: { _controller: BackendBundle:Backend:oauthProcesator }
+    
+users:
+    resource: "@BackendBundle/Resources/config/routing/admin-user.yml"
+    prefix: /users/
+    
+veterinaries:
+    resource: "@BackendBundle/Resources/config/routing/veterinary.yml"
+    prefix: /veterinaries/    
+    
+clinics:
+    resource: "@BackendBundle/Resources/config/routing/clinic.yml"
+    prefix: /clinics/
+
+owners:
+    resource: "@BackendBundle/Resources/config/routing/owner.yml"
+    prefix: /owners/
+
+horses:
+    resource: "@BackendBundle/Resources/config/routing/horse.yml"
+    prefix: /horses/
+    
+images:
+    resource: "@BackendBundle/Resources/config/routing/image.yml"
+    prefix: /horses/images    
+
+histories:
+    resource: "@BackendBundle/Resources/config/routing/history.yml"

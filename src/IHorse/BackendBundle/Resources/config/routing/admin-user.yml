@@ -1,0 +1,27 @@
+users_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:User:listUsers }
+    
+show_user:
+    pattern: /user/{id}
+    defaults: { _controller: BackendBundle:User:userShow }  
+    
+new_user:
+    pattern: /new
+    defaults: { _controller: BackendBundle:User:newUser }
+    
+edit_user:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:User:editUser }    
+    
+create_user:
+    pattern: /create
+    defaults: { _controller: BackendBundle:User:createUser }
+    
+put_user:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:User:putUser }
+    
+delete_user:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:User:deleteUser }    

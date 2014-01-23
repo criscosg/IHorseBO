@@ -1,0 +1,11 @@
+new_image:
+    pattern: /new/{horseId}
+    defaults: { _controller: BackendBundle:Image:newImage }
+
+create_image:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Image:createImage }
+
+delete_image:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Image:deleteImage }

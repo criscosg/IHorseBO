@@ -1,0 +1,112 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Dueños" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Dueños':''} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <a href="{{ path('new_owner') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
+        </a>
+    </div>
+    
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Búsqueda de dueños"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form action="{{ path('owners_list') }}" method="get" class="form-inline" role="form">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{ form_widget(form.name, { 'attr': { 'class': 'form-control', 'placeholder': "Nombre"|trans} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{ form_widget(form.clinic, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{ form_widget(form.address, { 'attr': { 'class': 'form-control', 'placeholder': "Dirección"|trans} }) }}
+                    </div>
+                </div>
+
+                {{ form_rest(form) }}
+                <button id="register" type="submit" class="btn btn-large btn-primary">
+                    {{ "Buscar"|trans }}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% if owners | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de dueños"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{{ "Nombre"|trans }}</th>
+                    <th>{{ "Apellidos"|trans }}</th>
+                    <th>{{ "Dirección"|trans }}</th>
+                    <th>{{ "Email"|trans }}</th>
+                    <th>{{ "Teléfonos"|trans }}</th>
+                    <th>{{ "Clínica"|trans }}</th>
+                    <th>{{ "Creado"|trans }}</th>
+                    <th>{{ "Caballos"|trans }}</th>
+                    <th>{{ "Acciones"|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for owner in owners %}
+                    <tr>
+                        <td>{% if owner.name is defined %}{{ owner.name }}{% endif %}</td>
+                        <td>{% if owner.last_name is defined %}{{ owner.last_name }}{% endif %}</td>
+                        <td>{% if owner.address is defined %}{{ owner.address }}{% endif %}</td>
+                        <td>{% if owner.email is defined %}{{ owner.email }}{% endif %}</td>
+                        <td>
+                            {% if owner.phone is defined %}{{ owner.phone }}<br> {% endif %}
+                            {% if owner.mobile is defined %}{{ owner.mobile }}{% endif %}
+                        </td>
+                        <td>{% if owner.clinic is defined %}
+                                <a title="{{ "Ver clínica"|trans }}" href="{{ path('show_clinic', { 'id': owner.clinic.id }) }}">{{ owner.clinic.name }}</a>
+                            {% endif %}
+                        </td>
+                        <td>{% if owner.created is defined %}{{ owner.created |date('d/m/Y') }}{% endif %}</td>
+                        <td>{{ owner.horses|length }}</td>
+                        <td class="taskOptions">
+                            <a title="Ver" href="{{ path('show_owner', { 'id': owner.id }) }}"><i class="fa fa-eye"></i></a>
+                            <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}"><i class="fa fa-pencil"></i></a>
+                            <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

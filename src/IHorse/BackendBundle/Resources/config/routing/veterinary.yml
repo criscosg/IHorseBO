@@ -1,0 +1,27 @@
+veterinaries_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:Veterinary:listVeterinaries }
+    
+show_veterinary:
+    pattern: /veterinary/{id}
+    defaults: { _controller: BackendBundle:Veterinary:veterinaryShow }  
+    
+new_veterinary:
+    pattern: /new
+    defaults: { _controller: BackendBundle:Veterinary:newVeterinary }
+    
+edit_veterinary:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:Veterinary:editVeterinary }    
+    
+create_veterinary:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Veterinary:createVeterinary }
+    
+put_veterinary:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:Veterinary:putVeterinary }
+    
+delete_veterinary:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Veterinary:deleteVeterinary }    
