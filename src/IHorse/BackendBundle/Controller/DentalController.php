@@ -13,7 +13,7 @@ class DentalController extends IHorseController
         $session = $this->getRequest()->getSession();
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
         $dentals = $this->get('dental.handler.model')->getDentals($horse, $session->get('access_token'));
-        ldd($dentals);
+
         return $this->render('BackendBundle:Dental:view.html.twig', array('dental' => $dentals[0], 'horse' => $horse));
     }
 
@@ -53,19 +53,20 @@ class DentalController extends IHorseController
         $session = $request->getSession();
         $params = $request->request->get('dental');
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
-        $dental = $this->get('dental.handler.model')->postDental($horse, array('dental' => $request), $session->get('access_token'));
+        $dental = $this->get('dental.handler.model')->postDental($horse, $request->request->all(), $session->get('access_token'));
 
-        return $this->redirect($this->generateUrl('dentals_list', array('horse' => $horse['id'])));
+        return $this->redirect($this->generateUrl('dental_list', array('horse' => $horse['id'])));
     }
 
     public function putDentalAction($horse, $id)
     {
-        $session = $this->getRequest()->getSession();
-        $params = $this->getRequest()->request->get('dental');
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $params = $request->request->get('dental');
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
-        $dental = $this->get('dental.handler.model')->putDental($horse, $id, array('dental' => $params), $session->get('access_token'));
+        $dental = $this->get('dental.handler.model')->putDental($horse, $id, $request->request->all(), $session->get('access_token'));
 
-        return $this->redirect($this->generateUrl('dentals_list', array('horse' => $horse['id'])));
+        return $this->redirect($this->generateUrl('dental_list', array('horse' => $horse['id'])));
     }
 
     public function deleteDentalAction($horse, $id)
@@ -73,6 +74,6 @@ class DentalController extends IHorseController
         $session = $this->getRequest()->getSession();
         $dental = $this->get('dental.handler.model')->deleteDental($horse, $id, $session->get('access_token'));
 
-        return $this->redirect($this->generateUrl('dentals_list', array('horse' => $horse)));
+        return $this->redirect($this->generateUrl('dental_list', array('horse' => $horse)));
     }
 }
