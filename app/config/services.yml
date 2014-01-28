@@ -22,7 +22,12 @@ services:
         class: IHorse\BackendBundle\Twig\Extension\BreadCrumbExtension
         tags:
             - { name: twig.extension }
-                
+
+    twig.extension.drawingboard:
+        class: IHorse\BackendBundle\Twig\Extension\DrawingboardExtension
+        tags:
+            - { name: twig.extension }
+
     ihorse.client:
         class: %guzzle.client.class%
         tags:
