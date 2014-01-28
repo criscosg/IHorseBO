@@ -1,0 +1,134 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+{%  set edit = "Edición del registro"|trans %}
+{%  set create = "Creación de nuevo registro"|trans %}
+
+{% block title_section %}
+    {% if edition is defined %}
+        {{ edit }}
+    {% else %}
+        {{ create }}
+    {% endif %}
+
+{% endblock %}
+
+{% block breadcrumb %}
+    {% if edition is defined %}
+        {% set crumbs = {'Caballos':path('horses_list'), (horse.name): path('show_horse', {'id':horse.id}),'Ficha dental': path('dental_list', {'horse':horse.id}), (edit):''} %}
+    {% else %}
+        {% set crumbs = {'Caballos':path('horses_list'), (horse.name): path('show_horse', {'id':horse.id}),'Ficha dental': path('dental_list', {'horse':horse.id}), (create):''} %}
+    {% endif %}
+
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-pencil"></i>
+            </span>
+            {% if edition is defined %}
+                <h5>{{ edit }}</h5>
+            {% else %}
+                <h5>{{ create }}</h5>
+            {% endif %}
+        </div>
+        <div class="widget-content nopadding">
+            <form class="form-horizontal" id="form-create-item" role="form"
+                  action="{% if edition is defined %}{{ path('put_dental',{'horse':horse.id, 'id':id}) }} {% else %} {{ path('create_dental', {'horse':horse.id}) }} {% endif %}"
+                  method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
+                
+                <div class="form-group">
+                    <label id="label_primaryReport" for="dental_primaryReport" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Primer reporte" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.primaryReport, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Alimentación" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.feeding, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Sedación" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.sedation, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+
+                {% for i in 1..4 %}
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Cuadrante" |trans}} {{ i }}</label>
+                    <div class="col-sm-8">
+                        <div class="widget-box">
+                            <div class="widget-content nopadding">
+                                <table class="table table-bordered table-striped table-hover with-check">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            {% for j in 1..11 %}
+                                                <th>Diente{{ j }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>fehlt</td>
+                                            {% for j in 1..11 %}
+                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-fehlt" value="true"></td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>haken</td>
+                                            {% for j in 1..11 %}
+                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-haken" value="true"></td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>kanten</td>
+                                            {% for j in 1..11 %}
+                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-kanten" value="true"></td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>Diastasen</td>
+                                            {% for j in 1..11 %}
+                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-Diastasen" value="true"></td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>Zunge</td>
+                                            {% for j in 1..11 %}
+                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-Zunge" value="true"></td>
+                                            {% endfor %}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {{ form_rest(form) }}
+                <div class="form-actions">
+                    <button id="register" type="submit" class="btn btn-large btn-primary">
+                        {{ "Guardar cambios"|trans }}
+                    </button>
+                    <img style="display:none;" src="{{ asset('bundles/backend/img/spinner.gif') }}">
+                    <div class="help-block mt10">
+                        <span class="red">*</span> {{"Campos obligatorios" | trans }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
