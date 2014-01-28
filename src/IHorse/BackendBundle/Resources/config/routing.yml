@@ -36,3 +36,6 @@ images:
 
 histories:
     resource: "@BackendBundle/Resources/config/routing/history.yml"
+
+dentals:
+    resource: "@BackendBundle/Resources/config/routing/dental.yml"

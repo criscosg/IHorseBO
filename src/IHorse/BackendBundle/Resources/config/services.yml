@@ -7,6 +7,7 @@ parameters:
     history.handler.class: IHorse\BackendBundle\Model\Handler\HistoryHandler
     horse.json.type: IHorse\BackendBundle\Form\Type\JsonHorseType
     expirable.action.listener.class: IHorse\BackendBundle\EventListener\ExpirableActionListener
+    dental.handler.class: IHorse\BackendBundle\Model\Handler\DentalHandler
 
 services:
     rest.handler.model:
@@ -17,6 +18,9 @@ services:
         arguments: [@ihorse.client]
     history.handler.model:
         class: %history.handler.class%
+        arguments: [@ihorse.client]
+    dental.handler.model:
+        class: %dental.handler.class%
         arguments: [@ihorse.client]
 
     form.type.json.clinic:
