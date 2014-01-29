@@ -105,38 +105,37 @@
                                         <tr>
                                             <td>fehlt</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-missLoose" value="true"></td>
+                                                <td><input type="checkbox"{% if dental is defined and dental.quadrants[i-1].teeth[j-1].miss_loose %} checked {% endif %} name="q{{ i }}-t{{ j }}-missLoose" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
                                             <td>haken</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-haken" value="true"></td>
+                                                <td><input type="checkbox" {% if dental is defined and dental.quadrants[i-1].teeth[j-1].haken %} checked {% endif %} name="q{{ i }}-t{{ j }}-haken" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
                                             <td>kanten</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-kanten" value="true"></td>
+                                                <td><input type="checkbox" {% if dental is defined and dental.quadrants[i-1].teeth[j-1].kanten  %} checked {% endif %} name="q{{ i }}-t{{ j }}-kanten" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
                                             <td>Diastasen</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-diastasen" value="true"></td>
+                                                <td><input type="checkbox" {% if dental is defined and dental.quadrants[i-1].teeth[j-1].diastasen  %} checked {% endif %} name="q{{ i }}-t{{ j }}-diastasen" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
                                             <td>Zunge</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-zunge" value="true"></td>
+                                                <td><input type="checkbox" {% if dental is defined and dental.quadrants[i-1].teeth[j-1].tongue %} checked {% endif %} name="q{{ i }}-t{{ j }}-tongue" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 {% endfor %}
