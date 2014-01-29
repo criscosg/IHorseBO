@@ -61,6 +61,18 @@
                             <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>
                         </tr>
                         <tr>
+                            <td>{{ "Sex"|trans }}</td>
+                            <td>{% if horse.sex is defined %}{{ horse.sex }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Edad"|trans }}</td>
+                            <td>{% if horse.birthdate is defined %}{{ horse.birthdate |date('d/m/Y') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Anotaciones"|trans }}</td>
+                            <td>{% if horse.annotations is defined %}{{ horse.annotations }}{% endif %}</td>
+                        </tr>    
+                        <tr>
                             <td>{{ "Historial"|trans }}</td>
                             <td>{% if history |length > 0 %} <a href="{{ path('histories_list', {'horse' : horse.id}) }}">"ver"</a> {% endif %}</td>
                         </tr>
