@@ -11,7 +11,7 @@ class HorseController extends IHorseController
 {
     public function listHorsesAction()
     {
-        $form=$this->createForm(new HorseSearchType(), $this->getRequest()->query->get('search_horse'));
+        $form = $this->createForm(new HorseSearchType(), $this->getRequest()->query->get('search_horse'));
         $form->handleRequest($this->getRequest());
         $session = $this->getRequest()->getSession();
         $params = array('access_token'=>$session->get('access_token'), 'search_horse'=> $this->getRequest()->query->get('search_horse'));

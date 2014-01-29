@@ -16,7 +16,7 @@ class RESTHandler
         $this->client = $client;
     }
 
-    public function getList($path, $dataName=null, $params)
+    public function getList($path, $dataName = null, $params)
     {
         if (is_array($params)) {
             $get = StringHelper::getQueryArrayFromArray($params);
