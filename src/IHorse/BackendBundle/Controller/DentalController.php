@@ -14,7 +14,7 @@ class DentalController extends IHorseController
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
         $dentals = $this->get('dental.handler.model')->getDentals($horse, $session->get('access_token'));
 
-        return $this->render('BackendBundle:Dental:view.html.twig', array('dental' => $dentals[0], 'horse' => $horse));
+        return $this->render('BackendBundle:Dental:index.html.twig', array('dentals' => $dentals, 'horse' => $horse));
     }
 
     public function dentalShowAction($horse, $id)

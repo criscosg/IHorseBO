@@ -36,7 +36,7 @@
                     <tbody>
                         <tr>
                             <td>{{ "Primer reporte"|trans }}</td>
-                            <td>{% if dental.primaryReport is defined %}{{ dental.primaryReport }}{% endif %}</td>
+                            <td>{% if dental.report is defined %} {{ dental.report }}{% endif %}</td>
                         </tr>
                         <tr>
                             <td>{{ "Alimentación"|trans }}</td>
@@ -58,7 +58,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{{ "Creación"|trans }}</td>
+                            <td>{{ "Comentario" | trans }}</td>
+                            <td>{% if dental.comment is defined %}{{ dental.comment }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Creación" | trans }}</td>
                             <td>{% if dental.created is defined %}{{ dental.created |date('d/m/Y') }}{% endif %}</td>
                         </tr>
                     </tbody>

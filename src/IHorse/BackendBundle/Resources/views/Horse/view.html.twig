@@ -13,7 +13,6 @@
 {% block content %}
 
     {% if horse %}
-
         <div class="row">
             <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}" class="btn btn-primary btn-s">
                 <i class="fa fa-pencil"></i> {{"Editar" | trans}}
@@ -66,10 +65,12 @@
                         </tr>
                         <tr>
                             <td>{{ "Ficha Dental"|trans }}</td>
-                            <td>{% if horse.dental is defined %}
-                                    <a href="{{ path('dental_list', {'horse' : horse.id}) }}">"ver"</a>
-                                {% else %}
-                                    <a href="{{ path('new_dental', {'horse' : horse.id}) }}">"crear"</a>
+                            <td>{% if horse.dental |length > 0 %}
+                                    {% for dental in horse.dental %}
+                                        <a href="{{ path('dental_list', {'horse' : horse.id}) }}">{{ dental.modified | date("m/d/Y") }} - {{ dental.report | trans }}</a><br>
+                                    {% endfor %}
+                                    <br>
+                                    <a href="{{ path('new_dental', {'horse' : horse.id}) }}" class="btn btn-primary btn-xs">{{ "Nueva ficha" | trans }} <i class="fa fa-plus"></i></a>
                                 {% endif %}</td>
                         </tr>
                     </tbody>
