@@ -43,7 +43,7 @@ class UserController extends IHorseController
     {
         $params=$this->getRequest()->request->get('admin_user');
         $session = $this->getRequest()->getSession();
-        $user = $this->get('rest.handler.model')->post("users", array('user'=>$params), $session->get('access_token'));
+        $user = $this->get('rest.handler.model')->post("users", array('admin_user'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('users_list'));
     }
@@ -52,7 +52,7 @@ class UserController extends IHorseController
     {
         $params=$this->getRequest()->request->get('admin_user');
         $session = $this->getRequest()->getSession();
-        $user = $this->get('rest.handler.model')->put("users/".$id, array('user'=>$params), $session->get('access_token'));
+        $user = $this->get('rest.handler.model')->put("users/".$id, array('admin_user'=>$params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('users_list'));
     }

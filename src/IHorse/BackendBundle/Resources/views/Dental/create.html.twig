@@ -18,13 +18,9 @@
         height: 350px;
     }
 
-    #incisors-board .drawing-board-canvas{
-        background: url();
-    }
-
-    #teeth-board{
-        width: 1024px;
-        height: 375px;
+    .quadrant-board{
+        width: 650px;
+        height: 225px;
     }
 </style>
 {% endblock %}
@@ -80,22 +76,20 @@
                     <label id="label_incisors" for="dental_incisors" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Incisivos" |trans}}</label>
                     <div class="col-sm-9">
                         {% set params = {'background': asset('bundles/backend/img/incisors.jpg') } %}
-                        {{ initDrawingboard('incisors-board', params) | raw }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label id="label_teeth" for="dental_teeth" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Dientes" |trans}}</label>
-                    <div class="col-sm-9">
-                        {% set params = {'background': asset('bundles/backend/img/teeth.jpg') } %}
-                        {{ initDrawingboard('teeth-board', params) | raw }}
+                        {{ initDrawingboard('incisors-board', params, null) | raw }}
                     </div>
                 </div>
 
                 {% for i in 1..4 %}
                 <div class="form-group">
                     <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Cuadrante" |trans}} {{ i }}</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
+                        <p>
+                        {% set params = {'background':asset('bundles/backend/img/quadrant-' ~ i ~ '.jpg') } %}
+                        {% set params_html = {'class':'quadrant-board'} %}
+                        {{ initDrawingboard('quadrant-' ~ i ~ '-board', params, params_html) | raw }}
+                        </p>
+
                         <div class="widget-box">
                             <div class="widget-content nopadding">
                                 <table class="table table-bordered table-striped table-hover with-check">
@@ -111,31 +105,31 @@
                                         <tr>
                                             <td>fehlt</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-missLoose" value="true"></td>
+                                                <td><input type="checkbox"{% if dental is defined and dental.quadrants[i-1].teeth[j-1].miss_loose %} checked {% endif %} name="q{{ i }}-t{{ j }}-missLoose" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
                                             <td>haken</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-haken" value="true"></td>
+                                                <td><input type="checkbox" {% if dental is defined and dental.quadrants[i-1].teeth[j-1].haken %} checked {% endif %} name="q{{ i }}-t{{ j }}-haken" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
                                             <td>kanten</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-kanten" value="true"></td>
+                                                <td><input type="checkbox" {% if dental is defined and dental.quadrants[i-1].teeth[j-1].kanten  %} checked {% endif %} name="q{{ i }}-t{{ j }}-kanten" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
                                             <td>Diastasen</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-diastasen" value="true"></td>
+                                                <td><input type="checkbox" {% if dental is defined and dental.quadrants[i-1].teeth[j-1].diastasen  %} checked {% endif %} name="q{{ i }}-t{{ j }}-diastasen" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
                                             <td>Zunge</td>
                                             {% for j in 1..11 %}
-                                                <td><input type="checkbox" name="q{{ i }}-t{{ j }}-zunge" value="true"></td>
+                                                <td><input type="checkbox" {% if dental is defined and dental.quadrants[i-1].teeth[j-1].tongue %} checked {% endif %} name="q{{ i }}-t{{ j }}-tongue" value="true"></td>
                                             {% endfor %}
                                         </tr>
                                     </tbody>

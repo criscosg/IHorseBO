@@ -43,8 +43,7 @@ class DentalController extends IHorseController
         $dental = $this->get('dental.handler.model')->getDental($horse, $id, $session->get('access_token'));
         $form = $form = $this->createForm(new DentalType(), $dental);
 
-
-        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id, 'horse' => $horse));
+        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id, 'horse' => $horse, 'dental' => $dental));
     }
 
     public function createDentalAction($horse)
