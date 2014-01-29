@@ -9,9 +9,10 @@ class DentalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('primaryReport', 'text', array('required' => false))
+        $builder->add('report', 'text', array('required' => false))
             ->add('feeding', 'text', array('required' => false))
-            ->add('sedation', 'text', array('required' => false));
+            ->add('sedation', 'text', array('required' => false))
+            ->add('comment', 'text', array('required' => false));
     }
 
     public function getName()

@@ -54,9 +54,9 @@
                   method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
                 
                 <div class="form-group">
-                    <label id="label_primaryReport" for="dental_primaryReport" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Primer reporte" |trans}}</label>
+                    <label id="label_report" for="dental_report" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Primer reporte" |trans}}</label>
                     <div class="col-sm-4">
-                        {{ form_widget(form.primaryReport, { 'attr': { 'class': 'form-control'} }) }}
+                        {{ form_widget(form.report, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
                 <div class="form-group">
@@ -140,6 +140,13 @@
                     </div>
                 </div>
                 {% endfor %}
+
+                <div class="form-group">
+                    <label id="label_comment" for="dental_comment" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Comentario" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.comment, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
 
                 {{ form_rest(form) }}
                 <div class="form-actions">
