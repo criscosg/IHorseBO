@@ -19,7 +19,7 @@ class RESTHandler
     public function getList($path, $dataName=null, $params)
     {
         if (is_array($params)) {
-            $get=StringHelper::getQueryArrayFromArray($params);
+            $get = StringHelper::getQueryArrayFromArray($params);
             $request = $this->client->get($path.$get);
         } else {
             $request = $this->client->get($path."?access_token=".$params);

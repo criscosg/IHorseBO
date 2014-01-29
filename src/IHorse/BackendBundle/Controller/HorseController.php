@@ -14,7 +14,7 @@ class HorseController extends IHorseController
         $form=$this->createForm(new HorseSearchType(), $this->getRequest()->query->get('search_horse'));
         $form->handleRequest($this->getRequest());
         $session = $this->getRequest()->getSession();
-        $params=array('access_token'=>$session->get('access_token'), 'search_horse'=> $this->getRequest()->query->get('search_horse'));
+        $params = array('access_token'=>$session->get('access_token'), 'search_horse'=> $this->getRequest()->query->get('search_horse'));
         $horses = $this->get('rest.handler.model')->getList('horses', 'horses', $params);
 
         return $this->render('BackendBundle:Horse:index.html.twig', array('horses' => $horses, 'form'=>$form->createView()));
