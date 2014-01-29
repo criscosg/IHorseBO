@@ -70,8 +70,9 @@
                                         <a href="{{ path('dental_list', {'horse' : horse.id}) }}">{{ dental.modified | date("m/d/Y") }} - {{ dental.report | trans }}</a><br>
                                     {% endfor %}
                                     <br>
-                                    <a href="{{ path('new_dental', {'horse' : horse.id}) }}" class="btn btn-primary btn-xs">{{ "Nueva ficha" | trans }} <i class="fa fa-plus"></i></a>
-                                {% endif %}</td>
+                                {% endif %}
+                                <a href="{{ path('new_dental', {'horse' : horse.id}) }}" class="btn btn-primary btn-xs">{{ "Nueva ficha" | trans }} <i class="fa fa-plus"></i></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
