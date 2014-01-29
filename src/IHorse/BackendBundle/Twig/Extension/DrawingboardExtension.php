@@ -29,12 +29,18 @@ class DrawingboardExtension extends IHorseExtension
         return array('initDrawingboard' => new \Twig_Function_Method($this, 'initDrawingboard'));
     }
 
-    public function initDrawingboard($id, $options = null)
+    public function initDrawingboard($id, $options = null, $html_options = null)
     {
 
         $out = $this->_loadInitCSS();
         $out .= $this->_loadInitJS();
-        $out .= '<div id="'.$id.'"></div>';
+        $out .= '<div id="'.$id.'"';
+        if(!empty($html_options)){
+            foreach($html_options as $k => $v){
+                $out .= $k."=\"".$v."\" ";
+            }
+        }
+        $out .= '></div>';
         $out .= $this->_loadDrawingboardJS($id, $options);        
         return $out;
     }

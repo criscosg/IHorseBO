@@ -18,13 +18,9 @@
         height: 350px;
     }
 
-    #incisors-board .drawing-board-canvas{
-        background: url();
-    }
-
-    #teeth-board{
-        width: 1024px;
-        height: 375px;
+    .quadrant-board{
+        width: 650px;
+        height: 225px;
     }
 </style>
 {% endblock %}
@@ -80,22 +76,20 @@
                     <label id="label_incisors" for="dental_incisors" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Incisivos" |trans}}</label>
                     <div class="col-sm-9">
                         {% set params = {'background': asset('bundles/backend/img/incisors.jpg') } %}
-                        {{ initDrawingboard('incisors-board', params) | raw }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label id="label_teeth" for="dental_teeth" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Dientes" |trans}}</label>
-                    <div class="col-sm-9">
-                        {% set params = {'background': asset('bundles/backend/img/teeth.jpg') } %}
-                        {{ initDrawingboard('teeth-board', params) | raw }}
+                        {{ initDrawingboard('incisors-board', params, null) | raw }}
                     </div>
                 </div>
 
                 {% for i in 1..4 %}
                 <div class="form-group">
                     <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Cuadrante" |trans}} {{ i }}</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
+                        <p>
+                        {% set params = {'background':asset('bundles/backend/img/quadrant-' ~ i ~ '.jpg') } %}
+                        {% set params_html = {'class':'quadrant-board'} %}
+                        {{ initDrawingboard('quadrant-' ~ i ~ '-board', params, params_html) | raw }}
+                        </p>
+
                         <div class="widget-box">
                             <div class="widget-content nopadding">
                                 <table class="table table-bordered table-striped table-hover with-check">
@@ -142,6 +136,7 @@
                                 </table>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
                 {% endfor %}
