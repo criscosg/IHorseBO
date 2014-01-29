@@ -8,7 +8,25 @@
     {% else %}
         {{ create }}
     {% endif %}
+{% endblock %}
 
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    #incisors-board{
+        width: 400px;
+        height: 350px;
+    }
+
+    #incisors-board .drawing-board-canvas{
+        background: url();
+    }
+
+    #teeth-board{
+        width: 1024px;
+        height: 375px;
+    }
+</style>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -55,6 +73,22 @@
                     <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Sedación" |trans}}</label>
                     <div class="col-sm-4">
                         {{ form_widget(form.sedation, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="label_incisors" for="dental_incisors" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Incisivos" |trans}}</label>
+                    <div class="col-sm-9">
+                        {% set params = {'background': asset('bundles/backend/img/incisors.jpg') } %}
+                        {{ initDrawingboard('incisors-board', params) | raw }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="label_teeth" for="dental_teeth" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Dientes" |trans}}</label>
+                    <div class="col-sm-9">
+                        {% set params = {'background': asset('bundles/backend/img/teeth.jpg') } %}
+                        {{ initDrawingboard('teeth-board', params) | raw }}
                     </div>
                 </div>
 
@@ -125,9 +159,6 @@
             </form>
         </div>
     </div>
-{% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
