@@ -49,7 +49,7 @@
             {% endif %}
         </div>
         <div class="widget-content nopadding">
-            <form class="form-horizontal" id="form-create-item" role="form"
+            <form class="form-horizontal" id="form-create-item" role="form" id="dental-form"
                   action="{% if edition is defined %}{{ path('put_dental',{'horse':horse.id, 'id':id}) }} {% else %} {{ path('create_dental', {'horse':horse.id}) }} {% endif %}"
                   method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
                 
@@ -88,6 +88,7 @@
                         {% set params = {'background':asset('bundles/backend/img/quadrant-' ~ i ~ '.jpg') } %}
                         {% set params_html = {'class':'quadrant-board'} %}
                         {{ initDrawingboard('quadrant-' ~ i ~ '-board', params, params_html) | raw }}
+                        <input type="hidden" class="quadrant_hidden" id="{{ 'quadrant' ~ i }}" name="quadrant[]" />
                         </p>
 
                         <div class="widget-box">
@@ -163,4 +164,16 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        $('#form-create-item').submit(function(event){
+            var i=1;
+    		$('.quadrant-board').find('.drawing-board-canvas').each(function(){
+    			img = this.toDataURL().replace("image/png", "image/octet-stream");
+        	    $('#quadrant'+i).val(img);
+        	    i++;
+    		});
+
+            return true;
+        });
+    </script>
 {% endblock %}

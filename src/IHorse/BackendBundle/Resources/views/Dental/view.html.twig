@@ -48,11 +48,11 @@
                         </tr>
                         <tr>
                             <td>{{ "Caballo"|trans }}</td>
-                            <td>{% if dental.horse is defined %}
-                                    {% if dental.horse.name is defined %}{{ dental.horse.name }}{% endif %}
+                            <td>{% if horse is defined %}
+                                    {% if horse.name is defined %}{{ horse.name }}{% endif %}
                                     &nbsp;
                                     <a title="{{ "Ver"|trans }}" href="{{ path('show_horse', { 'id': horse.id }) }}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                                    <a title="{{ "Editar"|trans }}" href="{{ path('edit_owner', { 'id': horse.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                                    <a title="{{ "Editar"|trans }}" href="{{ path('edit_horse', { 'id': horse.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
 
                                 {% endif %}
                             </td>
@@ -70,6 +70,26 @@
 
             </div>
         </div>
+        {% if dental.quadrants %}
+            <div class="widget-box">
+                <div class="widget-title">
+                <span class="icon">
+                    <i class="fa fa-th-list"></i>
+                </span>
+                    <h5>{{ "Cuadrante"|trans }}</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    {% for quadrant in dental.quadrants %}
+                       <img src={{ "http://rest.ihorse.me/" ~ images[loop.index0] }}>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+             <div class="alert alert-info mt">
+                <strong>{{"Información!" | trans }}</strong>
+                {{"No se ha encontrado ningún cuadrante" | trans }}
+            </div>
+        {% endif %}
     {% else %}
         <div class="alert alert-info mt">
             <strong>{{"Información!" | trans }}</strong>
