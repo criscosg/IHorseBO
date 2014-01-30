@@ -13,7 +13,7 @@ class SedationType extends AbstractType
             ->add('zone2', 'text', array('required' => false))
             ->add('zone3', 'text', array('required' => false))
             ->add('zone4', 'text', array('required' => false))
-            ->add('comment', 'text', array('required' => false));
+            ->add('comment', 'textarea', array('required' => false));
     }
 
     public function getName()

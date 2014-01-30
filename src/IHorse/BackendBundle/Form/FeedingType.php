@@ -13,7 +13,7 @@ class FeedingType extends AbstractType
             ->add('hay', 'checkbox', array('required' => false))
             ->add('silage', 'checkbox', array('required' => false))
             ->add('pasture', 'text', array('required' => false))
-            ->add('comment', 'text', array('required' => false));
+            ->add('comment', 'textarea', array('required' => false));
     }
 
     public function getName()
