@@ -39,12 +39,44 @@
                             <td>{% if dental.report is defined %} {{ dental.report }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <td>{{ "Alimentación"|trans }}</td>
-                            <td>{% if dental.feeding is defined %}{{ dental.feeding }}{% endif %}</td>
+                            <td>{{ "Alimentación en Kilos"|trans }}</td>
+                            <td>{% if dental.feeding.feed is defined %}{{ dental.feeding.feed }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <td>{{ "Sedación"|trans }}</td>
-                            <td>{% if dental.sedation is defined %}{{ dental.sedation }}{% endif %}</td>
+                            <td>{{ "Heno"|trans }}</td>
+                            <td>{% if dental.feeding.hay is defined %}{{ dental.feeding.hay }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Silage"|trans }}</td>
+                            <td>{% if dental.feeding.silage is defined %}{{ dental.feeding.silage }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Horas de pasto"|trans }}</td>
+                            <td>{% if dental.feeding.pasture is defined %}{{ dental.feeding.pasture }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Comentario sobre Alimentación"|trans }}</td>
+                            <td>{% if dental.feeding.comment is defined %}{{ dental.feeding.comment }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Sedación zona1"|trans }}</td>
+                            <td>{% if dental.sedation.zone1 is defined %}{{ dental.sedation.zone1 }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Sedación zona2"|trans }}</td>
+                            <td>{% if dental.sedation.zone2 is defined %}{{ dental.sedation.zone2 }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Sedación zona3"|trans }}</td>
+                            <td>{% if dental.sedation.zone3 is defined %}{{ dental.sedation.zone3 }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Sedación zona4"|trans }}</td>
+                            <td>{% if dental.sedation.zone4 is defined %}{{ dental.sedation.zone4 }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Comentario sobre Sedaciones"|trans }}</td>
+                            <td>{% if dental.sedation.comment is defined %}{{ dental.sedation.comment }}{% endif %}</td>
                         </tr>
                         <tr>
                             <td>{{ "Caballo"|trans }}</td>

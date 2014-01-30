@@ -49,6 +49,12 @@
             {% endif %}
         </div>
         <div class="widget-content nopadding">
+            <div class="center" style="text-align: center;">
+                <h2> {{ horse.name }}</h2>
+            </div>
+            <div class="center" style="text-align: center;">
+                {% if dental is defined %} <h4> {{ "Última modificación" }} : {{ dental.modified | date('d/m/Y') }} {% endif %}</h4>
+            </div>
             <form class="form-horizontal" id="form-create-item" role="form" id="dental-form"
                   action="{% if edition is defined %}{{ path('put_dental',{'horse':horse.id, 'id':id}) }} {% else %} {{ path('create_dental', {'horse':horse.id}) }} {% endif %}"
                   method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
@@ -59,19 +65,76 @@
                         {{ form_widget(form.report, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
+                <div class="center" style="text-align: center;">
+                    <h4> {{ "Alimentación" }} </h4>
+                </div>
                 <div class="form-group">
-                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Alimentación" |trans}}</label>
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"> {{ "Alimentación en Kilos" |trans}}</label>
                     <div class="col-sm-4">
-                        {{ form_widget(form.feeding, { 'attr': { 'class': 'form-control'} }) }}
+                        {{ form_widget(formFeeding.feed, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Sedación" |trans}}</label>
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public">{{ "Heno" |trans}}</label>
                     <div class="col-sm-4">
-                        {{ form_widget(form.sedation, { 'attr': { 'class': 'form-control'} }) }}
+                        {{ form_widget(formFeeding.hay, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public">{{ "Silage" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formFeeding.silage, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public">{{ "Horas de pasto" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formFeeding.pasture, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public">{{ "Comentario de alimentación" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formFeeding.comment, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="center" style="text-align: center;">
+                    <h4> {{ "Sedación de los incisivos" }} </h4>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"> {{ "Zona1" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.zone1, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public">{{ "Zona2" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.zone2, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"> {{ "Zona3" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.zone3, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public">{{ "Zona4" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.zone4, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"> {{ "Comentario sedación" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.comment, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
 
+                <div class="center" style="text-align: center;">
+                    <h4> {{ "Dentadura" }} </h4>
+                </div>
                 <div class="form-group">
                     <label id="label_incisors" for="dental_incisors" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Incisivos" |trans}}</label>
                     <div class="col-sm-9">

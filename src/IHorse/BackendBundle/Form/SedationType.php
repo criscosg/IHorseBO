@@ -5,17 +5,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DentalType extends AbstractType
+class SedationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('report', 'textarea', array('required' => false))
+        $builder->add('zone1', 'text', array('required' => false))
+            ->add('zone2', 'text', array('required' => false))
+            ->add('zone3', 'text', array('required' => false))
+            ->add('zone4', 'text', array('required' => false))
             ->add('comment', 'textarea', array('required' => false));
     }
 
     public function getName()
     {
-        return 'dental';
+        return 'sedation';
     }
 
 }

@@ -5,17 +5,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DentalType extends AbstractType
+class FeedingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('report', 'textarea', array('required' => false))
+        $builder->add('feed', 'text', array('required' => false))
+            ->add('hay', 'checkbox', array('required' => false))
+            ->add('silage', 'checkbox', array('required' => false))
+            ->add('pasture', 'text', array('required' => false))
             ->add('comment', 'textarea', array('required' => false));
     }
 
     public function getName()
     {
-        return 'dental';
+        return 'feeding';
     }
 
 }
