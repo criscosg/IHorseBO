@@ -49,6 +49,12 @@
             {% endif %}
         </div>
         <div class="widget-content nopadding">
+            <div class="center" style="text-align: center;">
+                <h2> {{ horse.name }}</h2>
+            </div>
+            <div class="center" style="text-align: center;">
+                <h4> {{ "Última modificación" }} : {{ dental.modified | date('d/m/Y') }}</h4>
+            </div>
             <form class="form-horizontal" id="form-create-item" role="form"
                   action="{% if edition is defined %}{{ path('put_dental',{'horse':horse.id, 'id':id}) }} {% else %} {{ path('create_dental', {'horse':horse.id}) }} {% endif %}"
                   method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
