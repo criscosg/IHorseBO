@@ -60,15 +60,63 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Alimentación" |trans}}</label>
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Alimentación en Kilos" |trans}}</label>
                     <div class="col-sm-4">
-                        {{ form_widget(form.feeding, { 'attr': { 'class': 'form-control'} }) }}
+                        {{ form_widget(formFeeding.feed, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Sedación" |trans}}</label>
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Heno" |trans}}</label>
                     <div class="col-sm-4">
-                        {{ form_widget(form.sedation, { 'attr': { 'class': 'form-control'} }) }}
+                        {{ form_widget(formFeeding.hay, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Silage" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formFeeding.silage, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Pastos" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formFeeding.pasture, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Comentario de alimentación" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formFeeding.comment, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Zona1" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.zone1, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Zona2" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.zone2, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Zona3" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.zone3, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Zona4" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.zone4, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Comentario sedación" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(formSedation.comment, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
 

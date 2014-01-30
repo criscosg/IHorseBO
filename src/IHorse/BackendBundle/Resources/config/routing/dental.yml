@@ -3,7 +3,7 @@ dental_list:
     defaults: { _controller: BackendBundle:Dental:listDental }
 
 show_dental:
-    pattern: /horses/{horse}/dentals/dentals{id}
+    pattern: /horses/{horse}/dentals/dental{id}
     defaults: { _controller: BackendBundle:Dental:dentalShow }
 
 new_dental:
