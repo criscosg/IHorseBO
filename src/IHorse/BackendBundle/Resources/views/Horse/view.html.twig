@@ -67,7 +67,7 @@
                             <td>{{ "Ficha Dental"|trans }}</td>
                             <td>{% if horse.dental |length > 0 %}
                                     {% for dental in horse.dental %}
-                                        <a href="{{ path('dental_list', {'horse' : horse.id}) }}">{{ dental.modified | date("m/d/Y") }} - {{ dental.report | trans }}</a><br>
+                                        <a href="{{ path('show_dental', {'horse' : horse.id, 'id': dental.id}) }}">{{ dental.modified | date("m/d/Y") }} - {{ dental.report | trans }}</a><br>
                                     {% endfor %}
                                     <br>
                                 {% endif %}

@@ -25,6 +25,7 @@
                 <tr>
                     <th>{{ "Fecha de creación"|trans }}</th>
                     <th>{{ "Fecha de modificación"|trans }}</th>
+                    <th>{{ "Primer reporte" | trans }}</th>
                     <th>{{ "Acciones"|trans }}</th>
                 </tr>
                 </thead>
@@ -33,6 +34,7 @@
                         <tr>
                             <td>{% if dental.created is defined %}{{ dental.created |date('d/m/Y') }}{% endif %}</td>
                             <td>{% if dental.modified is defined %}{{ dental.modified |date('d/m/Y') }}{% endif %}</td>
+                            <td>{% if dental.report is defined %}{{ dental.report }} {% endif %} </td>
                             <td class="taskOptions">
                                 <a title="Ver" href="{{ path('show_dental', { 'horse': horse.id, 'id' : dental.id }) }}"><i class="fa fa-eye"></i></a>
                                 <a title="Modificar" href="{{ path('edit_dental', { 'horse': horse.id, 'id' : dental.id }) }}"><i class="fa fa-pencil"></i></a>
