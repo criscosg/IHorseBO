@@ -34,12 +34,9 @@ class DentalController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $form = $this->createForm(new DentalType());
-        $formFeed = $this->createForm( new FeedingType());
-        $formSedation = $this->createForm(new SedationType());
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
 
-        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(), 'formFeeding' => $formFeed->createView(),
-                                                                            'formSedation' => $formSedation->createView(),'horse' => $horse));
+        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'horse' => $horse));
     }
 
     public function editDentalAction($horse, $id)
@@ -48,12 +45,8 @@ class DentalController extends IHorseController
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
         $dental = $this->get('dental.handler.model')->getDental($horse, $id, $session->get('access_token'));
         $form = $this->createForm(new DentalType(), $dental);
-        $formFeed = $this->createForm( new FeedingType(), $dental['feeding']);
-        $formSedation = $this->createForm(new SedationType(), $dental['sedation']);
 
-        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(), 'formFeeding' => $formFeed->createView(),
-                                                                            'formSedation' => $formSedation->createView(),
-                                                                            'edition' => true, 'id' => $id, 'horse' => $horse, 'dental' => $dental));
+        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(), 'edition' => true, 'id' => $id, 'horse' => $horse, 'dental' => $dental));
     }
 
     public function createDentalAction($horse)
