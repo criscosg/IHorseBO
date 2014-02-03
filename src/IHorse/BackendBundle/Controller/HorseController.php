@@ -2,10 +2,12 @@
 
 namespace IHorse\BackendBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use IHorse\BackendBundle\Controller\IHorseController;
 use IHorse\BackendBundle\Form\HorseType;
 use IHorse\BackendBundle\Form\Search\HorseSearchType;
 use IHorse\BackendBundle\Util\StringHelper;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class HorseController extends IHorseController
 {
@@ -41,7 +43,11 @@ class HorseController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $horse = $this->get('rest.handler.model')->get('horses/'.$id, 'horse', $session->get('access_token'));
-        $form = $form = $this->createForm(new HorseType(), $horse);
+        $array = new ArrayCollection($horse);
+        if ($array->containsKey('birthdate')) {
+            $horse['birthdate'] = new \DateTime($horse['birthdate']);
+        }
+        $form = $this->createForm(new HorseType(), $horse);
 
         return $this->render('BackendBundle:Horse:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id));
     }
