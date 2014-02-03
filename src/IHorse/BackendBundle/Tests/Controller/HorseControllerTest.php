@@ -13,6 +13,7 @@ class HorseControllerTest extends CustomTestCase
     public function testAll()
     {
         $crawler = $this->client->request('GET', '/horses/');
+        $this->printContent();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->filter('html:contains("Test")')->count());
     }
