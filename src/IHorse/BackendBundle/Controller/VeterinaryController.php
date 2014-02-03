@@ -52,7 +52,6 @@ class VeterinaryController extends IHorseController
     {
         $params = $this->getRequest()->request->get('veterinary');
         $session = $this->getRequest()->getSession();
-        ldd($params);
         if ($params['password'] == "") {
             $veterinary = $this->get('rest.handler.model')->patch("veterinaries/".$id, array('veterinary' => $params), $session->get('access_token'));
         } else {
