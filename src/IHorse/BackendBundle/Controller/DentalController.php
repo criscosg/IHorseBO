@@ -35,8 +35,12 @@ class DentalController extends IHorseController
         $session = $this->getRequest()->getSession();
         $form = $this->createForm(new DentalType());
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
+        $quadrants=array('Topleft', 'TopRight', 'Bottomright', 'Bottomleft');
+        foreach ($quadrants as $quadrant) {
+            $teethQuadrant[] = $this->get('rest.handler.model')->getList('teeth', null, array('access_token'=>$session->get('access_token'), 'quadrant'=>$quadrant));
+        }
 
-        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'horse' => $horse));
+        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'horse' => $horse, 'teeth'=>$teethQuadrant));
     }
 
     public function editDentalAction($horse, $id)

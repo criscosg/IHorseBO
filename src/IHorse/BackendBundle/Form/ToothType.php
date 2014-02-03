@@ -9,10 +9,11 @@ class ToothType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('tongue', 'boolean', array('required' => false))
-            ->add('kanten', 'boolean', array('required' => false))
-            ->add('haken', 'boolean', array('required' => false))
-            ->add('missLoos', 'text', array('required' => false))
+        $builder->add('tongue', 'checkbox', array('required' => false))
+            ->add('kanten', 'checkbox', array('required' => false))
+            ->add('haken', 'checkbox', array('required' => false))
+            ->add('missLoose', 'checkbox', array('required' => false))
+            ->add('diastasen', 'checkbox', array('required' => false))
             ->add('comment', 'text', array('required' => false));
     }
 
