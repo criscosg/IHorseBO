@@ -17,7 +17,7 @@ class HorseType extends AbstractType
                 ->add('annotations', 'textarea', array('required' => false))
                 ->add('birthdate', 'birthday', array('years' => range(date('Y'), date('Y') - 50),
                                                      'required' => false))
-            ->add('owner', 'json_owner', array('required' => true));
+                ->add('owner', 'json_owner', array('required' => true));
     }
 
     public function getName()
