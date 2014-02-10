@@ -114,55 +114,80 @@
                 </div>
                 <div class="widget-content nopadding">
                     {% for quadrant in dental.quadrants %}
+                        {% set loopQ = loop.index %}
                         <div class="widget-content">
                             <img src={{ "http://rest.ihorse.me/" ~ images[loop.index0] }}>
                             <table class="table table-bordered table-striped table-hover">
                                 <tbody>
+                                    {% if loop.first or loop.last %}
+                                        {% set var = 11..1 %}
+                                    {% else %}
+                                        {% set var = 1..11 %}
+                                    {% endif %}
                                     <tr>
-                                        {% set diente = teeth[loop.index -1] %}
-                                        {% for tooth in quadrant.teeth %}
-                                            <td>{{ diente[loop.index-1].tooth_number }}</td>
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>{{ tooth.tooth.tooth_number }}</td>
+                                                {% endif %}
+                                            {% endfor %}
                                         {% endfor %}
                                     </tr>
                                     <tr class="tongue_input">
-                                        {% for tooth in quadrant.teeth %}
-                                            <td>
-                                                {% if tooth.checked  is defined and tooth.checked %}
-                                                    {{ "Si" |trans }}
-                                                {% else %}
-                                                    {{ "No" |trans }}
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                        {% if tooth.checked  is defined and tooth.checked %}
+                                                            {{ "Si" |trans }}
+                                                        {% else %}
+                                                            {{ "No" |trans }}
+                                                        {% endif %}
+                                                    </td>
                                                 {% endif %}
-                                            </td>
+                                            {% endfor %}
                                         {% endfor %}
                                         <td>{{ "checked"|trans }}</td>
                                     </tr>
                                     <tr class="tongue_input">
-                                        {% for tooth in quadrant.teeth %}
-                                            <td>
-                                                {% if tooth.tongue  is defined and tooth.tongue %}
-                                                    {{ "Si" |trans }}
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                        {% if tooth.tongue  is defined and tooth.tongue %}
+                                                            {{ "Si" |trans }}
+                                                        {% endif %}
+                                                    </td>
                                                 {% endif %}
-                                            </td>
+                                            {% endfor %}
                                         {% endfor %}
                                         <td>{{ "lengua"|trans }}</td>
                                     </tr>
                                     <tr class="haken_input">
-                                        {% for tooth in quadrant.teeth %}
-                                            <td>
-                                                {% if tooth.haken is defined %}
-                                                    {{ tooth.haken }}
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                        {% if tooth.haken is defined %}
+                                                            {{ tooth.haken }}
+                                                        {% endif %}
+                                                    </td>
                                                 {% endif %}
-                                            </td>
+                                            {% endfor %}
                                         {% endfor %}
                                         <td >{{ "diente picado"|trans }}</td>
                                     </tr>
                                     <tr class="kanten_input">
-                                        {% for tooth in quadrant.teeth %}
-                                            <td>
-                                                {% if tooth.kanten is defined %}
-                                                    {{ tooth.kanten }}
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                    {% if tooth.kanten is defined %}
+                                                        {{ tooth.kanten }}
+                                                    {% endif %}
+                                                    </td>
                                                 {% endif %}
-                                            </td>
+                                            {% endfor %}
                                         {% endfor %}
                                         <td>{{ 'roto'|trans }}</td>
                                     </tr>
@@ -193,12 +218,16 @@
                                     </tr>
                                     #}
                                     <tr class="comment_input">
-                                        {% for tooth in quadrant.teeth %}
-                                            <td>
-                                                {% if tooth.comment  is defined %}
-                                                    {{ tooth.comment }}
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                        {% if tooth.comment  is defined %}
+                                                            {{ tooth.comment }}
+                                                        {% endif %}
+                                                    </td>
                                                 {% endif %}
-                                            </td>
+                                            {% endfor %}
                                         {% endfor %}
                                         <td>{{ "Comentario"|trans }}</td>
                                     </tr>

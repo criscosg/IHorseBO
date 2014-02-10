@@ -238,13 +238,13 @@
                                         <tr class="comment_input">
                                             {% for tooth in teeth[i-1] %}
                                                 <td id="{{'missloos'~ tooth.tooth_number }}" >
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_missLoos" type="text" class="col-sm-12" value="" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][missLoose]">
+                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_comment" type="text" class="col-sm-12" value="" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][comment]">
                                                 </td>
                                             {% endfor %}
                                             <td>{{ "Comentario" | trans }}</td>
                                         </tr>
                                         {% for tooth in teeth[i-1] %}
-                                                <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_comment" type="hidden" value="{{ tooth.id }}" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][comment]">
+                                                <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_tooth" type="hidden" value="{{ tooth.id }}" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][tooth]">
                                         {% endfor %}
                                     </tbody>
                                 </table>
