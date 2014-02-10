@@ -26,8 +26,11 @@ class DentalController extends IHorseController
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
         $params=array('access_token'=>$session->get('access_token'), 'dental'=>$id);
         $images = $this->get('rest.handler.model')->getList('imagequadrants', 'imagequadrants', $params);
+        foreach ($dental['quadrants'] as $quadrant) {
+            $teethQuadrant[] = $this->get('rest.handler.model')->getList('teeth', null, array('access_token' => $session->get('access_token'), 'quadrant' => $quadrant['type']));
+        }
 
-        return $this->render('BackendBundle:Dental:view.html.twig', array('dental' => $dental, 'horse' => $horse, 'images'=>$images));
+        return $this->render('BackendBundle:Dental:view.html.twig', array('dental' => $dental, 'horse' => $horse, 'images' => $images, 'teeth' => $teethQuadrant));
     }
 
     public function newDentalAction($horse)
@@ -40,7 +43,7 @@ class DentalController extends IHorseController
             $teethQuadrant[] = $this->get('rest.handler.model')->getList('teeth', null, array('access_token' => $session->get('access_token'), 'quadrant' => $quadrant));
         }
 
-        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'horse' => $horse, 'teeth'=>$teethQuadrant));
+        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'horse' => $horse, 'teeth' => $teethQuadrant));
     }
 
     public function editDentalAction($horse, $id)
