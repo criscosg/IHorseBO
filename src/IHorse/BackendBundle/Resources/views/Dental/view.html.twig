@@ -34,6 +34,7 @@
             <div class="widget-content nopadding">
                 <table class="table table-bordered table-striped table-hover">
                     <tbody>
+                    {#
                         <tr>
                             <td>{{ "Primer reporte"|trans }}</td>
                             <td>{% if dental.report is defined %} {{ dental.report }}{% endif %}</td>
@@ -58,6 +59,7 @@
                             <td>{{ "Comentario sobre Alimentación"|trans }}</td>
                             <td>{% if dental.feeding.comment is defined %}{{ dental.feeding.comment }}{% endif %}</td>
                         </tr>
+                    #}
                         <tr>
                             <td>{{ "Sedación zona1"|trans }}</td>
                             <td>{% if dental.sedation.zone1 is defined %}{{ dental.sedation.zone1 }}{% endif %}</td>
@@ -115,8 +117,19 @@
                        <img src={{ "http://rest.ihorse.me/" ~ images[loop.index0] }}>
                        <table class="table table-bordered table-striped table-hover">
                            <tbody>
+                               <tr class="tongue_input">
+                                   {% for tooth in quadrant.teeth %}
+                                       <td>
+                                           {% if tooth.checked  is defined %}
+                                               {{ "Si" |trans }}
+                                           {% else %}
+                                               {{ "No" |trans }}
+                                           {% endif %}
+                                       </td>
+                                   {% endfor %}
+                                   <td>{{ "checked"|trans }}</td>
+                               </tr>
                                 <tr class="tongue_input">
-                                    <td>{{ "lengua"|trans }}</td>
                                     {% for tooth in quadrant.teeth %}
                                         <td>
                                         {% if tooth.tongue  is defined %}
@@ -126,33 +139,34 @@
                                         {% endif %}
                                         </td>
                                     {% endfor %}
+                                    <td>{{ "lengua"|trans }}</td>
                                 </tr>
                                 <tr class="haken_input">
-                                    <td >{{ "diente picado"|trans }}</td>
                                     {% for tooth in quadrant.teeth %}
                                         <td>
                                         {% if tooth.haken is defined %}
-                                            {{ "Si" |trans }}
+                                            {{ tooth.haken }}
                                         {% else %}
                                             {{ "No" |trans }}
                                         {% endif %}
                                         </td>
                                     {% endfor %}
+                                    <td >{{ "diente picado"|trans }}</td>
                                 </tr>
                                 <tr class="kanten_input">
-                                    <td>{{ 'roto'|trans }}</td>
                                     {% for tooth in quadrant.teeth %}
                                         <td>
                                         {% if tooth.kanten is defined %}
-                                            {{ "Si" |trans }}
+                                            {{ tooth.kanten }}
                                         {% else %}
                                             {{ "No" |trans }}
                                         {% endif %}
                                         </td>
                                     {% endfor %}
+                                    <td>{{ 'roto'|trans }}</td>
                                 </tr>
+                               {#
                                 <tr class="diastasen_input">
-                                    <td>{{ "diastasis"|trans }}</td>
                                     {% for tooth in quadrant.teeth %}
                                         <td >
                                         {% if tooth.diastasen is defined %}
@@ -162,9 +176,10 @@
                                         {% endif %}
                                         </td>
                                     {% endfor %}
+                                    <td>{{ "diastasis"|trans }}</td>
                                 </tr>
+                               #}
                                 <tr class="missloos_input">
-                                    <td>{{ "Caído/Suelto"|trans }}</td>
                                     {% for tooth in quadrant.teeth %}
                                         <td>
                                         {% if tooth.missLoss  is defined %}
@@ -174,6 +189,7 @@
                                         {% endif %}
                                         </td>
                                     {% endfor %}
+                                    <td>{{ "Caído/Suelto"|trans }}</td>
                                 </tr>
                             </tbody>
                        </table>

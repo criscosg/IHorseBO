@@ -59,7 +59,7 @@
                   action="{% if edition is defined %}{{ path('put_dental',{'horse':horse.id, 'id':id}) }} {% else %} {{ path('create_dental', {'horse':horse.id}) }} {% endif %}"
                   method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
                 
-                <div class="form-group">
+            {#    <div class="form-group">
                     <label id="label_report" for="dental_report" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Primer reporte" |trans}}</label>
                     <div class="col-sm-4">
                         {{ form_widget(form.report, { 'attr': { 'class': 'form-control'} }) }}
@@ -98,6 +98,7 @@
                         {{ form_widget(form.feeding.comment, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
+            #}
                 <div class="center" style="text-align: center;">
                     <h4> {{ "Sedación de los incisivos" }} </h4>
                 </div>
@@ -167,6 +168,14 @@
                                     </thead>
                                     <tbody>
                                         <tr class="tongue_input">
+                                            <td>Checked</td>
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{ 'checked'~tooth.tooth_number }}">
+                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_checked" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][checked]">
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr class="tongue_input">
                                             <td>Zunge</td>
                                             {% for tooth in teeth[i-1] %}
                                                 <td id="{{ 'tongue'~tooth.tooth_number }}">
@@ -178,7 +187,19 @@
                                             <td >haken</td>
                                             {% for tooth in teeth[i-1] %}
                                                 <td id="{{ 'haken'~tooth.tooth_number }}">
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_haken" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][haken]">
+                                                    <select id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_haken" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][haken]">
+                                                        {% if edition is defined %}
+                                                            {% if tooth.haken == null %}
+                                                                <option></option>
+                                                            {% else %}
+                                                                <option>{{ tooth.haken }}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option></option>
+                                                        {% endif %}
+                                                        <option>mmg</option>
+                                                        <option>cge</option>
+                                                    </select>
                                                 </td>
                                             {% endfor %}
                                         </tr>
@@ -186,15 +207,19 @@
                                             <td>kanten</td>
                                             {% for tooth in teeth[i-1] %}
                                                 <td id="{{'kanten'~ tooth.tooth_number }}">
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_kanten" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][kanten]">
-                                                </td>
-                                            {% endfor %}
-                                        </tr>
-                                        <tr class="diastasen_input">
-                                            <td>Diastasen</td>
-                                            {% for tooth in teeth[i-1] %}
-                                                <td id="{{'diastasen'~ tooth.tooth_number }}" >
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_diastasen" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][diastasen]">
+                                                    <select id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_kanten" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][kanten]">
+                                                        {% if edition is defined %}
+                                                            {% if tooth.kanten == null %}
+                                                                <option></option>
+                                                            {% else %}
+                                                                <option>{{ tooth.kanten }}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option></option>
+                                                        {% endif %}
+                                                        <option>mmg</option>
+                                                        <option>cge</option>
+                                                    </select>
                                                 </td>
                                             {% endfor %}
                                         </tr>
