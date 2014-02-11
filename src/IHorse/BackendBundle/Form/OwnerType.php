@@ -16,7 +16,7 @@ class OwnerType extends AbstractType
             ->add('address', 'text', array('required' => false))
             ->add('phone', 'text', array('required' => false))
             ->add('mobile', 'text', array('required' => false))
-            ->add('text', 'textarea', array('required' => false));
+            ->add('comments', 'textarea', array('required' => false));
     }
 
     public function getName()

@@ -86,7 +86,8 @@
                             {% if owner.phone is defined %}{{ owner.phone }}<br> {% endif %}
                             {% if owner.mobile is defined %}{{ owner.mobile }}{% endif %}
                         </td>
-                        <td>{% if owner.clinic is defined %}
+                        <td>
+                        {% if owner.clinic is defined %}
                                 <a title="{{ "Ver clínica"|trans }}" href="{{ path('show_clinic', { 'id': owner.clinic.id }) }}">{{ owner.clinic.name }}</a>
                             {% endif %}
                         </td>
