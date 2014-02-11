@@ -25,7 +25,7 @@ class UserController extends IHorseController
 
     public function newUserAction()
     {
-        $form = $form = $this->createForm(new AdminUserType());
+        $form = $this->createForm(new AdminUserType());
 
         return $this->render('BackendBundle:Users:create.html.twig', array('form' => $form->createView()));
     }

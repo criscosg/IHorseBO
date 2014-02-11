@@ -59,7 +59,7 @@
                   action="{% if edition is defined %}{{ path('put_dental',{'horse':horse.id, 'id':id}) }} {% else %} {{ path('create_dental', {'horse':horse.id}) }} {% endif %}"
                   method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
                 
-                <div class="form-group">
+            {#    <div class="form-group">
                     <label id="label_report" for="dental_report" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Primer reporte" |trans}}</label>
                     <div class="col-sm-4">
                         {{ form_widget(form.report, { 'attr': { 'class': 'form-control'} }) }}
@@ -98,6 +98,7 @@
                         {{ form_widget(form.feeding.comment, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
+            #}
                 <div class="center" style="text-align: center;">
                     <h4> {{ "Sedación de los incisivos" }} </h4>
                 </div>
@@ -153,58 +154,93 @@
                         {{ initDrawingboard('quadrant-' ~ i ~ '-board', params, params_html) | raw }}
                         <input type="hidden" class="quadrant_hidden" id="{{ 'quadrant' ~ i }}" name="quadrant[]" />
                         </p>
-
                         <div class="widget-box">
                             <div class="widget-content nopadding">
                                 <table class="table table-bordered table-striped table-hover with-check tooth-quadrant">
                                     <thead>
                                         <tr>
-                                            <th></th>
                                             {% for tooth in teeth[i-1] %}
                                                 <th>{{ tooth.tooth_number }}</th>
                                             {% endfor %}
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="tongue_input">
-                                            <td>Zunge</td>
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{ 'checked'~tooth.tooth_number }}">
+                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_checked" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][checked]">
+                                                </td>
+                                            {% endfor %}
+                                            <td>Checked</td>
+                                        </tr>
+                                        <tr class="tongue_input">
                                             {% for tooth in teeth[i-1] %}
                                                 <td id="{{ 'tongue'~tooth.tooth_number }}">
                                                     <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_tongue" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][tongue]">
                                                 </td>
                                             {% endfor %}
+                                            <td>Zunge</td>
                                         </tr>
                                         <tr class="haken_input">
-                                            <td >haken</td>
                                             {% for tooth in teeth[i-1] %}
                                                 <td id="{{ 'haken'~tooth.tooth_number }}">
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_haken" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][haken]">
+                                                    <select id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_haken" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][haken]">
+                                                        {% if edition is defined %}
+                                                            {% if tooth.haken == null %}
+                                                                <option></option>
+                                                            {% else %}
+                                                                <option>{{ tooth.haken }}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option></option>
+                                                        {% endif %}
+                                                        <option>ggr</option>
+                                                        <option>mgr</option>
+                                                        <option>hgr</option>
+                                                    </select>
                                                 </td>
                                             {% endfor %}
+                                            <td >haken</td>
                                         </tr>
                                         <tr class="kanten_input">
-                                            <td>kanten</td>
                                             {% for tooth in teeth[i-1] %}
                                                 <td id="{{'kanten'~ tooth.tooth_number }}">
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_kanten" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][kanten]">
+                                                    <select id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_kanten" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][kanten]">
+                                                        {% if edition is defined %}
+                                                            {% if tooth.kanten == null %}
+                                                                <option></option>
+                                                            {% else %}
+                                                                <option>{{ tooth.kanten }}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option></option>
+                                                        {% endif %}
+                                                        <option>ggr</option>
+                                                        <option>mgr</option>
+                                                        <option>hgr</option>
+                                                    </select>
                                                 </td>
                                             {% endfor %}
+                                            <td>kanten</td>
                                         </tr>
-                                        <tr class="diastasen_input">
-                                            <td>Diastasen</td>
-                                            {% for tooth in teeth[i-1] %}
-                                                <td id="{{'diastasen'~ tooth.tooth_number }}" >
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_diastasen" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][diastasen]">
-                                                </td>
-                                            {% endfor %}
-                                        </tr>
+                                        {#
                                         <tr class="missloos_input">
-                                            <td>fehlt</td>
                                             {% for tooth in teeth[i-1] %}
                                                 <td id="{{'missloos'~ tooth.tooth_number }}" >
                                                     <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_missLoos" type="text" class="col-sm-4" maxlength="1" value="" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][missLoose]">
                                                 </td>
                                             {% endfor %}
+                                            <td>fehlt</td>
+                                        </tr>
+                                        #}
+                                        <tr class="comment_input">
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{'missloos'~ tooth.tooth_number }}" >
+                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_comment" type="text" class="col-sm-12" value="" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][comment]">
+                                                </td>
+                                            {% endfor %}
+                                            <td>{{ "Comentario" | trans }}</td>
                                         </tr>
                                         {% for tooth in teeth[i-1] %}
                                                 <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_tooth" type="hidden" value="{{ tooth.id }}" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][tooth]">
