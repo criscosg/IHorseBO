@@ -99,6 +99,12 @@
                             <td>{{ "Creación" | trans }}</td>
                             <td>{% if dental.created is defined %}{{ dental.created |date('d/m/Y') }}{% endif %}</td>
                         </tr>
+                        <tr>
+                            <td>{{ "incisivos" | trans }}</td>
+                            <td>
+                                <img src={{ "http://rest.ihorse.me/" ~ incisors }}>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 

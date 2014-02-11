@@ -141,6 +141,7 @@
                     <div class="col-sm-9">
                         {% set params = {'background': asset('bundles/backend/img/incisors.jpg') } %}
                         {{ initDrawingboard('incisors-board', params, null) | raw }}
+                        <input type="hidden" id="incisors" name="incisors" />
                     </div>
                 </div>
 
@@ -278,6 +279,11 @@
     {{ parent() }}
     <script type="text/javascript">
         $('#form-create-item').submit(function(event){
+        	$('#incisors-board').find('.drawing-board-canvas').each(function(){
+        		imgIncisor = this.toDataURL().replace("image/png", "image/octet-stream");
+        		$('#incisors').val(imgIncisor);
+        	});
+
             var i=1;
     		$('.quadrant-board').find('.drawing-board-canvas').each(function(){
     			img = this.toDataURL().replace("image/png", "image/octet-stream");

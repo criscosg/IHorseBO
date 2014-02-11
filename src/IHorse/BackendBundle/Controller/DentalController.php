@@ -23,6 +23,7 @@ class DentalController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $dental = $this->get('dental.handler.model')->getDental($horse, $id, $session->get('access_token'));
+        $incisors = $this->get('rest.handler.model')->get('horses/'.$id.'/dental/incisor', null, $session->get('access_token'));
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
         $params=array('access_token'=>$session->get('access_token'), 'dental'=>$id);
         $images = $this->get('rest.handler.model')->getList('imagequadrants', 'imagequadrants', $params);
@@ -30,7 +31,7 @@ class DentalController extends IHorseController
             $teethQuadrant[] = $this->get('rest.handler.model')->getList('teeth', null, array('access_token' => $session->get('access_token'), 'quadrant' => $quadrant['type']));
         }
 
-        return $this->render('BackendBundle:Dental:view.html.twig', array('dental' => $dental, 'horse' => $horse, 'images' => $images, 'teeth' => $teethQuadrant));
+        return $this->render('BackendBundle:Dental:view.html.twig', array('dental' => $dental, 'horse' => $horse, 'images' => $images, 'teeth' => $teethQuadrant, 'incisors'=>$incisors));
     }
 
     public function newDentalAction($horse)
