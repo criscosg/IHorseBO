@@ -260,7 +260,15 @@
                         {{ form_widget(form.comment, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label id="label_sign" for="dental_sign" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Firma" |trans}}</label>
+                    <div class="col-sm-9">
+                        {% set params = {'background':'#FFF' } %}
+                        {% set params_html = {'class':'sign-board'} %}
+                        {{ initDrawingboard('sign-board', params, params_html) | raw }}
+                        <input type="hidden" class="sign_hidden" id="sign" name="sign" />
+                    </div>
+                </div>
                 {{ form_rest(form) }}
                 <div class="form-actions">
                     <button id="register" type="submit" class="btn btn-large btn-primary">
@@ -282,6 +290,11 @@
         	$('#incisors-board').find('.drawing-board-canvas').each(function(){
         		imgIncisor = this.toDataURL().replace("image/png", "image/octet-stream");
         		$('#incisors').val(imgIncisor);
+        	});
+
+        	$('#sign-board').find('.drawing-board-canvas').each(function(){
+        		imgSign = this.toDataURL().replace("image/png", "image/octet-stream");
+        		$('#sign').val(imgSign);
         	});
 
             var i=1;
