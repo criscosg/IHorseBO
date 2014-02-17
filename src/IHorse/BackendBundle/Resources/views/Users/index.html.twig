@@ -47,7 +47,7 @@
                         <td class="taskOptions">
                             <a title="Ver" href="{{ path('show_user', { 'id': user.id }) }}"><i class="fa fa-eye"></i></a>
                             <a title="Modificar" href="{{ path('edit_user', { 'id': user.id }) }}"><i class="fa fa-pencil"></i></a>
-                            <a title="Borrar" href="{{ path('delete_user', { 'id': user.id }) }}"><i class="fa fa-trash-o"></i></a>
+                            <a title="Borrar" class="delete" href="{{ path('delete_user', { 'id': user.id }) }}"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
