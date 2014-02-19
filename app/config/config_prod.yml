@@ -2,7 +2,7 @@ imports:
     - { resource: config.yml }
 
 parameters:
-    ihorse.rest.uri: "http://www.rest.dentalhorse.com"
+    ihorse.rest.uri: "http://www.rest.dentalhorse.com/"
 
 #framework:
 #    validation:
