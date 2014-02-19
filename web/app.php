@@ -15,8 +15,13 @@ $loader->register(true);
 
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
+$env="prod";
+$debug=false;
+if (strpos($_SERVER['HTTP_HOST'], 'test.') !== false) {
+    $env='staging';
+}
 
-$kernel = new AppKernel('prod', false);
+$kernel = new AppKernel($env, $debug);
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
 $request = Request::createFromGlobals();
