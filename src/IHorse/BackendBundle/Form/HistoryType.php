@@ -9,7 +9,7 @@ class HistoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('text', 'text', array('required' => true));
+        $builder->add('annotation', 'textarea', array('required' => true));
     }
 
     public function getName()

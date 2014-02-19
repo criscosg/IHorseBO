@@ -73,7 +73,12 @@
                         </tr>    
                         <tr>
                             <td>{{ "Historial"|trans }}</td>
-                            <td>{% if history |length > 0 %} <a href="{{ path('histories_list', {'horse' : horse.id}) }}">"ver"</a> {% endif %}</td>
+                            <td>
+                                {% if history |length > 0 %}
+                                    <a href="{{ path('histories_list', {'horse' : horse.id}) }}">"ver"</a>
+                                {% endif %}
+                                <a href="{{ path('new_history', {'horse' : horse.id}) }}" class="btn btn-primary btn-xs">{{ "Nuevo historial" | trans }} <i class="fa fa-plus"></i></a>
+                            </td>
                         </tr>
                         <tr>
                             <td>{{ "Ficha Dental"|trans }}</td>

@@ -39,7 +39,7 @@
                 <tbody>
                     {% for history in histories %}
                         <tr>
-                            <td>{% if history.text is defined %}{{ history.text }}{% endif %}</td>
+                            <td>{% if history.annotation is defined %}{{ history.annotation }}{% endif %}</td>
                             <td>{% if history.horse is defined %}
                                     <a title="{{ "Ver caballo"|trans }}" href="{{ path('show_horse',{'id':history.horse.id}) }}">{% if history.horse.name is defined %}{{ history.horse.name }}{% endif %} {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}</a>
                                 {% endif %}
