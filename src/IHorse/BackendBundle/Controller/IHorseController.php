@@ -38,7 +38,7 @@ class IHorseController extends Controller implements ExpirableControllerInterfac
                     $this->get('session')->get('refresh_token'));
             $response=$restRequest->send();
         } catch (BadResponseException $e) {
-            return $true;
+            return true;
         }
 
         $session=$request->getSession();

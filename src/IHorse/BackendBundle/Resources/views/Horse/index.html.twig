@@ -61,24 +61,30 @@
                     <th>{{ "Nombre"|trans }}</th>
                     <th>{{ "Dueño"|trans }}</th>
                     <th>{{ "Creado"|trans }}</th>
+                    <th>{{ "Sexo"|trans }}</th>
+                    <th>{{ "Nacimiento"|trans }}</th>
                     <th>{{ "Acciones"|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
                     {% for horse in horses %}
-                        <tr>
-                            <td>{% if horse.name is defined %}{{ horse.name }}{% endif %}</td>
-                            <td>{% if horse.owner is defined %}
-                                    <a title="{{ "Ver dueño"|trans }}" href="{{ path('show_owner',{'id':horse.owner.id}) }}">{% if horse.owner.name is defined %}{{ horse.owner.name }}{% endif %} {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}</a>
-                                {% endif %}
-                            </td>
-                            <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>
-                            <td class="taskOptions">
-                                <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}"><i class="fa fa-eye"></i></a>
-                                <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}"><i class="fa fa-pencil"></i></a>
-                                <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
+                        {% if horse.deleted is not defined or horse.deleted is null %}
+                            <tr>
+                                <td>{% if horse.name is defined %}{{ horse.name }}{% endif %}</td>
+                                <td>{% if horse.owner is defined %}
+                                        <a title="{{ "Ver dueño"|trans }}" href="{{ path('show_owner',{'id':horse.owner.id}) }}">{% if horse.owner.name is defined %}{{ horse.owner.name }}{% endif %} {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}</a>
+                                    {% endif %}
+                                </td>
+                                <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>
+                                <td>{% if horse.sex is defined %}{{ horse.sex }}{% endif %}</td>
+                                <td>{% if horse.birthdate is defined %}{{ horse.birthdate |date('d/m/Y') }}{% endif %}</td>
+                                <td class="taskOptions">
+                                    <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}"><i class="fa fa-eye"></i></a>
+                                    <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}"><i class="fa fa-pencil"></i></a>
+                                    <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

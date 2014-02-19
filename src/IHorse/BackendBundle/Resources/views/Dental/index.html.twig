@@ -1,0 +1,53 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Fichas dentales" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Caballos':path('horses_list'), (horse.name): path('show_horse', {'id':horse.id}), 'Fichas': '#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {% if dentals | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Fichas dentales del caballo"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{{ "Fecha de creación"|trans }}</th>
+                    <th>{{ "Fecha de modificación"|trans }}</th>
+                    <th>{{ "Acciones"|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for dental in dentals %}
+                        <tr>
+                            <td>{% if dental.created is defined %}{{ dental.created |date('d/m/Y') }}{% endif %}</td>
+                            <td>{% if dental.modified is defined %}{{ dental.modified |date('d/m/Y') }}{% endif %}</td>
+                            <td class="taskOptions">
+                                <a title="Ver" href="{{ path('show_dental', { 'horse': horse.id, 'id' : dental.id }) }}"><i class="fa fa-eye"></i></a>
+                                <a title="Modificar" href="{{ path('edit_dental', { 'horse': horse.id, 'id' : dental.id }) }}"><i class="fa fa-pencil"></i></a>
+                                <a title="Borrar" class="delete"  href="{{ path('delete_dental', { 'horse': horse.id, 'id' : dental.id }) }}"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -18,7 +18,7 @@
             <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}" class="btn btn-primary btn-s">
                 <i class="fa fa-pencil"></i> {{"Editar" | trans}}
             </a>
-            <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}" class="btn btn-danger btn-s">
+            <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}" class="btn btn-danger btn-s delete">
                 <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
             </a>
         </div>
@@ -59,7 +59,7 @@
                         </tr>
                         <tr>
                             <td>{{ "Anotaciones"|trans }}</td>
-                            <td>{% if owner.text is defined %}{{ owner.text }}{% endif %}</td>
+                            <td>{% if owner.comments is defined %}{{ owner.comments }}{% endif %}</td>
                         </tr>
                         <tr>
                             <td>{{ "Clínica"|trans }}</td>
@@ -76,6 +76,7 @@
                             <td>{{ "Creación"|trans }}</td>
                             <td>{% if owner.created is defined %}{{ owner.created |date('d/m/Y') }}{% endif %}</td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -110,7 +111,7 @@
                                 <td class="taskOptions">
                                     <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}"><i class="fa fa-eye"></i></a>
                                     <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}"><i class="fa fa-pencil"></i></a>
-                                    <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
+                                    <a title="Borrar" class="delete" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}

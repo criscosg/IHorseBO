@@ -1,0 +1,310 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+{%  set edit = "Edición del registro"|trans %}
+{%  set create = "Creación de nuevo registro"|trans %}
+
+{% block title_section %}
+    {% if edition is defined %}
+        {{ edit }}
+    {% else %}
+        {{ create }}
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    #incisors-board{
+        width: 400px;
+        height: 350px;
+    }
+
+    .quadrant-board{
+        width: 650px;
+        height: 225px;
+    }
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% if edition is defined %}
+        {% set crumbs = {'Caballos':path('horses_list'), (horse.name): path('show_horse', {'id':horse.id}),'Ficha dental': path('dental_list', {'horse':horse.id}), (edit):''} %}
+    {% else %}
+        {% set crumbs = {'Caballos':path('horses_list'), (horse.name): path('show_horse', {'id':horse.id}),'Ficha dental': path('dental_list', {'horse':horse.id}), (create):''} %}
+    {% endif %}
+
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-pencil"></i>
+            </span>
+            {% if edition is defined %}
+                <h5>{{ edit }}</h5>
+            {% else %}
+                <h5>{{ create }}</h5>
+            {% endif %}
+        </div>
+        <div class="widget-content nopadding">
+            <div class="center" style="text-align: center;">
+                <h2> {{ horse.name }}</h2>
+            </div>
+            <div class="center" style="text-align: center;">
+                {% if dental is defined %} <h4> {{ "Última modificación" }} : {{ dental.modified | date('d/m/Y') }} {% endif %}</h4>
+            </div>
+            <form class="form-horizontal" id="form-create-item" role="form" id="dental-form"
+                  action="{% if edition is defined %}{{ path('put_dental',{'horse':horse.id, 'id':id}) }} {% else %} {{ path('create_dental', {'horse':horse.id}) }} {% endif %}"
+                  method="post" {% if edition is defined %}{{ form_enctype(form) }} {% endif %} xmlns="http://www.w3.org/1999/html">
+                
+            {#    <div class="form-group">
+                    <label id="label_report" for="dental_report" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Primer reporte" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.report, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="center" style="text-align: center;">
+                    <h4> {{ "Alimentación" }} </h4>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public"> {{ "Alimentación en Kilos" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.feeding.feed, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public">{{ "Heno" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.feeding.hay, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public">{{ "Silage" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.feeding.silage, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public">{{ "Horas de pasto" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.feeding.pasture, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_feeding" for="dental_feeding" class="col-sm-3 control-label horse-active is-public">{{ "Comentario de alimentación" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.feeding.comment, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+            #}
+                <div class="center" style="text-align: center;">
+                    <h4> {{ "Sedación de los incisivos" }} </h4>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"> {{ "Zona1" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.sedation.zone1, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public">{{ "Zona2" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.sedation.zone2, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"> {{ "Zona3" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.sedation.zone3, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public">{{ "Zona4" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.sedation.zone4, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"> {{ "Comentario sedación" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.sedation.comment, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+
+                <div class="center" style="text-align: center;">
+                    <h4> {{ "Dentadura" }} </h4>
+                </div>
+                <div class="form-group">
+                    <label id="label_incisors" for="dental_incisors" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Incisivos" |trans}}</label>
+                    <div class="col-sm-9">
+                        {% set params = {'background': asset('bundles/backend/img/incisors.jpg') } %}
+                        {{ initDrawingboard('incisors-board', params, null) | raw }}
+                        <input type="hidden" id="incisors" name="incisors" />
+                    </div>
+                </div>
+
+                {% for i in 1..4 %}
+                <div class="form-group">
+                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Cuadrante" |trans}} {{ i }}</label>
+                    <div class="col-sm-9">
+                        <p>
+                        {% set params = {'background':asset('bundles/backend/img/quadrant-' ~ i ~ '.jpg') } %}
+                        {% set params_html = {'class':'quadrant-board'} %}
+                        {{ initDrawingboard('quadrant-' ~ i ~ '-board', params, params_html) | raw }}
+                        <input type="hidden" class="quadrant_hidden" id="{{ 'quadrant' ~ i }}" name="quadrant[]" />
+                        </p>
+                        <div class="widget-box">
+                            <div class="widget-content nopadding">
+                                <table class="table table-bordered table-striped table-hover with-check tooth-quadrant">
+                                    <thead>
+                                        <tr>
+                                            {% for tooth in teeth[i-1] %}
+                                                <th>{{ tooth.tooth_number }}</th>
+                                            {% endfor %}
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="tongue_input">
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{ 'checked'~tooth.tooth_number }}">
+                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_checked" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][checked]">
+                                                </td>
+                                            {% endfor %}
+                                            <td>Checked</td>
+                                        </tr>
+                                        <tr class="tongue_input">
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{ 'tongue'~tooth.tooth_number }}">
+                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_tongue" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][tongue]">
+                                                </td>
+                                            {% endfor %}
+                                            <td>Zunge</td>
+                                        </tr>
+                                        <tr class="haken_input">
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{ 'haken'~tooth.tooth_number }}">
+                                                    <select id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_haken" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][haken]">
+                                                        {% if edition is defined %}
+                                                            {% if tooth.haken == null %}
+                                                                <option></option>
+                                                            {% else %}
+                                                                <option>{{ tooth.haken }}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option></option>
+                                                        {% endif %}
+                                                        <option>ggr</option>
+                                                        <option>mgr</option>
+                                                        <option>hgr</option>
+                                                    </select>
+                                                </td>
+                                            {% endfor %}
+                                            <td >haken</td>
+                                        </tr>
+                                        <tr class="kanten_input">
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{'kanten'~ tooth.tooth_number }}">
+                                                    <select id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_kanten" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][kanten]">
+                                                        {% if edition is defined %}
+                                                            {% if tooth.kanten == null %}
+                                                                <option></option>
+                                                            {% else %}
+                                                                <option>{{ tooth.kanten }}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option></option>
+                                                        {% endif %}
+                                                        <option>ggr</option>
+                                                        <option>mgr</option>
+                                                        <option>hgr</option>
+                                                    </select>
+                                                </td>
+                                            {% endfor %}
+                                            <td>kanten</td>
+                                        </tr>
+                                        {#
+                                        <tr class="missloos_input">
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{'missloos'~ tooth.tooth_number }}" >
+                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_missLoos" type="text" class="col-sm-4" maxlength="1" value="" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][missLoose]">
+                                                </td>
+                                            {% endfor %}
+                                            <td>fehlt</td>
+                                        </tr>
+                                        #}
+                                        <tr class="comment_input">
+                                            {% for tooth in teeth[i-1] %}
+                                                <td id="{{'missloos'~ tooth.tooth_number }}" >
+                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_comment" type="text" class="col-sm-12" value="" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][comment]">
+                                                </td>
+                                            {% endfor %}
+                                            <td>{{ "Comentario" | trans }}</td>
+                                        </tr>
+                                        {% for tooth in teeth[i-1] %}
+                                                <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_tooth" type="hidden" value="{{ tooth.id }}" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][tooth]">
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="form-group">
+                    <label id="label_comment" for="dental_comment" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Comentario" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.comment, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="label_sign" for="dental_sign" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Firma" |trans}}</label>
+                    <div class="col-sm-9">
+                        {% set params = {'background':'#FFF' } %}
+                        {% set params_html = {'class':'sign-board'} %}
+                        {{ initDrawingboard('sign-board', params, params_html) | raw }}
+                        <input type="hidden" class="sign_hidden" id="sign" name="sign" />
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                <div class="form-actions">
+                    <button id="register" type="submit" class="btn btn-large btn-primary">
+                        {{ "Guardar cambios"|trans }}
+                    </button>
+                    <img style="display:none;" src="{{ asset('bundles/backend/img/spinner.gif') }}">
+                    <div class="help-block mt10">
+                        <span class="red">*</span> {{"Campos obligatorios" | trans }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#form-create-item').submit(function(event){
+        	$('#incisors-board').find('.drawing-board-canvas').each(function(){
+        		imgIncisor = this.toDataURL().replace("image/png", "image/octet-stream");
+        		$('#incisors').val(imgIncisor);
+        	});
+
+        	$('#sign-board').find('.drawing-board-canvas').each(function(){
+        		imgSign = this.toDataURL().replace("image/png", "image/octet-stream");
+        		$('#sign').val(imgSign);
+        	});
+
+            var i=1;
+    		$('.quadrant-board').find('.drawing-board-canvas').each(function(){
+    			img = this.toDataURL().replace("image/png", "image/octet-stream");
+        	    $('#quadrant'+i).val(img);
+        	    i++;
+    		});
+
+            return true;
+        });
+    </script>
+{% endblock %}

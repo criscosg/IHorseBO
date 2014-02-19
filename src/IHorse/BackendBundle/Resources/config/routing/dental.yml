@@ -1,0 +1,27 @@
+dental_list:
+    pattern: /horses/{horse}/dentals
+    defaults: { _controller: BackendBundle:Dental:listDental }
+
+show_dental:
+    pattern: /horses/{horse}/dentals/{id}
+    defaults: { _controller: BackendBundle:Dental:dentalShow }
+
+new_dental:
+    pattern: /horses/{horse}/dental/new
+    defaults: { _controller: BackendBundle:Dental:newDental }
+
+edit_dental:
+    pattern: /horses/{horse}/dental/edit/{id}
+    defaults: { _controller: BackendBundle:Dental:editDental }
+
+create_dental:
+    pattern: /horses/{horse}/dental/create
+    defaults: { _controller: BackendBundle:Dental:createDental }
+
+put_dental:
+    pattern: /horses/{horse}/dental/put/{id}
+    defaults: { _controller: BackendBundle:Dental:putDental }
+
+delete_dental:
+    pattern: /horses/{horse}/dental/delete/{id}
+    defaults: { _controller: BackendBundle:Dental:deleteDental }

@@ -10,7 +10,14 @@ class HorseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text', array('required' => true))
-            ->add('owner', 'json_owner', array('required' => true));
+                ->add('sex', 'choice', array('choices' => array('male' => 'Male',
+                                                'female' => 'Female'),
+                                                'multiple' => false, 'expanded' => true,
+                                                'required' => false, 'empty_value' => false))
+                ->add('comment', 'textarea', array('required' => false))
+                ->add('birthdate', 'birthday', array('years' => range(date('Y'), date('Y') - 50),
+                                                     'required' => false))
+                ->add('owner', 'json_owner', array('required' => true));
     }
 
     public function getName()

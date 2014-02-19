@@ -1,12 +1,21 @@
 imports:
-    - { resource: config_dev.yml }
+    - { resource: config.yml }
+
+parameters:
+    host: http://ihorse.bo.me/app_dev.php
+    ihorse.rest.uri: "http://rest.ihorse.me/app_test.php/"
+    ihorse.rest.oauth.id: 1_571aizvhpwcgkc4g8wcco0c404ssssw440gkc0c4g0sscs88s0
+    ihorse.rest.oauth.secret: 2lvkeo7gl1c00ckcg8o8ogwwgsw0ck4k0wws0kss4wgk80g0s4
+    expirable.action.mock.listener.class: IHorse\TestBundle\Tests\Mock\ExpirableListenerMock
 
 framework:
     test: ~
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
     session:
         storage_id: session.storage.mock_file
-    profiler:
-        collect: false
 
 web_profiler:
     toolbar: false
@@ -14,3 +23,22 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+services:
+    expirable.action_listener:
+        class: %expirable.action.mock.listener.class%
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+        firephp:
+            type:  firephp
+            level: info
+        chromephp:
+            type:  chromephp
+            level: info
+
+assetic:
+    use_controller: true

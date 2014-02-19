@@ -16,7 +16,7 @@
         <a title="Modificar" href="{{ path('edit_veterinary', { 'id': veterinary.id }) }}" class="btn btn-primary btn-s">
             <i class="fa fa-pencil"></i> {{"Editar" | trans}}
         </a>
-        <a title="Borrar" href="{{ path('delete_veterinary', { 'id': veterinary.id }) }}" class="btn btn-danger btn-s">
+        <a title="Borrar" href="{{ path('delete_veterinary', { 'id': veterinary.id }) }}" class="btn btn-danger btn-s delete">
             <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
         </a>
     </div>
@@ -46,6 +46,10 @@
                     <tr>
                         <td>{{ "Creado"|trans }}</td>
                         <td>{% if veterinary.created is defined %}{{ veterinary.created }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Idioma"|trans }}</td>
+                        <td>{% if veterinary.idiom is defined %}{{ veterinary.idiom }}{% endif %}</td>
                     </tr>
                 </tbody>
             </table>

@@ -22,7 +22,7 @@
 
     <!--
     <php>
-        <server name="KERNEL_DIR" value="/path/to/your/app/" />
+        <server name="KERNEL_DIR" value="/var/www/IHorseBO/app" />
     </php>
     -->
 
@@ -30,10 +30,14 @@
         <whitelist>
             <directory>../src</directory>
             <exclude>
+                <directory>../src/*/*Bundle/Security</directory>
+                <directory>../src/*/*Bundle/DependencyInjection</directory>
                 <directory>../src/*/*Bundle/Resources</directory>
                 <directory>../src/*/*Bundle/Tests</directory>
+                <directory>../src/*/*Bundle/Event</directory>
                 <directory>../src/*/Bundle/*Bundle/Resources</directory>
                 <directory>../src/*/Bundle/*Bundle/Tests</directory>
+                <directory>../src/TestBundle/*</directory>
             </exclude>
         </whitelist>
     </filter>

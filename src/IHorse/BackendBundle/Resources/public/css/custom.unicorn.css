@@ -111,3 +111,8 @@ span.error{
 .help-block{
   font-size: 12px;
 }
+
+.sign-board{
+	height:200px;
+    width:300px;
+}

@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new IHorse\BackendBundle\BackendBundle(), 
             new Misd\GuzzleBundle\MisdGuzzleBundle(),
             new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
+            new IHorse\TestBundle\TestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

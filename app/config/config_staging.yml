@@ -1,0 +1,28 @@
+imports:
+    - { resource: config.yml }
+
+parameters:
+    ihorse.rest.uri: "http://test.rest.dentalhorse.com"
+    ihorse.rest.oauth.id: 1_1b0x16472em8s80wo4cww84ossg80goooo4ksc8kk0g0ogkkk8
+    ihorse.rest.oauth.secret: 35cth7qjzxmo00kocs08cowkwcc8c04s48kgc4ks8k8ggs00ko
+
+#framework:
+#    validation:
+#        cache: apc
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug

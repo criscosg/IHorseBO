@@ -39,7 +39,7 @@
                 <tbody>
                     {% for history in histories %}
                         <tr>
-                            <td>{% if history.text is defined %}{{ history.text }}{% endif %}</td>
+                            <td>{% if history.annotation is defined %}{{ history.annotation }}{% endif %}</td>
                             <td>{% if history.horse is defined %}
                                     <a title="{{ "Ver caballo"|trans }}" href="{{ path('show_horse',{'id':history.horse.id}) }}">{% if history.horse.name is defined %}{{ history.horse.name }}{% endif %} {% if horse.owner.last_name is defined %}{{ horse.owner.last_name }}{% endif %}</a>
                                 {% endif %}
@@ -48,7 +48,7 @@
                             <td class="taskOptions">
                                 <a title="Ver" href="{{ path('show_history', {'horse':horse.id, 'id': history.id }) }}"><i class="fa fa-eye"></i></a>
                                 <a title="Modificar" href="{{ path('edit_history', {'horse':horse.id, 'id': history.id }) }}"><i class="fa fa-pencil"></i></a>
-                                <a title="Borrar" href="{{ path('delete_history', {'horse':horse.id, 'id': history.id }) }}"><i class="fa fa-trash-o"></i></a>
+                                <a title="Borrar" class="delete" href="{{ path('delete_history', {'horse':horse.id, 'id': history.id }) }}"><i class="fa fa-trash-o"></i></a>
                             </td>
                         </tr>
                     {% endfor %}

@@ -13,12 +13,11 @@
 {% block content %}
 
     {% if horse %}
-
         <div class="row">
             <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}" class="btn btn-primary btn-s">
                 <i class="fa fa-pencil"></i> {{"Editar" | trans}}
             </a>
-            <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}" class="btn btn-danger btn-s">
+            <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}" class="btn btn-danger btn-s delete">
                 <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
             </a>
 
@@ -61,8 +60,36 @@
                             <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>
                         </tr>
                         <tr>
+                            <td>{{ "Sex"|trans }}</td>
+                            <td>{% if horse.sex is defined %}{{ horse.sex }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Edad"|trans }}</td>
+                            <td>{% if horse.birthdate is defined %}{{ horse.birthdate |date('d/m/Y') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Anotaciones"|trans }}</td>
+                            <td>{% if horse.comment is defined %}{{ horse.comment }}{% endif %}</td>
+                        </tr>    
+                        <tr>
                             <td>{{ "Historial"|trans }}</td>
-                            <td>{% if history |length > 0 %} <a href="{{ path('histories_list', {'horse' : horse.id}) }}">"ver"</a> {% endif %}</td>
+                            <td>
+                                {% if history |length > 0 %}
+                                    <a href="{{ path('histories_list', {'horse' : horse.id}) }}">"ver"</a>
+                                {% endif %}
+                                <a href="{{ path('new_history', {'horse' : horse.id}) }}" class="btn btn-primary btn-xs">{{ "Nuevo historial" | trans }} <i class="fa fa-plus"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Ficha Dental"|trans }}</td>
+                            <td>{% if horse.dental |length > 0 %}
+                                    {% for dental in horse.dental %}
+                                        <a href="{{ path('show_dental', {'horse' : horse.id, 'id': dental.id}) }}">{{ dental.modified | date("m/d/Y") }}</a><br>
+                                    {% endfor %}
+                                    <br>
+                                {% endif %}
+                                <a href="{{ path('new_dental', {'horse' : horse.id}) }}" class="btn btn-primary btn-xs">{{ "Nueva ficha" | trans }} <i class="fa fa-plus"></i></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

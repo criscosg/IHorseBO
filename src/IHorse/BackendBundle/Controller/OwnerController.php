@@ -10,10 +10,10 @@ class OwnerController extends IHorseController
 {
     public function listOwnersAction()
     {
-        $form=$this->createForm(new OwnerSearchType(), $this->getRequest()->query->get('search_owner'));
+        $form = $this->createForm(new OwnerSearchType(), $this->getRequest()->query->get('search_owner'));
         $form->handleRequest($this->getRequest());
         $session = $this->getRequest()->getSession();
-        $params=array('access_token'=>$session->get('access_token'), 'search_owner'=> $this->getRequest()->query->get('search_owner'));
+        $params = array('access_token' => $session->get('access_token'), 'search_owner' => $this->getRequest()->query->get('search_owner'));
         $owners = $this->get('rest.handler.model')->getList('owners', 'owners', $params);
 
         return $this->render('BackendBundle:Owner:index.html.twig', array('owners' => $owners, 'form'=>$form->createView()));
@@ -29,7 +29,7 @@ class OwnerController extends IHorseController
 
     public function newOwnerAction()
     {
-        $form = $form = $this->createForm(new OwnerType());
+        $form = $this->createForm(new OwnerType());
 
         return $this->render('BackendBundle:Owner:create.html.twig', array('form' => $form->createView()));
     }
@@ -38,7 +38,7 @@ class OwnerController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $owner = $this->get('rest.handler.model')->get('owners/'.$id, 'owner', $session->get('access_token'));
-        $form = $form = $this->createForm(new OwnerType(), $owner);
+        $form = $this->createForm(new OwnerType(), $owner);
 
         return $this->render('BackendBundle:Owner:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id));
     }
@@ -47,7 +47,7 @@ class OwnerController extends IHorseController
     {
         $params = $this->getRequest()->request->get('owner');
         $session = $this->getRequest()->getSession();
-        $owner = $this->get('rest.handler.model')->post("owners", array('owner'=>$params), $session->get('access_token'));
+        $owner = $this->get('rest.handler.model')->post("owners", array('owner' => $params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('owners_list'));
     }
@@ -56,7 +56,7 @@ class OwnerController extends IHorseController
     {
         $params = $this->getRequest()->request->get('owner');
         $session = $this->getRequest()->getSession();
-        $owner = $this->get('rest.handler.model')->put("owners/".$id, array('owner'=>$params), $session->get('access_token'));
+        $owner = $this->get('rest.handler.model')->put("owners/".$id, array('owner' => $params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('owners_list'));
     }

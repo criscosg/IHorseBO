@@ -38,6 +38,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('bundles/backend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/backend/js/jquery.icheck.min.js') }}"></script>
     <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>

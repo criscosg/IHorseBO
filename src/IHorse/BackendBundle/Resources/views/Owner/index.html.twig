@@ -64,15 +64,15 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
-                    <th>{{ "Nombre"|trans }}</th>
-                    <th>{{ "Apellidos"|trans }}</th>
-                    <th>{{ "Dirección"|trans }}</th>
-                    <th>{{ "Email"|trans }}</th>
-                    <th>{{ "Teléfonos"|trans }}</th>
-                    <th>{{ "Clínica"|trans }}</th>
-                    <th>{{ "Creado"|trans }}</th>
-                    <th>{{ "Caballos"|trans }}</th>
-                    <th>{{ "Acciones"|trans }}</th>
+                    <th>{{ "Nombre" | trans }}</th>
+                    <th>{{ "Apellidos" | trans }}</th>
+                    <th>{{ "Dirección" | trans }}</th>
+                    <th>{{ "Email" | trans }}</th>
+                    <th>{{ "Teléfonos" | trans }}</th>
+                    <th>{{ "Clínica" | trans }}</th>
+                    <th>{{ "Creado" | trans }}</th>
+                    <th>{{ "Caballos" | trans }}</th>
+                    <th>{{ "Acciones" | trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -86,7 +86,8 @@
                             {% if owner.phone is defined %}{{ owner.phone }}<br> {% endif %}
                             {% if owner.mobile is defined %}{{ owner.mobile }}{% endif %}
                         </td>
-                        <td>{% if owner.clinic is defined %}
+                        <td>
+                        {% if owner.clinic is defined %}
                                 <a title="{{ "Ver clínica"|trans }}" href="{{ path('show_clinic', { 'id': owner.clinic.id }) }}">{{ owner.clinic.name }}</a>
                             {% endif %}
                         </td>
@@ -95,7 +96,7 @@
                         <td class="taskOptions">
                             <a title="Ver" href="{{ path('show_owner', { 'id': owner.id }) }}"><i class="fa fa-eye"></i></a>
                             <a title="Modificar" href="{{ path('edit_owner', { 'id': owner.id }) }}"><i class="fa fa-pencil"></i></a>
-                            <a title="Borrar" href="{{ path('delete_owner', { 'id': owner.id }) }}"><i class="fa fa-trash-o"></i></a>
+                            <a title="Borrar" class="delete" href="{{ path('delete_owner', { 'id': owner.id }) }}"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

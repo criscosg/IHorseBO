@@ -16,10 +16,10 @@ class RESTHandler
         $this->client = $client;
     }
 
-    public function getList($path, $dataName=null, $params)
+    public function getList($path, $dataName = null, $params)
     {
         if (is_array($params)) {
-            $get=StringHelper::getQueryArrayFromArray($params);
+            $get = StringHelper::getQueryArrayFromArray($params);
             $request = $this->client->get($path.$get);
         } else {
             $request = $this->client->get($path."?access_token=".$params);
@@ -50,6 +50,14 @@ class RESTHandler
     public function put($path, $params, $token)
     {
         $request = $this->client->put($path."?access_token=".$token, array(), $params);
+        $response = $request->send();
+
+        return $response->json();
+    }
+
+    public function patch($path, $params, $token)
+    {
+        $request = $this->client->patch($path."?access_token=".$token, array(), $params);
         $response = $request->send();
 
         return $response->json();

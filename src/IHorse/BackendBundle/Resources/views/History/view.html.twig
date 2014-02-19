@@ -18,7 +18,7 @@
             <a title="Modificar" href="{{ path('edit_history', { 'horse':horse.id, 'id':history.id  }) }}" class="btn btn-primary btn-s">
                 <i class="fa fa-pencil"></i> {{"Editar" | trans}}
             </a>
-            <a title="Borrar" href="{{ path('delete_history', { 'horse':horse.id, 'id': horse.id }) }}" class="btn btn-danger btn-s">
+            <a title="Borrar" href="{{ path('delete_history', { 'horse':horse.id, 'id': history.id }) }}" class="btn btn-danger btn-s delete">
                 <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
             </a>
 
@@ -36,7 +36,7 @@
                     <tbody>
                         <tr>
                             <td>{{ "Texto"|trans }}</td>
-                            <td>{% if history.text is defined %}{{ history.text }}{% endif %}</td>
+                            <td>{% if history.annotation is defined %}{{ history.annotation }}{% endif %}</td>
                         </tr>
                         <tr>
                             <td>{{ "Caballo"|trans }}</td>

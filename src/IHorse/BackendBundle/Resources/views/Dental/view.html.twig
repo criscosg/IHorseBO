@@ -1,0 +1,264 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Historia" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Caballos':path('horses_list'), (horse.name): path('show_horse', {'id':horse.id}), 'Ficha dental': '#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% if dental %}
+
+        <div class="row">
+            <a title="Modificar" href="{{ path('edit_dental', { 'horse':horse.id, 'id':dental.id  }) }}" class="btn btn-primary btn-s">
+                <i class="fa fa-pencil"></i> {{"Editar" | trans}}
+            </a>
+            <a title="Borrar"  href="{{ path('delete_dental', { 'horse':horse.id, 'id': dental.id }) }}" class="btn btn-danger btn-s delete">
+                <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
+            </a>
+
+        </div>
+
+        <div class="widget-box">
+            <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-th-list"></i>
+            </span>
+                <h5>{{ "Ficha"|trans }}</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered table-striped table-hover">
+                    <tbody>
+                    {#
+                        <tr>
+                            <td>{{ "Primer reporte"|trans }}</td>
+                            <td>{% if dental.report is defined %} {{ dental.report }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Alimentación en Kilos"|trans }}</td>
+                            <td>{% if dental.feeding.feed is defined %}{{ dental.feeding.feed }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Heno"|trans }}</td>
+                            <td>{% if dental.feeding.hay is defined %}{{ dental.feeding.hay }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Silage"|trans }}</td>
+                            <td>{% if dental.feeding.silage is defined %}{{ dental.feeding.silage }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Horas de pasto"|trans }}</td>
+                            <td>{% if dental.feeding.pasture is defined %}{{ dental.feeding.pasture }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Comentario sobre Alimentación"|trans }}</td>
+                            <td>{% if dental.feeding.comment is defined %}{{ dental.feeding.comment }}{% endif %}</td>
+                        </tr>
+                    #}
+                        <tr>
+                            <td>{{ "Sedación zona1"|trans }}</td>
+                            <td>{% if dental.sedation.zone1 is defined %}{{ dental.sedation.zone1 }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Sedación zona2"|trans }}</td>
+                            <td>{% if dental.sedation.zone2 is defined %}{{ dental.sedation.zone2 }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Sedación zona3"|trans }}</td>
+                            <td>{% if dental.sedation.zone3 is defined %}{{ dental.sedation.zone3 }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Sedación zona4"|trans }}</td>
+                            <td>{% if dental.sedation.zone4 is defined %}{{ dental.sedation.zone4 }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Comentario sobre Sedaciones"|trans }}</td>
+                            <td>{% if dental.sedation.comment is defined %}{{ dental.sedation.comment }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Caballo"|trans }}</td>
+                            <td>{% if horse is defined %}
+                                    {% if horse.name is defined %}{{ horse.name }}{% endif %}
+                                    &nbsp;
+                                    <a title="{{ "Ver"|trans }}" href="{{ path('show_horse', { 'id': horse.id }) }}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                                    <a title="{{ "Editar"|trans }}" href="{{ path('edit_horse', { 'id': horse.id }) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Comentario" | trans }}</td>
+                            <td>{% if dental.comment is defined %}{{ dental.comment }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "Creación" | trans }}</td>
+                            <td>{% if dental.created is defined %}{{ dental.created |date('d/m/Y') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ "incisivos" | trans }}</td>
+                            <td>
+                                <img src={{ "http://rest.ihorse.me/" ~ incisors }}>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ "firma" | trans }}</td>
+                            <td>
+                                <img src={{ "http://rest.ihorse.me/" ~ sign }}>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        {% if dental.quadrants %}
+            <div class="widget-box">
+                <div class="widget-title">
+                <span class="icon">
+                    <i class="fa fa-th-list"></i>
+                </span>
+                    <h5>{{ "Cuadrantes"|trans }}</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    {% for quadrant in dental.quadrants %}
+                        {% set loopQ = loop.index %}
+                        <div class="widget-content">
+                            <img src={{ "http://rest.ihorse.me/" ~ images[loop.index0] }}>
+                            <table class="table table-bordered table-striped table-hover">
+                                <tbody>
+                                    {% if loop.first or loop.last %}
+                                        {% set var = 11..1 %}
+                                    {% else %}
+                                        {% set var = 1..11 %}
+                                    {% endif %}
+                                    <tr>
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>{{ tooth.tooth.tooth_number }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </tr>
+                                    <tr class="tongue_input">
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                        {% if tooth.checked  is defined and tooth.checked %}
+                                                            {{ "Si" |trans }}
+                                                        {% else %}
+                                                            {{ "No" |trans }}
+                                                        {% endif %}
+                                                    </td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <td>{{ "checked"|trans }}</td>
+                                    </tr>
+                                    <tr class="tongue_input">
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                        {% if tooth.tongue  is defined and tooth.tongue %}
+                                                            {{ "Si" |trans }}
+                                                        {% endif %}
+                                                    </td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <td>{{ "lengua"|trans }}</td>
+                                    </tr>
+                                    <tr class="haken_input">
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                        {% if tooth.haken is defined %}
+                                                            {{ tooth.haken }}
+                                                        {% endif %}
+                                                    </td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <td >{{ "diente picado"|trans }}</td>
+                                    </tr>
+                                    <tr class="kanten_input">
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                    {% if tooth.kanten is defined %}
+                                                        {{ tooth.kanten }}
+                                                    {% endif %}
+                                                    </td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <td>{{ 'roto'|trans }}</td>
+                                    </tr>
+                                    {#
+                                     <tr class="diastasen_input">
+                                         {% for tooth in quadrant.teeth %}
+                                             <td >
+                                             {% if tooth.diastasen is defined %}
+                                                 {{ "Si" |trans }}
+                                             {% else %}
+                                                 {{ "No" |trans }}
+                                             {% endif %}
+                                             </td>
+                                         {% endfor %}
+                                         <td>{{ "diastasis"|trans }}</td>
+                                     </tr>
+                                    <tr class="missloos_input">
+                                        {% for tooth in quadrant.teeth %}
+                                            <td>
+                                                {% if tooth.missLoss  is defined %}
+                                                    {{ "Si" |trans }}
+                                                {% else %}
+                                                    {{ "No" |trans }}
+                                                {% endif %}
+                                            </td>
+                                        {% endfor %}
+                                        <td>{{ "Caído/Suelto"|trans }}</td>
+                                    </tr>
+                                    #}
+                                    <tr class="comment_input">
+                                        {% for count in var %}
+                                            {% for tooth in quadrant.teeth %}
+                                                {% if tooth.tooth.tooth_number == (loopQ*100 + count) %}
+                                                    <td>
+                                                        {% if tooth.comment  is defined %}
+                                                            {{ tooth.comment }}
+                                                        {% endif %}
+                                                    </td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <td>{{ "Comentario"|trans }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+             <div class="alert alert-info mt">
+                <strong>{{"Información!" | trans }}</strong>
+                {{"No se ha encontrado ningún cuadrante" | trans }}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

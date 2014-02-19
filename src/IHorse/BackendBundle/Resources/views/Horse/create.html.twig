@@ -51,6 +51,27 @@
                         {{ form_widget(form.owner, { 'attr': { 'class': 'form-control'} }) }}
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label id="label_owner" for="horse_owner" class="col-sm-3 control-label user-active"> {{ "Sexo" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.sex) }}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label id="label_owner" for="horse_owner" class="col-sm-3 control-label user-active"> {{ "Fecha Nacimiento" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.birthdate) }}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label id="label_owner" for="horse_owner" class="col-sm-3 control-label user-active">{{ "Anotaciones" |trans}}</label>
+                    <div class="col-sm-4">
+                        {{ form_widget(form.comment, { 'attr': { 'class': 'form-control'} }) }}
+                    </div>
+                </div>
 
                 {{ form_rest(form) }}
                 <div class="form-actions">
