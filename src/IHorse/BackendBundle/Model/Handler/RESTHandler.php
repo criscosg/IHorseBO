@@ -40,7 +40,7 @@ class RESTHandler
     }
 
     public function post($path, $params, $token)
-    {
+    {ldd($token);
         $request = $this->client->post($path."?access_token=".$token, array(), $params);
         $response = $request->send();
 
