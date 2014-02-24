@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Caballos':path('horses_list'), (horse.name):path('show_horse', {id:horse.id}), 'Nueva imagen':''} %}
+    {% set crumbs = {'Caballos':path('horses_list'), 'Ficha dental': path('show_dental', {'horse' : horse, 'id': dental.id}), 'Nueva imagen':'#' } %}
     {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
@@ -19,14 +19,14 @@
                 <h5>{{ "Nueva imagen"|trans }}</h5>
         </div>
         <div class="widget-content nopadding">
-            <form class="form-horizontal" id="form-create-item" role="form" action="{{ path('create_image') }}" method="post" {{ form_enctype(form) }}>
+            <form class="form-horizontal" id="form-create-item" role="form" action="{{ path('create_image', {'horseId' : horse, 'dentalId': dental.id}) }}" method="post" {{ form_enctype(form) }}>
                 <div class="form-group">
                     <label id="label_name" for="admin_user_email" class="col-sm-3 control-label user-active is-public"><span class="red">*</span> {{ "Imagen" |trans}}</label>
                     <div class="col-sm-9">
                         {{ form_widget(form.file) }}
                     </div>
                 </div>
-                {{ form_widget(form.horse, { 'attr': { 'class': 'form-control', 'value': horse.id }}) }}
+                {{ form_widget(form.dental, { 'attr': { 'class': 'form-control', 'value': dental.id }}) }}
 
                 {{ form_rest(form) }}
                 <div class="form-actions">

@@ -1,9 +1,9 @@
 new_image:
-    pattern: /new/{horseId}
+    pattern: /new/{horseId}/{dentalId}
     defaults: { _controller: BackendBundle:Image:newImage }
 
 create_image:
-    pattern: /create
+    pattern: /create/{horseId}/{dentalId}
     defaults: { _controller: BackendBundle:Image:createImage }
 
 delete_image:

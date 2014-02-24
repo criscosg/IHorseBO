@@ -7,15 +7,16 @@ use IHorse\BackendBundle\Form\ImageType;
 
 class ImageController extends IHorseController
 {
-    public function newImageAction($horseId)
+    public function newImageAction($horseId, $dentalId)
     {
-        $horse = $this->get('horse.handler.model')->getHorse($horseId);
+        $session = $this->getRequest()->getSession();
+        $dental = $this->get('dental.handler.model')->getDental($horseId, $dentalId, $session->get('access_token'));
         $form = $form = $this->createForm(new ImageType());
 
-        return $this->render('BackendBundle:Image:create.html.twig', array('form' => $form->createView(), 'horse'=>$horse));
+        return $this->render('BackendBundle:Image:create.html.twig', array('form' => $form->createView(), 'horse'=>$horseId, 'dental'=>$dental));
     }
 
-    public function createImageAction()
+    public function createImageAction($horseId, $dentalId)
     {
         $session = $this->getRequest()->getSession();
         $file=$this->getRequest()->files->get('image');
@@ -23,7 +24,7 @@ class ImageController extends IHorseController
         $params = $this->getRequest()->request->all();
         $image = $this->get('image.handler.model')->postImage($params, $files, $session->get('access_token'));
 
-        return $this->redirect($this->generateUrl('show_horse', array('id'=>$params['image']['horse'])));
+        return $this->redirect($this->generateUrl('show_dental', array('horse'=>$horseId, 'id'=>$dentalId)));
     }
 
     public function deleteImageAction($id)

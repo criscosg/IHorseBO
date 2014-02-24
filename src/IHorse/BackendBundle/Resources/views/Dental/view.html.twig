@@ -21,6 +21,9 @@
             <a title="Borrar"  href="{{ path('delete_dental', { 'horse':horse.id, 'id': dental.id }) }}" class="btn btn-danger btn-s delete">
                 <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
             </a>
+            <a title="Añadir imagen" href="{{ path('new_image', { 'horseId': horse.id, 'dentalId': dental.id }) }}" class="btn btn-primary btn-s">
+                <i class="fa fa-picture-o"></i> {{"Añadir imagen" | trans}}
+            </a>
 
         </div>
 
@@ -128,7 +131,7 @@
                     {% for quadrant in dental.quadrants %}
                         {% set loopQ = loop.index %}
                         <div class="widget-content">
-                            <img src={{ "http://rest.ihorse.me/" ~ images[loop.index0] }}>
+                            <img src={{ "http://rest.ihorse.me/" ~ imagesQuadrant[loop.index0] }}>
                             <table class="table table-bordered table-striped table-hover">
                                 <tbody>
                                     {% if loop.first or loop.last %}
@@ -254,6 +257,14 @@
                 <strong>{{"Información!" | trans }}</strong>
                 {{"No se ha encontrado ningún cuadrante" | trans }}
             </div>
+        {% endif %}
+        
+        {% if images | length > 0 %}
+            <h5>{{"Imágenes asociadas al registro" | trans}}</h5>
+
+            {% for image in images %}
+                <img src={{ "http://rest.ihorse.me/" ~ image }}>
+            {% endfor %}
         {% endif %}
     {% else %}
         <div class="alert alert-info mt">
