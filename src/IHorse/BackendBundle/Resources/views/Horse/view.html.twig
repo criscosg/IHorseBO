@@ -21,10 +21,6 @@
                 <i class="fa fa-trash-o"></i> {{"Borrar" | trans}}
             </a>
 
-            <a title="Añadir imagen" href="{{ path('new_image', { 'horseId': horse.id }) }}" class="btn btn-primary btn-s">
-                <i class="fa fa-picture-o"></i> {{"Añadir imagen" | trans}}
-            </a>
-
         </div>
 
         <div class="widget-box">
@@ -96,14 +92,6 @@
 
             </div>
         </div>
-
-        {% if images | length > 0 %}
-            <h5>{{"Imágenes asociadas al registro" | trans}}</h5>
-
-            {% for image in images %}
-                <img src={{ "http://rest.ihorse.me/" ~ image }}>
-            {% endfor %}
-        {% endif %}
 
     {% else %}
         <div class="alert alert-info mt">

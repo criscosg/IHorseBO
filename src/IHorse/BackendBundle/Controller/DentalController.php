@@ -25,14 +25,15 @@ class DentalController extends IHorseController
         $dental = $this->get('dental.handler.model')->getDental($horse, $id, $session->get('access_token'));
         $incisors = $this->get('rest.handler.model')->get('horses/'.$id.'/dental/incisor', null, $session->get('access_token'));
         $sign = $this->get('rest.handler.model')->get('horses/'.$id.'/dental/sign', null, $session->get('access_token'));
+        $images = $this->get('image.handler.model')->getImagesThumb(array('dental' => $id,'access_token' => $session->get('access_token')));
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
         $params=array('access_token'=>$session->get('access_token'), 'dental'=>$id);
-        $images = $this->get('rest.handler.model')->getList('imagequadrants', 'imagequadrants', $params);
+        $imagesQuadrant = $this->get('rest.handler.model')->getList('imagequadrants', 'imagequadrants', $params);
         foreach ($dental['quadrants'] as $quadrant) {
             $teethQuadrant[] = $this->get('rest.handler.model')->getList('teeth', null, array('access_token' => $session->get('access_token'), 'quadrant' => $quadrant['type']));
         }
 
-        return $this->render('BackendBundle:Dental:view.html.twig', array('dental' => $dental, 'horse' => $horse, 'images' => $images, 'teeth' => $teethQuadrant, 'incisors'=>$incisors, 'sign'=>$sign));
+        return $this->render('BackendBundle:Dental:view.html.twig', array('dental' => $dental, 'horse' => $horse, 'imagesQuadrant' => $imagesQuadrant, 'teeth' => $teethQuadrant, 'incisors'=>$incisors, 'sign'=>$sign, 'images'=>$images));
     }
 
     public function newDentalAction($horse)
