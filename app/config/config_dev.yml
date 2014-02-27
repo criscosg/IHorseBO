@@ -3,7 +3,7 @@ imports:
     
 parameters:
     ihorse.rest.uri: "http://rest.ihorse.me/app_dev.php/"
-    ihorse.rest.oauth.id: 1_571aizvhpwcgkc4g8wcco0c404ssssw440gkc0c4g0sscs88s0 # estos parametros dependeran de lo que generes en tu servidor en local
+    ihorse.rest.oauth.id: 1_571aizvhpwcgkc4g8wcco0c404ssssw440gkc0c4g0sscs88s0
     ihorse.rest.oauth.secret: 2lvkeo7gl1c00ckcg8o8ogwwgsw0ck4k0wws0kss4wgk80g0s4
 
 framework:
@@ -31,6 +31,3 @@ monolog:
 
 assetic:
     use_controller: true
-
-#swiftmailer:
-#    delivery_address: me@example.com

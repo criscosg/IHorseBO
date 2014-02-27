@@ -12,7 +12,7 @@ class ImageHandler extends RESTHandler
     public function getImages($params=null)
     {
         $get=StringHelper::getQueryArrayFromArray($params);
-        $request = $this->client->get('images'.$get);
+        $request = $this->client->get('security/images'.$get);
         $response = $request->send();
         $data = $response->json();
         
@@ -22,7 +22,7 @@ class ImageHandler extends RESTHandler
     public function getImagesThumb($params=null)
     {
         $get=StringHelper::getQueryArrayFromArray($params);
-        $request = $this->client->get('thumbnails'.$get);
+        $request = $this->client->get('security/thumbnails'.$get);
         $response = $request->send();
         $data = $response->json();
 
@@ -44,11 +44,11 @@ class ImageHandler extends RESTHandler
 
     public function putImage($id, $params)
     {
-        return parent::put("images/".$id, $params);
+        return parent::put('images/'.$id, $params);
     }
 
     public function deleteImage($id, $token)
     {
-        return parent::delete("images/".$id, $token);
+        return parent::delete('images/'.$id, $token);
     }
 }

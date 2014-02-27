@@ -9,6 +9,8 @@ use IHorse\BackendBundle\Util\StringHelper;
 
 class RESTHandler
 {
+    const URL_PREFIX = 'security/';
+    
     protected $client;
 
     public function __construct(Client $client)
@@ -20,9 +22,9 @@ class RESTHandler
     {
         if (is_array($params)) {
             $get = StringHelper::getQueryArrayFromArray($params);
-            $request = $this->client->get($path.$get);
+            $request = $this->client->get(self::URL_PREFIX.$path.$get);
         } else {
-            $request = $this->client->get($path."?access_token=".$params);
+            $request = $this->client->get(self::URL_PREFIX.$path."?access_token=".$params);
         }
         $response = $request->send();
         $data = $response->json();
@@ -32,7 +34,7 @@ class RESTHandler
 
     public function get($path, $dataName, $token)
     {
-        $request = $this->client->get($path."?access_token=".$token);
+        $request = $this->client->get(self::URL_PREFIX.$path."?access_token=".$token);
         $response = $request->send();
         $data = $response->json();
 
@@ -41,7 +43,7 @@ class RESTHandler
 
     public function post($path, $params, $token)
     {
-        $request = $this->client->post($path."?access_token=".$token, array(), $params);
+        $request = $this->client->post(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
         $response = $request->send();
 
         return $response->json();
@@ -49,7 +51,7 @@ class RESTHandler
 
     public function put($path, $params, $token)
     {
-        $request = $this->client->put($path."?access_token=".$token, array(), $params);
+        $request = $this->client->put(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
         $response = $request->send();
 
         return $response->json();
@@ -57,7 +59,7 @@ class RESTHandler
 
     public function patch($path, $params, $token)
     {
-        $request = $this->client->patch($path."?access_token=".$token, array(), $params);
+        $request = $this->client->patch(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
         $response = $request->send();
 
         return $response->json();
@@ -65,7 +67,7 @@ class RESTHandler
 
     public function delete($path, $token)
     {
-        $request = $this->client->delete($path."?access_token=".$token);
+        $request = $this->client->delete(self::URL_PREFIX.$path."?access_token=".$token);
         $response = $request->send();
 
         return $response;
