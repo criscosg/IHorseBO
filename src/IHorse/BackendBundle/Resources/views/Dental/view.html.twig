@@ -105,13 +105,13 @@
                         <tr>
                             <td>{{ "incisivos" | trans }}</td>
                             <td>
-                                <img src={{ "http://rest.ihorse.me/" ~ incisors }}>
+                                <img src={{ ihorse_rest_uri ~ incisors }}>
                             </td>
                         </tr>
                         <tr>
                             <td>{{ "firma" | trans }}</td>
                             <td>
-                                <img src={{ "http://rest.ihorse.me/" ~ sign }}>
+                                <img src={{ ihorse_rest_uri ~ sign }}>
                             </td>
                         </tr>
                     </tbody>
@@ -131,7 +131,7 @@
                     {% for quadrant in dental.quadrants %}
                         {% set loopQ = loop.index %}
                         <div class="widget-content">
-                            <img src={{ "http://rest.ihorse.me/" ~ imagesQuadrant[loop.index0] }}>
+                            <img src={{ ihorse_rest_uri ~ imagesQuadrant[loop.index0] }}>
                             <table class="table table-bordered table-striped table-hover">
                                 <tbody>
                                     {% if loop.first or loop.last %}
@@ -263,7 +263,7 @@
             <h5>{{"Imágenes asociadas al registro" | trans}}</h5>
 
             {% for image in images %}
-                <img src={{ "http://rest.ihorse.me/" ~ image }}>
+                <img src={{ ihorse_rest_uri ~ image }}>
             {% endfor %}
         {% endif %}
     {% else %}

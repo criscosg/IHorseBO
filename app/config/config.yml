@@ -27,6 +27,8 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        ihorse_rest_uri: %ihorse.rest.uri%
 
 # Assetic Configuration
 assetic:
