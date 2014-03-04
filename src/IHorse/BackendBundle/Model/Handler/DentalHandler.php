@@ -8,7 +8,7 @@ use Guzzle\Http\Client;
 
 class DentalHandler extends RESTHandler
 {
-    const URL_PATH = 'security/horses/';
+    const URL_PATH = 'horses/';
     
     public function getDentals($horseId, $token)
     {

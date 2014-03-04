@@ -15,6 +15,12 @@ framework:
 web_profiler:
     toolbar: true
     intercept_redirects: false
+    
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    globals:
+        ihorse_rest_uri: "http://rest.ihorse.me/"
 
 monolog:
     handlers:
