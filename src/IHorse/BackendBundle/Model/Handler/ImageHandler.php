@@ -36,7 +36,7 @@ class ImageHandler extends RESTHandler
 
     public function postImage($params, $files, $token)
     {
-        $request = $this->client->post('images?access_token='.$token, null, $params)->addPostFiles($files);
+        $request = $this->client->post('security/images?access_token='.$token, null, $params)->addPostFiles($files);
         $response = $request->send();
 
         return $response->json();
