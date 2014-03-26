@@ -32,26 +32,43 @@ class RESTHandler
         return $data;
     }
 
-    public function get($path, $dataName, $token)
+    public function get($path, $dataName, $token = null, $params = null)
     {
-        $request = $this->client->get(self::URL_PREFIX.$path."?access_token=".$token);
+        if (!$token) {
+            if (is_array($params)) {
+                $get = StringHelper::getQueryArrayFromArray($params);
+                $request = $this->client->get($path.$get);
+            } else {
+                $request = $this->client->get($path.$params);
+            }
+        } else {
+            $request = $this->client->get(self::URL_PREFIX.$path."?access_token=".$token);
+        }
         $response = $request->send();
         $data = $response->json();
 
         return $data;
     }
 
-    public function post($path, $params, $token)
+    public function post($path, $params, $token = null)
     {
-        $request = $this->client->post(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
+        if (!$token) {
+            $request = $this->client->post($path, array(), $params);
+        } else {
+            $request = $this->client->post(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
+        }
         $response = $request->send();
 
         return $response->json();
     }
 
-    public function put($path, $params, $token)
+    public function put($path, $params, $token = null)
     {
-        $request = $this->client->put(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
+        if (!$token) {
+            $request = $this->client->put($path, array(), $params);
+        } else {
+            $request = $this->client->put(self::URL_PREFIX.$path."?access_token=".$token, array(), $params);
+        }
         $response = $request->send();
 
         return $response->json();

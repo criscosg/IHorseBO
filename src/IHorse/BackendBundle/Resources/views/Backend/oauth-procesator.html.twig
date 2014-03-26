@@ -11,9 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="loginbox">
-    {{ "Procesando su autenticación" | trans }}
-</div>
+    {% include 'BackendBundle:Backend:login.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}

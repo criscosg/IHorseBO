@@ -1,0 +1,7 @@
+recover_password:
+    pattern:  /recover-password
+    defaults: { _controller: UserBundle:Access:recoverPassword }
+
+new_password:
+    pattern: /new-password/{data}
+    defaults: { _controller: UserBundle:Access:newPassword, data: null}
