@@ -1,3 +1,9 @@
+.formularioBusquedaOfertas input {
+    display:block;
+    width: 100%;
+    margin: 0 0 5px 0;
+}
+
 .red{
   color:#FF1F23;
 }

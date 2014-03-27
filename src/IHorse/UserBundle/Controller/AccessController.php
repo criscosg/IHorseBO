@@ -2,11 +2,12 @@
 
 namespace IHorse\UserBundle\Controller;
 
+use IHorse\BackendBundle\Controller\CustomController;
 use IHorse\UserBundle\Form\Type\NewPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class AccessController extends Controller
+class AccessController extends CustomController
 {
     public function recoverPasswordAction()
     {
@@ -96,7 +97,7 @@ class AccessController extends Controller
                     ->setTranslatedFlashMessage(
                         'No existe ninguna cuenta asociada para recuperar la contraseña, revisa tu correo y sigue las instrucciones que te hemos enviado');
 
-                return $this->redirect($this->generateUrl('frontend_homepage'));
+                return $this->redirect($this->generateUrl('login'));
             }
         }
     }
