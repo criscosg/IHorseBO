@@ -29,7 +29,7 @@ class DrawingboardExtension extends IHorseExtension
         return array('initDrawingboard' => new \Twig_Function_Method($this, 'initDrawingboard'));
     }
 
-    public function initDrawingboard($id, $options = null, $html_options = null)
+    public function initDrawingboard($id, $type = 'simple', $options = array(), $html_options = null)
     {
 
         $out = $this->_loadInitCSS();
@@ -41,7 +41,7 @@ class DrawingboardExtension extends IHorseExtension
             }
         }
         $out .= '></div>';
-        $out .= $this->_loadDrawingboardJS($id, $options);        
+        $out .= $this->_loadDrawingboardJS($id, $type, $options);        
         return $out;
     }
 
@@ -53,20 +53,22 @@ class DrawingboardExtension extends IHorseExtension
         return '<script src="'.$this->asset('bundles/backend/js/drawingboard/drawingboard.js').'"></script>';
     }
 
-    private function _loadDrawingboardJS($id, $options = null){
+    private function _loadDrawingboardJS($id, $type = 'simple', $options){
 
-        $_default = array('controls' => array('Color', 
-                                              'Size' => array('type' => 'dropdown'),
-                                              'Navigation',
-                                              'DrawingMode' => array('filler' => false),
-                                              'DentalHorse'),
-                          'size' => 2,
-                          'webStorage' => false);
+        $_default_simple = array('controls' => array('Size' => array('type' => 'dropdown'),
+                                                     'Navigation',
+                                                     'DrawingMode' => array('filler' => false)), 
+                                 'size' => 2, 
+                                 'webStorage' => false, 
+                                 'background' => 'transparent');
 
-        if(is_array($options)){
-            $_options = array_merge($options, $_default);
+        $_default_complete = array('controls' => array('Color', 'DentalHorse'));
+
+        if($type == 'simple'){
+            $_options = array_merge($_default_simple, $options);
         }else{
-            $_options = $_default;
+            $_options = array_merge($_default_simple, $_default_complete);
+            $_options = array_merge($_options, $options);
         }
 
         $out = '<script>var simpleBoard = new DrawingBoard.Board(\''.$id.'\', {';
