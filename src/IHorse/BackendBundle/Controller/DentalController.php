@@ -5,7 +5,10 @@ namespace IHorse\BackendBundle\Controller;
 use IHorse\BackendBundle\Controller\IHorseController;
 use IHorse\BackendBundle\Form\DentalType;
 use IHorse\BackendBundle\Form\FeedingType;
+use IHorse\BackendBundle\Form\OwnerType;
 use IHorse\BackendBundle\Form\SedationType;
+use IHorse\BackendBundle\Form\ToothQuadrantType;
+use IHorse\BackendBundle\Form\Type\JsonToothType;
 use Symfony\Component\HttpFoundation\Request;
 
 class DentalController extends IHorseController
@@ -27,7 +30,7 @@ class DentalController extends IHorseController
         $sign = $this->get('rest.handler.model')->get('horses/'.$id.'/dental/sign', null, $session->get('access_token'));
         $images = $this->get('image.handler.model')->getImagesThumb(array('dental' => $id,'access_token' => $session->get('access_token')));
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
-        $params=array('access_token'=>$session->get('access_token'), 'dental'=>$id);
+        $params = array('access_token' => $session->get('access_token'), 'dental' => $id);
         $imagesQuadrant = $this->get('rest.handler.model')->getList('imagequadrants', 'imagequadrants', $params);
         foreach ($dental['quadrants'] as $quadrant) {
             $teethQuadrant[] = $this->get('rest.handler.model')->getList('teeth', null, array('access_token' => $session->get('access_token'), 'quadrant' => $quadrant['type']));
@@ -41,12 +44,9 @@ class DentalController extends IHorseController
         $session = $this->getRequest()->getSession();
         $form = $this->createForm(new DentalType());
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
-        $quadrants = array('Topleft', 'TopRight', 'Bottomright', 'Bottomleft');
-        foreach ($quadrants as $quadrant) {
-            $teethQuadrant[] = $this->get('rest.handler.model')->getList('teeth', null, array('access_token' => $session->get('access_token'), 'quadrant' => $quadrant));
-        }
+        $formTeeth = $this->createForm(new ToothQuadrantType());
 
-        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'horse' => $horse, 'teeth' => $teethQuadrant));
+        return $this->render('BackendBundle:Dental:create.html.twig', array('form' => $form->createView(),'horse' => $horse, 'tooth' => $formTeeth->createView()));
     }
 
     public function editDentalAction($horse, $id)

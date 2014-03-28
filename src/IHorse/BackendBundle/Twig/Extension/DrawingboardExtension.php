@@ -50,25 +50,16 @@ class DrawingboardExtension extends IHorseExtension
     }
 
     private function _loadInitJS(){
-        //return '<script src="'.$this->asset('bundles/backend/js/drawingboard/drawingboard.min.js').'"></script>';
-        $out = '<script src="'.$this->asset('bundles/backend/js/drawingboard/drawingboard.js').'"></script>';
-        $out .= '<script src="'.$this->asset('bundles/backend/js/drawingboard/board.js').'"></script>';
-        $out .= '<script src="'.$this->asset('bundles/backend/js/drawingboard/control.js').'"></script>';
-        $out .= '<script src="'.$this->asset('bundles/backend/js/drawingboard/color.js').'"></script>';
-        $out .= '<script src="'.$this->asset('bundles/backend/js/drawingboard/drawingmode.js').'"></script>';
-        $out .= '<script src="'.$this->asset('bundles/backend/js/drawingboard/navigation.js').'"></script>';
-        $out .= '<script src="'.$this->asset('bundles/backend/js/drawingboard/size.js').'"></script>';
-        $out .= '<script src="'.$this->asset('bundles/backend/js/drawingboard/download.js').'"></script>';
-        $out .= '<script src="'.$this->asset('bundles/backend/js/drawingboard/utils.js').'"></script>';
-        return $out;
+        return '<script src="'.$this->asset('bundles/backend/js/drawingboard/drawingboard.js').'"></script>';
     }
 
     private function _loadDrawingboardJS($id, $options = null){
 
         $_default = array('controls' => array('Color', 
                                               'Size' => array('type' => 'dropdown'),
-                                              //'DrawingMode' => array('filler' => false),
-                                              'Navigation'),
+                                              'Navigation',
+                                              'DrawingMode' => array('filler' => false),
+                                              'DentalHorse'),
                           'size' => 2,
                           'webStorage' => false);
 
@@ -81,7 +72,7 @@ class DrawingboardExtension extends IHorseExtension
         $out = '<script>var simpleBoard = new DrawingBoard.Board(\''.$id.'\', {';
         $c1 = '';
         foreach ($_options as $k1 => $v1) {//primer nivel
-            $out .= $c1.$k1.':';
+            $out .= $c1.'\''.$k1.'\''.':';
             if(is_array($v1)){
                 $c2 = '';
                 $out .= '[';
