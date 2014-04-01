@@ -76,7 +76,7 @@ class DentalController extends IHorseController
         $form = $this->createForm(new DentalType(), $dental);
         $idiom = $this->getRequest()->getLocale();
         $language = $idiom.'_'.strtoupper($idiom);
-        $dentalDimension = getimagesize('http://rest.ihorse.me/'.$imagesDental[0]);
+        $dentalDimension = getimagesize($this->container->getParameter('ihorse.rest.web').$imagesDental[0]);
         $tooth = $this->createTeethRequest($this->get('rest.handler.model')->getList('teeth/dental', null, array('dental' => $id,'access_token' => $session->get('access_token'))));
 
         return $this->render('BackendBundle:Dental:create.html.twig',
