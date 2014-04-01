@@ -46,8 +46,6 @@ class DentalController extends IHorseController
         $language = $idiom.'_'.strtoupper($idiom);
         $form = $this->createForm(new DentalType());
         $horse = $this->get('rest.handler.model')->get('horses/'.$horse, 'horse', $session->get('access_token'));
-        $formTeeth = $this->createForm(new ToothQuadrantType());
-        //$tooth = $this->get('rest.handler.model')->getList('teeth', 'horse', $session->get('access_token'));
         $teeth1 = $this->get('rest.handler.model')->getList('teeth', 'teeth', array('quadrant' => 'Topleft', 'access_token' => $session->get('access_token')));
         $teeth2 = $this->get('rest.handler.model')->getList('teeth', 'teeth', array('quadrant' => 'Topright', 'access_token' => $session->get('access_token')));
         $teeth3 = $this->get('rest.handler.model')->getList('teeth', 'teeth', array('quadrant' => 'Bottomright', 'access_token' => $session->get('access_token')));

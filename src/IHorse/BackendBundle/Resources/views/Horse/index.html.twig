@@ -63,6 +63,7 @@
                     <th>{{ "Creado"|trans }}</th>
                     <th>{{ "Sexo"|trans }}</th>
                     <th>{{ "Nacimiento"|trans }}</th>
+                    <th>{{ "Fichas Dentales" | trans }}</th>
                     <th>{{ "Acciones"|trans }}</th>
                 </tr>
                 </thead>
@@ -81,8 +82,14 @@
                                 <td>{% if horse.created is defined %}{{ horse.created |date('d/m/Y') }}{% endif %}</td>
                                 <td>{% if horse.sex is defined %}{{ horse.sex }}{% endif %}</td>
                                 <td>{% if horse.birthdate is defined %}{{ horse.birthdate |date('d/m/Y') }}{% endif %}</td>
+                                <td>{% if horse.dental | length > 0 %}
+                                        <a title="Ver" href="{{ path('dental_list', { 'horse': horse.id }) }}">{{ horse.dental | length }}</a>
+                                    {% else %}
+                                        {{ 0 }}
+                                    {% endif %}
+                                </td>
                                 <td class="taskOptions">
-                                    <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}"><i class="fa fa-eye"></i></a>
+                                {#    <a title="Ver" href="{{ path('show_horse', { 'id': horse.id }) }}"><i class="fa fa-eye"></i></a>  #}
                                     <a title="Modificar" href="{{ path('edit_horse', { 'id': horse.id }) }}"><i class="fa fa-pencil"></i></a>
                                     <a title="Borrar" href="{{ path('delete_horse', { 'id': horse.id }) }}"><i class="fa fa-trash-o"></i></a>
                                 </td>
