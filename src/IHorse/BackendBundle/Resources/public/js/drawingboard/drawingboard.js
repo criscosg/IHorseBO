@@ -1267,7 +1267,7 @@ DrawingBoard.Control.Dentalhorse = DrawingBoard.Control.extend({
 
 	name: 'dentalhorse',
 
-	path: 'js/lib/vendor/drawingboard/img/',//ruta a las imágenes
+	path: '/bundles/backend/js/drawingboard/img/',//ruta a las imágenes
 
 	buttons: {
 		check:  'check.png',

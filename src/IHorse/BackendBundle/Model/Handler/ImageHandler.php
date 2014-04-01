@@ -11,7 +11,7 @@ class ImageHandler extends RESTHandler
 {
     public function getImages($params=null)
     {
-        $get=StringHelper::getQueryArrayFromArray($params);
+        $get = StringHelper::getQueryArrayFromArray($params);
         $request = $this->client->get('security/images'.$get);
         $response = $request->send();
         $data = $response->json();
@@ -21,7 +21,7 @@ class ImageHandler extends RESTHandler
     
     public function getImagesThumb($params=null)
     {
-        $get=StringHelper::getQueryArrayFromArray($params);
+        $get = StringHelper::getQueryArrayFromArray($params);
         $request = $this->client->get('security/thumbnails'.$get);
         $response = $request->send();
         $data = $response->json();

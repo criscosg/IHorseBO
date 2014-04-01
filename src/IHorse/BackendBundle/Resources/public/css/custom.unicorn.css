@@ -134,6 +134,7 @@ span.error{
 .canvas-quadrants{
     background-position: 0px 70px;
     background-repeat: no-repeat;
+    margin-bottom: 30px;
 }
 
 .canvas-sign{
@@ -204,4 +205,324 @@ span.error{
 #quadrant4{
     bottom:-25px;
     left:0;
+}
+
+/*X-EDIT*/
+.editable-empty,
+.editable-empty:hover,
+.editable-empty:focus {
+    color:#D2DDE7 !important;
+}
+
+.editable-click,
+a.editable-click,
+a.editable-click:hover {
+    color:#333;
+}
+
+.edit-inline{
+    overflow: hidden;
+    width: 18px;
+    height: 14px;
+    letter-spacing:3px;
+    text-align: center;
+    font-style: normal !important;
+    border-bottom: 0 !important;
+    text-shadow: none !important;
+}
+
+.editableform .form-control{
+    height: 24px;
+    font-size: 14px;
+}
+
+.editableform .btn{
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+.editableform .btn-default{
+    border-bottom: 2px solid #bbb;
+}
+
+.editableform .btn-default:hover{
+    border-bottom: 2px solid #bbb;
+}
+
+
+@media (min-width: 1024px){
+    .container {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .canvas-quadrants{
+        width: 1002px;
+        height: 695px;
+    }
+
+    #wrap-quadrants{
+        width: 550px;
+        height: 343.75px;
+    }
+
+    .preview .page{
+        width: 995px;
+        height: 1408.05px;
+    }
+
+    /*Cuadrantes 1 y 4*/
+
+    #quadrant1 a.comment_1,
+    #quadrant4 a.comment_1{
+        margin-left: 15px;
+    }
+
+    #quadrant1 a.comment_2,
+    #quadrant4 a.comment_2{
+        margin-left: 18px;
+    }
+
+    #quadrant1 a.comment_3,
+    #quadrant4 a.comment_3{
+        margin-left: 16px;
+    }
+
+    #quadrant1 a.comment_4,
+    #quadrant4 a.comment_4{
+        margin-left: 17px;
+    }
+
+    #quadrant1 a.comment_5,
+    #quadrant4 a.comment_5{
+        margin-left: 18px;
+    }
+
+    #quadrant1 a.comment_6,
+    #quadrant4 a.comment_6{
+        margin-left: 18px;
+    }
+
+    #quadrant1 a.comment_7,
+    #quadrant4 a.comment_7{
+        margin-left: 12px;
+    }
+
+    #quadrant1 a.comment_8,
+    #quadrant4 a.comment_8{
+        margin-left: 8px;
+    }
+
+    #quadrant1 a.comment_9,
+    #quadrant4 a.comment_9{
+        margin-left: 10px;
+    }
+
+    #quadrant1 a.comment_10,
+    #quadrant4 a.comment_10{
+        margin-left: 10px;
+    }
+
+    #quadrant1 a.comment_11,
+    #quadrant4 a.comment_11{
+        margin-left: 7px;
+    }
+
+    /*Cuadrantes 2 y 3*/
+
+    #quadrant2 a.comment_1,
+    #quadrant3 a.comment_1{
+        margin-right: 8px;
+    }
+
+    #quadrant2 a.comment_2,
+    #quadrant3 a.comment_2{
+        margin-right: 9px;
+    }
+
+    #quadrant2 a.comment_3,
+    #quadrant3 a.comment_3{
+        margin-right: 10px;
+    }
+
+    #quadrant2 a.comment_4,
+    #quadrant3 a.comment_4{
+        margin-right: 9px;
+    }
+
+    #quadrant2 a.comment_5,
+    #quadrant3 a.comment_5{
+        margin-right: 9px;
+    }
+
+    #quadrant2 a.comment_6,
+    #quadrant3 a.comment_6{
+        margin-right: 17px;
+    }
+
+    #quadrant2 a.comment_7,
+    #quadrant3 a.comment_7{
+        margin-right: 19px;
+    }
+
+    #quadrant2 a.comment_8,
+    #quadrant3 a.comment_8{
+        margin-right: 20px;
+    }
+
+    #quadrant2 a.comment_9,
+    #quadrant3 a.comment_9{
+        margin-right: 17px;
+    }
+
+    #quadrant2 a.comment_10,
+    #quadrant3 a.comment_10{
+        margin-right: 16px;
+    }
+
+    #quadrant2 a.comment_11,
+    #quadrant3 a.comment_11{
+        margin-right: 12px;
+    }
+
+}
+
+@media (max-width: 1024px){
+
+    .container {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .canvas-quadrants{
+        width: 802px;
+        height: 570px;
+    }
+
+    #wrap-quadrants{
+        width: 539px;
+        height: 337.5px;
+    }
+
+    .preview .page{
+        width: 792px;
+        height: 1120.78px;
+    }
+
+    /*Cuadrantes 1 y 4*/
+
+    #quadrant1 a.comment_1,
+    #quadrant4 a.comment_1{
+        margin-left: 15px;
+    }
+
+    #quadrant1 a.comment_2,
+    #quadrant4 a.comment_2{
+        margin-left: 18px;
+    }
+
+    #quadrant1 a.comment_3,
+    #quadrant4 a.comment_3{
+        margin-left: 16px;
+    }
+
+    #quadrant1 a.comment_4,
+    #quadrant4 a.comment_4{
+        margin-left: 17px;
+    }
+
+    #quadrant1 a.comment_5,
+    #quadrant4 a.comment_5{
+        margin-left: 18px;
+    }
+
+    #quadrant1 a.comment_6,
+    #quadrant4 a.comment_6{
+        margin-left: 18px;
+    }
+
+    #quadrant1 a.comment_7,
+    #quadrant4 a.comment_7{
+        margin-left: 12px;
+    }
+
+    #quadrant1 a.comment_8,
+    #quadrant4 a.comment_8{
+        margin-left: 8px;
+    }
+
+    #quadrant1 a.comment_9,
+    #quadrant4 a.comment_9{
+        margin-left: 10px;
+    }
+
+    #quadrant1 a.comment_10,
+    #quadrant4 a.comment_10{
+        margin-left: 10px;
+    }
+
+    #quadrant1 a.comment_11,
+    #quadrant4 a.comment_11{
+        margin-left: 7px;
+    }
+
+    /*Cuadrantes 2 y 3*/
+
+    #quadrant2 a.comment_1,
+    #quadrant3 a.comment_1{
+        margin-right: 8px;
+    }
+
+    #quadrant2 a.comment_2,
+    #quadrant3 a.comment_2{
+        margin-right: 9px;
+    }
+
+    #quadrant2 a.comment_3,
+    #quadrant3 a.comment_3{
+        margin-right: 10px;
+    }
+
+    #quadrant2 a.comment_4,
+    #quadrant3 a.comment_4{
+        margin-right: 9px;
+    }
+
+    #quadrant2 a.comment_5,
+    #quadrant3 a.comment_5{
+        margin-right: 9px;
+    }
+
+    #quadrant2 a.comment_6,
+    #quadrant3 a.comment_6{
+        margin-right: 17px;
+    }
+
+    #quadrant2 a.comment_7,
+    #quadrant3 a.comment_7{
+        margin-right: 19px;
+    }
+
+    #quadrant2 a.comment_8,
+    #quadrant3 a.comment_8{
+        margin-right: 20px;
+    }
+
+    #quadrant2 a.comment_9,
+    #quadrant3 a.comment_9{
+        margin-right: 17px;
+    }
+
+    #quadrant2 a.comment_10,
+    #quadrant3 a.comment_10{
+        margin-right: 16px;
+    }
+
+    #quadrant2 a.comment_11,
+    #quadrant3 a.comment_11{
+        margin-right: 12px;
+    }
+
 }

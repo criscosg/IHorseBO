@@ -11,7 +11,143 @@
 {% endblock %}
 
 {% block stylesheets %}
-{{ parent() }}
+    {{ parent() }}
+    {% if sizeImage is not defined or sizeImage > 950 %}
+        <style>
+            .canvas-quadrants{
+                width: 998px;
+                height: 695px;
+            }
+            #wrap-quadrants{
+                width: 650px;
+                height: 343.75px;
+            }
+        </style>
+    {% else %}
+        <style>
+            .canvas-quadrants{
+                width: 802px;
+                height: 570px;
+            }
+            #wrap-quadrants{
+                width: 539px;
+                height: 337.5px;
+            }
+                /*Cuadrantes 1 y 4*/
+
+            #quadrant1 a.comment_1,
+            #quadrant4 a.comment_1{
+                margin-left: 13px;
+            }
+
+            #quadrant1 a.comment_2,
+            #quadrant4 a.comment_2{
+                margin-left: 13px;
+            }
+
+            #quadrant1 a.comment_3,
+            #quadrant4 a.comment_3{
+                margin-left: 13px;
+            }
+
+            #quadrant1 a.comment_4,
+            #quadrant4 a.comment_4{
+                margin-left: 13px;
+            }
+
+            #quadrant1 a.comment_5,
+            #quadrant4 a.comment_5{
+                margin-left: 13px;
+            }
+
+            #quadrant1 a.comment_6,
+            #quadrant4 a.comment_6{
+                margin-left: 15px;
+            }
+
+            #quadrant1 a.comment_7,
+            #quadrant4 a.comment_7{
+                margin-left: 10px;
+            }
+
+            #quadrant1 a.comment_8,
+            #quadrant4 a.comment_8{
+                margin-left: 4px;
+            }
+
+            #quadrant1 a.comment_9,
+            #quadrant4 a.comment_9{
+                margin-left: 6px;
+            }
+
+            #quadrant1 a.comment_10,
+            #quadrant4 a.comment_10{
+                margin-left: 6px;
+            }
+
+            #quadrant1 a.comment_11,
+            #quadrant4 a.comment_11{
+                margin-left: 5px;
+            }
+
+                /*Cuadrantes 2 y 3*/
+
+            #quadrant2 a.comment_1,
+            #quadrant3 a.comment_1{
+                margin-right: 3px;
+            }
+
+            #quadrant2 a.comment_2,
+            #quadrant3 a.comment_2{
+                margin-right: 5px;
+            }
+
+            #quadrant2 a.comment_3,
+            #quadrant3 a.comment_3{
+                margin-right: 7px;
+            }
+
+            #quadrant2 a.comment_4,
+            #quadrant3 a.comment_4{
+                margin-right: 6px;
+            }
+
+            #quadrant2 a.comment_5,
+            #quadrant3 a.comment_5{
+                margin-right: 9px;
+            }
+
+            #quadrant2 a.comment_6,
+            #quadrant3 a.comment_6{
+                margin-right: 15px;
+            }
+
+            #quadrant2 a.comment_7,
+            #quadrant3 a.comment_7{
+                margin-right: 15px;
+            }
+
+            #quadrant2 a.comment_8,
+            #quadrant3 a.comment_8{
+                margin-right: 15px;
+            }
+
+            #quadrant2 a.comment_9,
+            #quadrant3 a.comment_9{
+                margin-right: 13px;
+            }
+
+            #quadrant2 a.comment_10,
+            #quadrant3 a.comment_10{
+                margin-right: 13px;
+            }
+
+            #quadrant2 a.comment_11,
+            #quadrant3 a.comment_11{
+                margin-right: 10px;
+            }
+        </style>
+    {% endif %}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -26,6 +162,12 @@
 {% endblock %}
 
 {% block content %}
+
+    {% if sizeImage is not defined or sizeImage > 950 %}
+        {% set sizeImg = 1200 %}
+    {% else %}
+        {% set sizeImg = 800 %}
+    {% endif %}
     <div class="widget-box">
         <div class="widget-title">
             <span class="icon">
@@ -126,338 +268,268 @@
                     <h4> {{ "Dentadura" }} </h4>
                 </div>
                 <div class="form-group">
-                    <label id="label_incisors" for="dental_incisors" class="col-sm-2 control-label horse-active is-public"><span class="red">*</span> {{ "Incisivos" |trans}}</label>
+                    <label id="label_incisors" for="dental_incisors" class="col-sm-2 control-label horse-active is-public"> {{ "Incisivos" |trans}}</label>
                     <div class="col-sm-10">
                         {% set type = 'simple' %}
+                        {% set background_incisor = {} %}
                         {% set params_html = {'class': 'canvas-incisors'} %}
-                        {{ initDrawingboard('incisors-board', type, params_html) | raw }}
-                        <input type="hidden" id="incisors" name="incisors" />
-                    </div>
-                </div>
-{#
-{{ initDrawingboard('quadrants', params, params_html) | raw }}
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <label>{{ "Cuadrante" | trans }}</label>
-                            <div id="canvas-quadrants" class="canvas-quadrants" style="{{ wrapBackgroundImage }}"></div>
-                            <input type="hidden" name="[Dental][quadrants]" id="dental-quadrants">
-                        </div>
-                        <div class="form-result clearfix mt40">
-                            <button type="submit" class="btn btn-default btn-green" id="denture-btn-next">
-                                {{ "Guardar" | trans}} <i class="glyphicon glyphicon-chevron-right"></i>
-                            </button>
-                        </div>
-{#
-                        <div id="quadrant1" class="comments_quadrant">
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_1" data-id="comment_111">{{tooth.tooth_111.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_111][comment]" id="comment_111" value="{{tooth.tooth_111.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_111][salt]" value="{{tooth.tooth_111.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_2" data-id="comment_110">{{tooth.tooth_110.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_110][comment]" id="comment_110" value="{{tooth.tooth_110.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_110][salt]" value="{{tooth.tooth_110.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_3" data-id="comment_109">{{tooth.tooth_109.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_109][comment]" id="comment_109" value="{{tooth.tooth_109.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_109][salt]" value="{{tooth.tooth_109.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_4" data-id="comment_108">{{tooth.tooth_108.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_108][comment]" id="comment_108" value="{{tooth.tooth_108.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_108][salt]" value="{{tooth.tooth_108.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_5" data-id="comment_107">{{tooth.tooth_107.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_107][comment]" id="comment_107" value="{{tooth.tooth_107.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_107][salt]" value="{{tooth.tooth_107.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_6" data-id="comment_106">{{tooth.tooth_106.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_106][comment]" id="comment_106" value="{{tooth.tooth_106.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_106][salt]" value="{{tooth.tooth_106.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_7" data-id="comment_105">{{tooth.tooth_105.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_105][comment]" id="comment_105" value="{{tooth.tooth_105.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_105][salt]" value="{{tooth.tooth_105.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_8" data-id="comment_104">{{tooth.tooth_104.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_104][comment]" id="comment_104" value="{{tooth.tooth_104.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_104][salt]" value="{{tooth.tooth_104.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_9" data-id="comment_103">{{tooth.tooth_103.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_103][comment]" id="comment_103" value="{{tooth.tooth_103.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_103][salt]" value="{{tooth.tooth_103.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_10" data-id="comment_102">{{tooth.tooth_102.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_102][comment]" id="comment_102" value="{{tooth.tooth_102.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_102][salt]" value="{{tooth.tooth_102.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_11" data-id="comment_101">{{tooth.tooth_101.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_101][comment]" id="comment_101" value="{{tooth.tooth_101.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_101][salt]" value="{{tooth.tooth_101.salt}}">
-                        </div>
-
-                        <div id="quadrant2" class="comments_quadrant">
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_1" data-id="comment_201">{{tooth.tooth_201.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_201][comment]" id="comment_201" value="{{tooth.tooth_201.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_201][salt]" value="{{tooth.tooth_201.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_2" data-id="comment_202">{{tooth.tooth_202.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_202][comment]" id="comment_202" value="{{tooth.tooth_202.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_202][salt]" value="{{tooth.tooth_202.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_3" data-id="comment_203">{{tooth.tooth_203.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_203][comment]" id="comment_203" value="{{tooth.tooth_203.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_203][salt]" value="{{tooth.tooth_203.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_4" data-id="comment_204">{{tooth.tooth_204.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_204][comment]" id="comment_204" value="{{tooth.tooth_204.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_204][salt]" value="{{tooth.tooth_204.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_5" data-id="comment_205">{{tooth.tooth_205.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_205][comment]" id="comment_205" value="{{tooth.tooth_205.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_205][salt]" value="{{tooth.tooth_205.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_6" data-id="comment_206">{{tooth.tooth_206.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_206][comment]" id="comment_206" value="{{tooth.tooth_206.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_206][salt]" value="{{tooth.tooth_206.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_7" data-id="comment_207">{{tooth.tooth_207.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_207][comment]" id="comment_207" value="{{tooth.tooth_207.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_207][salt]" value="{{tooth.tooth_207.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_8" data-id="comment_208" data-placement="left">{{tooth.tooth_208.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_208][comment]" id="comment_208" value="{{tooth.tooth_208.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_208][salt]" value="{{tooth.tooth_208.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_9" data-id="comment_209" data-placement="left">{{tooth.tooth_209.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_209][comment]" id="comment_209" value="{{tooth.tooth_209.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_209][salt]" value="{{tooth.tooth_209.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_10" data-id="comment_210" data-placement="left">{{tooth.tooth_210.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_210][comment]" id="comment_210" value="{{tooth.tooth_210.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_210][salt]" value="{{tooth.tooth_210.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_11" data-id="comment_211" data-placement="left">{{tooth.tooth_211.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_211][comment]" id="comment_211" value="{{tooth.tooth_211.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_211][salt]" value="{{tooth.tooth_211.salt}}">
-                        </div>
-
-                        <div id="quadrant3" class="comments_quadrant">
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_1" data-id="comment_301">{{tooth.tooth_301.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_301][comment]" id="comment_301" value="{{tooth.tooth_301.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_301][salt]" value="{{tooth.tooth_301.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_2" data-id="comment_302">{{tooth.tooth_302.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_302][comment]" id="comment_302" value="{{tooth.tooth_302.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_302][salt]" value="{{tooth.tooth_302.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_3" data-id="comment_303">{{tooth.tooth_303.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_303][comment]" id="comment_303" value="{{tooth.tooth_303.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_303][salt]" value="{{tooth.tooth_303.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_4" data-id="comment_304">{{tooth.tooth_304.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_304][comment]" id="comment_304" value="{{tooth.tooth_304.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_304][salt]" value="{{tooth.tooth_304.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_5" data-id="comment_305">{{tooth.tooth_305.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_305][comment]" id="comment_305" value="{{tooth.tooth_305.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_305][salt]" value="{{tooth.tooth_305.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_6" data-id="comment_306">{{tooth.tooth_306.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_306][comment]" id="comment_306" value="{{tooth.tooth_306.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_306][salt]" value="{{tooth.tooth_306.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_7" data-id="comment_307">{{tooth.tooth_307.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_307][comment]" id="comment_307" value="{{tooth.tooth_307.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_307][salt]" value="{{tooth.tooth_307.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_8" data-id="comment_308" data-placement="left">{{tooth.tooth_308.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_308][comment]" id="comment_308" value="{{tooth.tooth_308.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_308][salt]" value="{{tooth.tooth_308.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_9" data-id="comment_309" data-placement="left">{{tooth.tooth_309.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_309][comment]" id="comment_309" value="{{tooth.tooth_309.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_309][salt]" value="{{tooth.tooth_309.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_10" data-id="comment_310" data-placement="left">{{tooth.tooth_310.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_310][comment]" id="comment_310" value="{{tooth.tooth_310.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_310][salt]" value="{{tooth.tooth_310.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_11" data-id="comment_311" data-placement="left">{{tooth.tooth_311.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_311][comment]" id="comment_311" value="{{tooth.tooth_311.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_311][salt]" value="{{tooth.tooth_311.salt}}">
-                        </div>
-
-                        <div id="quadrant4" class="comments_quadrant">
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_1" data-id="comment_411">{{tooth.tooth_411.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_411][comment]" id="comment_411" value="{{tooth.tooth_411.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_411][salt]" value="{{tooth.tooth_411.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_2" data-id="comment_410">{{tooth.tooth_410.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_410][comment]" id="comment_410" value="{{tooth.tooth_410.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_410][salt]" value="{{tooth.tooth_410.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_3" data-id="comment_409">{{tooth.tooth_409.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_409][comment]" id="comment_409" value="{{tooth.tooth_409.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_409][salt]" value="{{tooth.tooth_409.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_4" data-id="comment_408">{{tooth.tooth_408.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_408][comment]" id="comment_408" value="{{tooth.tooth_408.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_408][salt]" value="{{tooth.tooth_408.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_5" data-id="comment_407">{{tooth.tooth_407.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_407][comment]" id="comment_407" value="{{tooth.tooth_407.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_407][salt]" value="{{tooth.tooth_407.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_6" data-id="comment_406">{{tooth.tooth_406.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_406][comment]" id="comment_406" value="{{tooth.tooth_406.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_406][salt]" value="{{tooth.tooth_406.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_7" data-id="comment_405">{{tooth.tooth_405.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_405][comment]" id="comment_405" value="{{tooth.tooth_405.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_405][salt]" value="{{tooth.tooth_405.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_8" data-id="comment_404">{{tooth.tooth_404.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_404][comment]" id="comment_404" value="{{tooth.tooth_404.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_404][salt]" value="{{tooth.tooth_404.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_9" data-id="comment_403">{{tooth.tooth_403.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_403][comment]" id="comment_403" value="{{tooth.tooth_403.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_403][salt]" value="{{tooth.tooth_403.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_10" data-id="comment_402">{{tooth.tooth_402.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_402][comment]" id="comment_402" value="{{tooth.tooth_402.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_402][salt]" value="{{tooth.tooth_402.salt}}">
-
-                            <a href="#" class="edit-inline glyphicon glyphicon-comment comment_11" data-id="comment_401">{{tooth.tooth_401.comment}}</a>
-                            <input type="hidden" name="[Tooth][tooth_401][comment]" id="comment_401" value="{{tooth.tooth_401.comment}}">
-                            <input type="hidden" name="[Tooth][tooth_401][salt]" value="{{tooth.tooth_401.salt}}">
-                        </div>
-
+                        {% if edition is defined %}
+                            {{ initDrawingboard('canvas-incisors', type, {'background' : incisors }, params_html) | raw }}
+                        {% else %}
+                            {{ initDrawingboard('canvas-incisors', type, background_incisor, params_html) | raw }}
+                        {% endif %}
+                        <input type="hidden" name="incisors" id="dental-incisors">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label id="label_sedation" for="dental_sedation" class="col-sm-2 control-label horse-active is-public"><span class="red">*</span> {{ "Cuadrantes" |trans}}</label>
+                    <label id="label_quadrants" for="dental_quadrants" class="col-sm-2 control-label horse-active is-public"> {{ "Cuadrantes" |trans}}</label>
                     <div class="col-sm-10">
-                        <p>
-                            {% set params = {'background':asset('bundles/backend/img/quadrants-1200.jpg') } %}
-                            {% set params_html = {'class':'quadrant-board'} %}
-                            {{ initDrawingboard('quadrants', params, params_html) | raw }}
-                            <input type="hidden" class="quadrant_hidden" id="quadrant" name="quadrants" />
-                        </p>
+                        {% set type = 'complete' %}
+                        {% if edition is defined %}
+                            {% set routQuadrant = 'bundles/backend/img/'~language~'/quadrants-'~sizeImg~'.jpg' %}
+                            {% set image_canvas = {  'background' : imageDental } %}
+                            {% set background_canvas =  'background-image:url(\''~asset(routQuadrant)~'\');' %}
+                            {% set params_html = {'class': 'canvas-quadrants', 'style': background_canvas } %}
+                        {% else %}
+                            {% set routQuadrant = 'bundles/backend/img/'~language~'/quadrants-'~sizeImg~'.jpg' %}
+                            {% set image_canvas = {} %}
+                            {% set background_canvas =  'background-image:url(\''~asset(routQuadrant)~'\');' %}
+                            {% set params_html = {'class': 'canvas-quadrants', 'style': background_canvas } %}
+                        {% endif %}
+                        {{ initDrawingboard('canvas-quadrants', type, image_canvas, params_html) | raw }}
+                        <input type="hidden" name="quadrants" id="dental-quadrants">
                     </div>
                 </div>
 
-                {% for i in 1..4 %}
-                <div class="form-group">
-                    <label id="label_sedation" for="dental_sedation" class="col-sm-3 control-label horse-active is-public"><span class="red">*</span> {{ "Cuadrante" |trans}} {{ i }}</label>
-                    <div class="col-sm-9">
-                        <p>
-                        {% set params = {'background':asset('bundles/backend/img/quadrant-' ~ i ~ '.jpg') } %}
-                        {% set params_html = {'class':'quadrant-board'} %}
-                        {{ initDrawingboard('quadrant-' ~ i ~ '-board', params, params_html) | raw }}
-                        <input type="hidden" class="quadrant_hidden" id="{{ 'quadrant' ~ i }}" name="quadrant[]" />
-                        </p>
-                        <div class="widget-box">
-                            <div class="widget-content nopadding">
-                                <table class="table table-bordered table-striped table-hover with-check tooth-quadrant">
-                                    <thead>
-                                        <tr>
-                                            {% for tooth in teeth[i-1] %}
-                                                <th>{{ tooth.tooth_number }}</th>
-                                            {% endfor %}
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="tongue_input">
-                                            {% for tooth in teeth[i-1] %}
-                                                <td id="{{ 'checked'~tooth.tooth_number }}">
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_checked" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][checked]">
-                                                </td>
-                                            {% endfor %}
-                                            <td>Checked</td>
-                                        </tr>
-                                        <tr class="tongue_input">
-                                            {% for tooth in teeth[i-1] %}
-                                                <td id="{{ 'tongue'~tooth.tooth_number }}">
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_tongue" type="checkbox" value="1" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][tongue]">
-                                                </td>
-                                            {% endfor %}
-                                            <td>Zunge</td>
-                                        </tr>
-                                        <tr class="haken_input">
-                                            {% for tooth in teeth[i-1] %}
-                                                <td id="{{ 'haken'~tooth.tooth_number }}">
-                                                    <select id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_haken" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][haken]">
-                                                        {% if edition is defined %}
-                                                            {% if tooth.haken == null %}
-                                                                <option></option>
-                                                            {% else %}
-                                                                <option>{{ tooth.haken }}</option>
-                                                            {% endif %}
-                                                        {% else %}
-                                                            <option></option>
-                                                        {% endif %}
-                                                        <option>ggr</option>
-                                                        <option>mgr</option>
-                                                        <option>hgr</option>
-                                                    </select>
-                                                </td>
-                                            {% endfor %}
-                                            <td >haken</td>
-                                        </tr>
-                                        <tr class="kanten_input">
-                                            {% for tooth in teeth[i-1] %}
-                                                <td id="{{'kanten'~ tooth.tooth_number }}">
-                                                    <select id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_kanten" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][kanten]">
-                                                        {% if edition is defined %}
-                                                            {% if tooth.kanten == null %}
-                                                                <option></option>
-                                                            {% else %}
-                                                                <option>{{ tooth.kanten }}</option>
-                                                            {% endif %}
-                                                        {% else %}
-                                                            <option></option>
-                                                        {% endif %}
-                                                        <option>ggr</option>
-                                                        <option>mgr</option>
-                                                        <option>hgr</option>
-                                                    </select>
-                                                </td>
-                                            {% endfor %}
-                                            <td>kanten</td>
-                                        </tr>
-#}
-                                        {#
-                                        <tr class="missloos_input">
-                                            {% for tooth in teeth[i-1] %}
-                                                <td id="{{'missloos'~ tooth.tooth_number }}" >
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_missLoos" type="text" class="col-sm-4" maxlength="1" value="" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][missLoose]">
-                                                </td>
-                                            {% endfor %}
-                                            <td>fehlt</td>
-                                        </tr>
-                                        #}
-{#                                        <tr class="comment_input">
-                                            {% for tooth in teeth[i-1] %}
-                                                <td id="{{'missloos'~ tooth.tooth_number }}" >
-                                                    <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_comment" type="text" class="col-sm-12" value="" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][comment]">
-                                                </td>
-                                            {% endfor %}
-                                            <td>{{ "Comentario" | trans }}</td>
-                                        </tr>
-                                        {% for tooth in teeth[i-1] %}
-                                                <input id="quadrants_{{ i-1 }}_teeth_{{ ((i-1) *11) + loop.index }}_tooth" type="hidden" value="{{ tooth.id }}" name="quadrants[{{ i-1 }}][teeth][{{ ((i-1) *11) + loop.index0 }}][tooth]">
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                <div id="quadrant1" class="comments_quadrant">
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_1" data-id="comment_111">{{tooth.tooth_111.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_111][comment]" id="comment_111" value="{{tooth.tooth_111.comment}}">
+                    <input type="hidden" name="data_dental[tooth_111][salt]" value="{{tooth.tooth_111.salt}}">
+                    <input type="hidden" name="data_dental[tooth_111][number]" value="{{tooth.tooth_111.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_2" data-id="comment_110">{{tooth.tooth_110.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_110][comment]" id="comment_110" value="{{tooth.tooth_110.comment}}">
+                    <input type="hidden" name="data_dental[tooth_110][salt]" value="{{tooth.tooth_110.salt}}">
+                    <input type="hidden" name="data_dental[tooth_110][number]" value="{{tooth.tooth_110.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_3" data-id="comment_109">{{tooth.tooth_109.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_109][comment]" id="comment_109" value="{{tooth.tooth_109.comment}}">
+                    <input type="hidden" name="data_dental[tooth_109][salt]" value="{{tooth.tooth_109.salt}}">
+                    <input type="hidden" name="data_dental[tooth_109][number]" value="{{tooth.tooth_109.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_4" data-id="comment_108">{{tooth.tooth_108.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_108][comment]" id="comment_108" value="{{tooth.tooth_108.comment}}">
+                    <input type="hidden" name="data_dental[tooth_108][salt]" value="{{tooth.tooth_108.salt}}">
+                    <input type="hidden" name="data_dental[tooth_108][number]" value="{{tooth.tooth_108.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_5" data-id="comment_107">{{tooth.tooth_107.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_107][comment]" id="comment_107" value="{{tooth.tooth_107.comment}}">
+                    <input type="hidden" name="data_dental[tooth_107][salt]" value="{{tooth.tooth_107.salt}}">
+                    <input type="hidden" name="data_dental[tooth_107][number]" value="{{tooth.tooth_107.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_6" data-id="comment_106">{{tooth.tooth_106.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_106][comment]" id="comment_106" value="{{tooth.tooth_106.comment}}">
+                    <input type="hidden" name="data_dental[tooth_106][salt]" value="{{tooth.tooth_106.salt}}">
+                    <input type="hidden" name="data_dental[tooth_106][number]" value="{{tooth.tooth_106.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_7" data-id="comment_105">{{tooth.tooth_105.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_105][comment]" id="comment_105" value="{{tooth.tooth_105.comment}}">
+                    <input type="hidden" name="data_dental[tooth_105][salt]" value="{{tooth.tooth_105.salt}}">
+                    <input type="hidden" name="data_dental[tooth_105][number]" value="{{tooth.tooth_105.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_8" data-id="comment_104">{{tooth.tooth_104.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_104][comment]" id="comment_104" value="{{tooth.tooth_104.comment}}">
+                    <input type="hidden" name="data_dental[tooth_104][salt]" value="{{tooth.tooth_104.salt}}">
+                    <input type="hidden" name="data_dental[tooth_104][number]" value="{{tooth.tooth_104.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_9" data-id="comment_103">{{tooth.tooth_103.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_103][comment]" id="comment_103" value="{{tooth.tooth_103.comment}}">
+                    <input type="hidden" name="data_dental[tooth_103][salt]" value="{{tooth.tooth_103.salt}}">
+                    <input type="hidden" name="data_dental[tooth_103][number]" value="{{tooth.tooth_103.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_10" data-id="comment_102">{{tooth.tooth_102.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_102][comment]" id="comment_102" value="{{tooth.tooth_102.comment}}">
+                    <input type="hidden" name="data_dental[tooth_102][salt]" value="{{tooth.tooth_102.salt}}">
+                    <input type="hidden" name="data_dental[tooth_102][number]" value="{{tooth.tooth_102.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_11" data-id="comment_101">{{tooth.tooth_101.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_101][comment]" id="comment_101" value="{{tooth.tooth_101.comment}}">
+                    <input type="hidden" name="data_dental[tooth_101][salt]" value="{{tooth.tooth_101.salt}}">
+                    <input type="hidden" name="data_dental[tooth_101][number]" value="{{tooth.tooth_101.number}}">
                 </div>
-                {% endfor %}
-#}
+
+                <div id="quadrant2" class="comments_quadrant">
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_1" data-id="comment_201">{{tooth.tooth_201.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_201][comment]" id="comment_201" value="{{tooth.tooth_201.comment}}">
+                    <input type="hidden" name="data_dental[tooth_201][salt]" value="{{tooth.tooth_201.salt}}">
+                    <input type="hidden" name="data_dental[tooth_201][number]" value="{{tooth.tooth_201.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_2" data-id="comment_202">{{tooth.tooth_202.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_202][comment]" id="comment_202" value="{{tooth.tooth_202.comment}}">
+                    <input type="hidden" name="data_dental[tooth_202][salt]" value="{{tooth.tooth_202.salt}}">
+                    <input type="hidden" name="data_dental[tooth_202][number]" value="{{tooth.tooth_202.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_3" data-id="comment_203">{{tooth.tooth_203.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_203][comment]" id="comment_203" value="{{tooth.tooth_203.comment}}">
+                    <input type="hidden" name="data_dental[tooth_203][salt]" value="{{tooth.tooth_203.salt}}">
+                    <input type="hidden" name="data_dental[tooth_203][number]" value="{{tooth.tooth_203.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_4" data-id="comment_204">{{tooth.tooth_204.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_204][comment]" id="comment_204" value="{{tooth.tooth_204.comment}}">
+                    <input type="hidden" name="data_dental[tooth_204][salt]" value="{{tooth.tooth_204.salt}}">
+                    <input type="hidden" name="data_dental[tooth_204][number]" value="{{tooth.tooth_204.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_5" data-id="comment_205">{{tooth.tooth_205.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_205][comment]" id="comment_205" value="{{tooth.tooth_205.comment}}">
+                    <input type="hidden" name="data_dental[tooth_205][salt]" value="{{tooth.tooth_205.salt}}">
+                    <input type="hidden" name="data_dental[tooth_205][number]" value="{{tooth.tooth_205.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_6" data-id="comment_206">{{tooth.tooth_206.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_206][comment]" id="comment_206" value="{{tooth.tooth_206.comment}}">
+                    <input type="hidden" name="data_dental[tooth_206][salt]" value="{{tooth.tooth_206.salt}}">
+                    <input type="hidden" name="data_dental[tooth_206][number]" value="{{tooth.tooth_206.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_7" data-id="comment_207">{{tooth.tooth_207.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_207][comment]" id="comment_207" value="{{tooth.tooth_207.comment}}">
+                    <input type="hidden" name="data_dental[tooth_207][salt]" value="{{tooth.tooth_207.salt}}">
+                    <input type="hidden" name="data_dental[tooth_207][number]" value="{{tooth.tooth_207.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_8" data-id="comment_208" data-placement="left">{{tooth.tooth_208.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_208][comment]" id="comment_208" value="{{tooth.tooth_208.comment}}">
+                    <input type="hidden" name="data_dental[tooth_208][salt]" value="{{tooth.tooth_208.salt}}">
+                    <input type="hidden" name="data_dental[tooth_208][number]" value="{{tooth.tooth_208.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_9" data-id="comment_209" data-placement="left">{{tooth.tooth_209.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_209][comment]" id="comment_209" value="{{tooth.tooth_209.comment}}">
+                    <input type="hidden" name="data_dental[tooth_209][salt]" value="{{tooth.tooth_209.salt}}">
+                    <input type="hidden" name="data_dental[tooth_209][number]" value="{{tooth.tooth_209.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_10" data-id="comment_210" data-placement="left">{{tooth.tooth_210.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_210][comment]" id="comment_210" value="{{tooth.tooth_210.comment}}">
+                    <input type="hidden" name="data_dental[tooth_210][salt]" value="{{tooth.tooth_210.salt}}">
+                    <input type="hidden" name="data_dental[tooth_210][number]" value="{{tooth.tooth_210.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_11" data-id="comment_211" data-placement="left">{{tooth.tooth_211.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_211][comment]" id="comment_211" value="{{tooth.tooth_211.comment}}">
+                    <input type="hidden" name="data_dental[tooth_211][salt]" value="{{tooth.tooth_211.salt}}">
+                    <input type="hidden" name="data_dental[tooth_211][number]" value="{{tooth.tooth_211.number}}">
+                </div>
+
+                <div id="quadrant3" class="comments_quadrant">
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_1" data-id="comment_301">{{tooth.tooth_301.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_301][comment]" id="comment_301" value="{{tooth.tooth_301.comment}}">
+                    <input type="hidden" name="data_dental[tooth_301][salt]" value="{{tooth.tooth_301.salt}}">
+                    <input type="hidden" name="data_dental[tooth_301][number]" value="{{tooth.tooth_301.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_2" data-id="comment_302">{{tooth.tooth_302.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_302][comment]" id="comment_302" value="{{tooth.tooth_302.comment}}">
+                    <input type="hidden" name="data_dental[tooth_302][salt]" value="{{tooth.tooth_302.salt}}">
+                    <input type="hidden" name="data_dental[tooth_302][number]" value="{{tooth.tooth_302.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_3" data-id="comment_303">{{tooth.tooth_303.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_303][comment]" id="comment_303" value="{{tooth.tooth_303.comment}}">
+                    <input type="hidden" name="data_dental[tooth_303][salt]" value="{{tooth.tooth_303.salt}}">
+                    <input type="hidden" name="data_dental[tooth_303][number]" value="{{tooth.tooth_303.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_4" data-id="comment_304">{{tooth.tooth_304.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_304][comment]" id="comment_304" value="{{tooth.tooth_304.comment}}">
+                    <input type="hidden" name="data_dental[tooth_304][salt]" value="{{tooth.tooth_304.salt}}">
+                    <input type="hidden" name="data_dental[tooth_304][number]" value="{{tooth.tooth_304.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_5" data-id="comment_305">{{tooth.tooth_305.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_305][comment]" id="comment_305" value="{{tooth.tooth_305.comment}}">
+                    <input type="hidden" name="data_dental[tooth_305][salt]" value="{{tooth.tooth_305.salt}}">
+                    <input type="hidden" name="data_dental[tooth_305][number]" value="{{tooth.tooth_305.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_6" data-id="comment_306">{{tooth.tooth_306.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_306][comment]" id="comment_306" value="{{tooth.tooth_306.comment}}">
+                    <input type="hidden" name="data_dental[tooth_306][salt]" value="{{tooth.tooth_306.salt}}">
+                    <input type="hidden" name="data_dental[tooth_306][number]" value="{{tooth.tooth_306.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_7" data-id="comment_307">{{tooth.tooth_307.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_307][comment]" id="comment_307" value="{{tooth.tooth_307.comment}}">
+                    <input type="hidden" name="data_dental[tooth_307][salt]" value="{{tooth.tooth_307.salt}}">
+                    <input type="hidden" name="data_dental[tooth_307][number]" value="{{tooth.tooth_307.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_8" data-id="comment_308" data-placement="left">{{tooth.tooth_308.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_308][comment]" id="comment_308" value="{{tooth.tooth_308.comment}}">
+                    <input type="hidden" name="data_dental[tooth_308][salt]" value="{{tooth.tooth_308.salt}}">
+                    <input type="hidden" name="data_dental[tooth_308][number]" value="{{tooth.tooth_308.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_9" data-id="comment_309" data-placement="left">{{tooth.tooth_309.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_309][comment]" id="comment_309" value="{{tooth.tooth_309.comment}}">
+                    <input type="hidden" name="data_dental[tooth_309][salt]" value="{{tooth.tooth_309.salt}}">
+                    <input type="hidden" name="data_dental[tooth_309][number]" value="{{tooth.tooth_309.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_10" data-id="comment_310" data-placement="left">{{tooth.tooth_310.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_310][comment]" id="comment_310" value="{{tooth.tooth_310.comment}}">
+                    <input type="hidden" name="data_dental[tooth_310][salt]" value="{{tooth.tooth_310.salt}}">
+                    <input type="hidden" name="data_dental[tooth_310][number]" value="{{tooth.tooth_310.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_11" data-id="comment_311" data-placement="left">{{tooth.tooth_311.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_311][comment]" id="comment_311" value="{{tooth.tooth_311.comment}}">
+                    <input type="hidden" name="data_dental[tooth_311][salt]" value="{{tooth.tooth_311.salt}}">
+                    <input type="hidden" name="data_dental[tooth_311][number]" value="{{tooth.tooth_311.number}}">
+                </div>
+
+                <div id="quadrant4" class="comments_quadrant">
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_1" data-id="comment_411">{{tooth.tooth_411.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_411][comment]" id="comment_411" value="{{tooth.tooth_411.comment}}">
+                    <input type="hidden" name="data_dental[tooth_411][salt]" value="{{tooth.tooth_411.salt}}">
+                    <input type="hidden" name="data_dental[tooth_411][number]" value="{{tooth.tooth_411.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_2" data-id="comment_410">{{tooth.tooth_410.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_410][comment]" id="comment_410" value="{{tooth.tooth_410.comment}}">
+                    <input type="hidden" name="data_dental[tooth_410][salt]" value="{{tooth.tooth_410.salt}}">
+                    <input type="hidden" name="data_dental[tooth_410][number]" value="{{tooth.tooth_410.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_3" data-id="comment_409">{{tooth.tooth_409.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_409][comment]" id="comment_409" value="{{tooth.tooth_409.comment}}">
+                    <input type="hidden" name="data_dental[tooth_409][salt]" value="{{tooth.tooth_409.salt}}">
+                    <input type="hidden" name="data_dental[tooth_409][number]" value="{{tooth.tooth_409.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_4" data-id="comment_408">{{tooth.tooth_408.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_408][comment]" id="comment_408" value="{{tooth.tooth_408.comment}}">
+                    <input type="hidden" name="data_dental[tooth_408][salt]" value="{{tooth.tooth_408.salt}}">
+                    <input type="hidden" name="data_dental[tooth_408][number]" value="{{tooth.tooth_408.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_5" data-id="comment_407">{{tooth.tooth_407.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_407][comment]" id="comment_407" value="{{tooth.tooth_407.comment}}">
+                    <input type="hidden" name="data_dental[tooth_407][salt]" value="{{tooth.tooth_407.salt}}">
+                    <input type="hidden" name="data_dental[tooth_407][number]" value="{{tooth.tooth_407.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_6" data-id="comment_406">{{tooth.tooth_406.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_406][comment]" id="comment_406" value="{{tooth.tooth_406.comment}}">
+                    <input type="hidden" name="data_dental[tooth_406][salt]" value="{{tooth.tooth_406.salt}}">
+                    <input type="hidden" name="data_dental[tooth_406][number]" value="{{tooth.tooth_406.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_7" data-id="comment_405">{{tooth.tooth_405.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_405][comment]" id="comment_405" value="{{tooth.tooth_405.comment}}">
+                    <input type="hidden" name="data_dental[tooth_405][salt]" value="{{tooth.tooth_405.salt}}">
+                    <input type="hidden" name="data_dental[tooth_405][number]" value="{{tooth.tooth_405.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_8" data-id="comment_404">{{tooth.tooth_404.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_404][comment]" id="comment_404" value="{{tooth.tooth_404.comment}}">
+                    <input type="hidden" name="data_dental[tooth_404][salt]" value="{{tooth.tooth_404.salt}}">
+                    <input type="hidden" name="data_dental[tooth_404][number]" value="{{tooth.tooth_404.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_9" data-id="comment_403">{{tooth.tooth_403.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_403][comment]" id="comment_403" value="{{tooth.tooth_403.comment}}">
+                    <input type="hidden" name="data_dental[tooth_403][salt]" value="{{tooth.tooth_403.salt}}">
+                    <input type="hidden" name="data_dental[tooth_403][number]" value="{{tooth.tooth_403.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_10" data-id="comment_402">{{tooth.tooth_402.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_402][comment]" id="comment_402" value="{{tooth.tooth_402.comment}}">
+                    <input type="hidden" name="data_dental[tooth_402][salt]" value="{{tooth.tooth_402.salt}}">
+                    <input type="hidden" name="data_dental[tooth_402][number]" value="{{tooth.tooth_402.number}}">
+
+                    <a href="#" class="edit-inline glyphicon glyphicon-comment comment_11" data-id="comment_401">{{tooth.tooth_401.comment}}</a>
+                    <input type="hidden" name="data_dental[tooth_401][comment]" id="comment_401" value="{{tooth.tooth_401.comment}}">
+                    <input type="hidden" name="data_dental[tooth_401][salt]" value="{{tooth.tooth_401.salt}}">
+                    <input type="hidden" name="data_dental[tooth_401][number]" value="{{tooth.tooth_401.number}}">
+                </div>
+
                 <div class="form-group">
                     <label id="label_comment" for="dental_comment" class="col-sm-2 control-label horse-active is-public"><span class="red">*</span> {{ "Comentario" |trans}}</label>
                     <div class="col-sm-4">
@@ -468,9 +540,13 @@
                     <label id="label_sign" for="dental_sign" class="col-sm-2 control-label horse-active is-public"><span class="red">*</span> {{ "Firma" |trans}}</label>
                     <div class="col-sm-10">
                         {% set type = 'simple' %}
-                        {% set params_html = {'class':'canvas-sign'} %}
-                        {{ initDrawingboard('sign-board', type, params_html) | raw }}
-                        <input type="hidden" class="sign_hidden" id="sign" name="sign" />
+                        {% set background_sign = {} %}
+                        {% set params_html = {'class':'canvas-sign', 'style':'background-color: white;'} %}
+                        {% if edition is defined %}
+                            {% set background_sign = { 'background' : sign } %}
+                        {% endif %}
+                        {{ initDrawingboard('canvas-sign', type, background_sign, params_html) | raw }}
+                        <input type="hidden" name="sign" id="dental-sign">
                     </div>
                 </div>
                 {{ form_rest(form) }}
@@ -489,26 +565,34 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/backend/js/x-editable/bootstrap-editable.min.js') }}"></script>
     <script type="text/javascript">
         $('#form-create-item').submit(function(event){
-        	$('#incisors-board').find('.drawing-board-canvas').each(function(){
-        		imgIncisor = this.toDataURL().replace("image/png", "image/octet-stream");
-        		$('#incisors').val(imgIncisor);
-        	});
+            var canvas = $('#canvas-quadrants').find('.drawing-board-canvas');
+            var uri = canvas[0].toDataURL().replace('image/png', 'image/octet-stream');
+            $('#dental-quadrants').val(uri);
 
-        	$('#sign-board').find('.drawing-board-canvas').each(function(){
-        		imgSign = this.toDataURL().replace("image/png", "image/octet-stream");
-        		$('#sign').val(imgSign);
-        	});
+            var canvas1 = $('#canvas-sign').find('.drawing-board-canvas');
+            var uri1 = canvas1[0].toDataURL().replace('image/png', 'image/octet-stream');
+            $('#dental-sign').val(uri1);
 
-            var i=1;
-    		$('.quadrant-board').find('.drawing-board-canvas').each(function(){
-    			img = this.toDataURL().replace("image/png", "image/octet-stream");
-        	    $('#quadrant'+i).val(img);
-        	    i++;
-    		});
+            var canvas2 = $('#canvas-incisors').find('.drawing-board-canvas');
+            var uri2 = canvas2[0].toDataURL().replace('image/png', 'image/octet-stream');
+            $('#dental-incisors').val(uri2);
 
             return true;
+        });
+        $(document).ready(function(){
+            $('.canvas-quadrants').append($('.comments_quadrant'));
+            $('.edit-inline').editable({
+                type: 'text'
+            });
+
+            $('.edit-inline').on('save', function(e, params) {
+                var v = params.newValue,
+                        f = $(this).attr('data-id');
+                $('#'+f).val(v);
+            });
         });
     </script>
 {% endblock %}

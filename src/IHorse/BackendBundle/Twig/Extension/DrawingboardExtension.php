@@ -41,7 +41,7 @@ class DrawingboardExtension extends IHorseExtension
             }
         }
         $out .= '></div>';
-        $out .= $this->_loadDrawingboardJS($id, $type, $options);        
+        $out .= $this->_loadDrawingboardJS($id, $type, $options);
         return $out;
     }
 
@@ -57,18 +57,24 @@ class DrawingboardExtension extends IHorseExtension
 
         $_default_simple = array('controls' => array('Size' => array('type' => 'dropdown'),
                                                      'Navigation',
-                                                     'DrawingMode' => array('filler' => false)), 
-                                 'size' => 2, 
-                                 'webStorage' => false, 
+                                                     'DrawingMode' => array('filler' => false)),
+                                 'size' => 2,
+                                 'webStorage' => false,
                                  'background' => 'transparent');
 
-        $_default_complete = array('controls' => array('Color', 'DentalHorse'));
+        $_default_complete = array('controls' => array('Color',
+                                                       'Size' => array('type' => 'dropdown'),
+                                                       'Navigation',
+                                                       'DrawingMode' => array('filler' => false),
+                                                       'Dentalhorse'),
+                                    'size' => 2,
+                                    'webStorage' => false,
+                                    'background' => 'transparent');
 
         if($type == 'simple'){
             $_options = array_merge($_default_simple, $options);
         }else{
-            $_options = array_merge($_default_simple, $_default_complete);
-            $_options = array_merge($_options, $options);
+            $_options = array_merge($_default_complete, $options);
         }
 
         $out = '<script>var simpleBoard = new DrawingBoard.Board(\''.$id.'\', {';
@@ -108,12 +114,17 @@ class DrawingboardExtension extends IHorseExtension
         }
 
         $out .='});</script>';
+
         return $out;
     }
 
     public function getName()
     {
         return 'drawingboard_extension';
+    }
+
+    public function getImageSize($image) {
+
     }
     
 }

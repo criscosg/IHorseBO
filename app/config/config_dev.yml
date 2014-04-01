@@ -3,6 +3,7 @@ imports:
     
 parameters:
     ihorse.rest.uri: "http://rest.ihorse.me/app_dev.php/"
+    ihorse.rest.web: "http://rest.ihorse.me/"
     ihorse.rest.oauth.id: 1_571aizvhpwcgkc4g8wcco0c404ssssw440gkc0c4g0sscs88s0
     ihorse.rest.oauth.secret: 2lvkeo7gl1c00ckcg8o8ogwwgsw0ck4k0wws0kss4wgk80g0s4
 
