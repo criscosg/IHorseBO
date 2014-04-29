@@ -33,8 +33,8 @@
                 <li {% if action == 'new_horse' %}class="active"{% endif %}><a href="{{ path('new_horse') }}">{{ "Nuevo"|trans }}</a></li>
             </ul>
         </li>
-        <li class="submenu {%  if action == 'products_list' or action == 'new_product' or action == 'show_horse' or action == 'edit_horse' %}active open{% endif %}">
-            <a href="#"><i class="fa fa-bars"></i> <span>{{ "Productos"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+        <li class="submenu {%  if action == 'products_list' or action == 'new_product' or action == 'edit_product' %}active open{% endif %}">
+            <a href="#"><i class="fa fa-flask"></i> <span>{{ "Productos"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
             <ul>
                 <li {% if action == 'products_list' %}class="active"{% endif %}><a href="{{ path('products_list') }}">{{ "Listado"|trans }}</a></li>
                 <li {% if action == 'new_product' %}class="active"{% endif %}><a href="{{ path('new_product') }}">{{ "Nuevo"|trans }}</a></li>

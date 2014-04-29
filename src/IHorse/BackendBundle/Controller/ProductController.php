@@ -11,7 +11,7 @@ class ProductController extends IHorseController
     public function listProductsAction()
     {
         $session = $this->getRequest()->getSession();
-        $products = $this->get('rest.handler.model')->getList('products', 'products', null, false);
+        $products = $this->get('rest.handler.model')->getList('products', 'products', $session->get('access_token'));
 
         return $this->render('BackendBundle:Product:index.html.twig', array('products' => $products));
     }
@@ -34,7 +34,7 @@ class ProductController extends IHorseController
     public function editProductAction($id)
     {
         $session = $this->getRequest()->getSession();
-        $product = $this->get('rest.handler.model')->get('products/'.$id, 'product');
+        $product = $this->get('rest.handler.model')->get('products/'.$id, 'product', $session->get('access_token'));
         $form = $form = $this->createForm(new ProductType(), $product);
 
         return $this->render('BackendBundle:Product:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id));
@@ -44,7 +44,7 @@ class ProductController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $params = $this->getRequest()->request->get('product');
-        $clinic = $this->get('rest.handler.model')->post("products", array('product' => $params));
+        $clinic = $this->get('rest.handler.model')->post("products", array('product' => $params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('products_list'));
     }
@@ -53,7 +53,7 @@ class ProductController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $params = $this->getRequest()->request->get('product');
-        $clinic = $this->get('rest.handler.model')->put("products/".$id, array('product' => $params));
+        $clinic = $this->get('rest.handler.model')->put("products/".$id, array('product' => $params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('products_list'));
     }
@@ -61,7 +61,7 @@ class ProductController extends IHorseController
     public function deleteProductAction($id)
     {
         $session = $this->getRequest()->getSession();
-        $clinic = $this->get('rest.handler.model')->delete("products/".$id);
+        $clinic = $this->get('rest.handler.model')->delete("products/".$id, $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('products_list'));
     }
