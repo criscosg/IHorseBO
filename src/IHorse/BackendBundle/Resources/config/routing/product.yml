@@ -1,0 +1,23 @@
+products_list:
+    pattern: /
+    defaults: { _controller: BackendBundle:Product:listProducts }
+
+new_product:
+    pattern: /new
+    defaults: { _controller: BackendBundle:Product:newProduct }
+
+edit_product:
+    pattern: /edit/{id}
+    defaults: { _controller: BackendBundle:Product:editProduct }
+
+create_product:
+    pattern: /create
+    defaults: { _controller: BackendBundle:Product:createProduct }
+
+put_product:
+    pattern: /put/{id}
+    defaults: { _controller: BackendBundle:Product:putProduct }
+
+delete_product:
+    pattern: /delete/{id}
+    defaults: { _controller: BackendBundle:Product:deleteProduct }

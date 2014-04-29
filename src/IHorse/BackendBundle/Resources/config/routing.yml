@@ -39,3 +39,7 @@ histories:
 
 dentals:
     resource: "@BackendBundle/Resources/config/routing/dental.yml"
+
+products:
+    resource: "@BackendBundle/Resources/config/routing/product.yml"
+    prefix: /product/

@@ -1,0 +1,65 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Productos" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Productos':''} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <a href="{{ path('new_clinic') }}" class="btn btn-primary btn-m">
+            <i class="fa fa-plus"></i> {{ "Nuevo" | trans }}
+        </a>
+    </div>
+
+    {% if products | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de registros"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>{{ "Id del producto"|trans }}</th>
+                        <th>{{ "Título"|trans }}</th>
+                        <th>{{ "Duración"|trans }}</th>
+                        <th>{{ "Descripción"|trans }}</th>
+                        <th>{{ "Precio"|trans }}</th>
+                        <th>{{ "Acciones"|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{% if product.product_id is defined %}{{ product.product_id }}{% endif %}</td>
+                        <td>{% if product.title is defined %}{{ product.title }}{% endif %}</td>
+                        <td>{% if product.duration is defined %}{{ product.duration }}{% endif %}</td>
+                        <td>{% if product.description is defined %}{{ product.description }}{% endif %}</td>
+                        <td>{% if product.price is defined %}{{ product.price }}{% endif %}</td>
+                        <td class="taskOptions">
+                            <a title="Modificar" href="{{ path('edit_product', { 'id': product.id }) }}"><i class="fa fa-pencil"></i></a>
+                            <a title="Borrar" class="delete" href="{{ path('delete_product', { 'id': product.id }) }}"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}
