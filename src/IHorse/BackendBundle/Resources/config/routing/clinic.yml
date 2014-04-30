@@ -24,4 +24,8 @@ put_clinic:
     
 delete_clinic:
     pattern: /delete/{id}
-    defaults: { _controller: BackendBundle:Clinic:deleteClinic }    
+    defaults: { _controller: BackendBundle:Clinic:deleteClinic }
+
+add_product:
+    pattern: /add-product/{id}
+    defaults: { _controller: BackendBundle:Clinic:addProduct }

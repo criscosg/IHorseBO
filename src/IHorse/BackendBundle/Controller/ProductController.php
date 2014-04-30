@@ -16,14 +16,6 @@ class ProductController extends IHorseController
         return $this->render('BackendBundle:Product:index.html.twig', array('products' => $products));
     }
 
-    public function productShowAction($id)
-    {
-        $session = $this->getRequest()->getSession();
-        $products = $this->get('rest.handler.model')->get('products/'.$id, 'product', $session->get('access_token'));
-
-        return $this->render('BackendBundle:Clinic:view.html.twig', array('clinic' => $products));
-    }
-
     public function newProductAction()
     {
         $form = $this->createForm(new ProductType());

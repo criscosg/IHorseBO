@@ -6,6 +6,7 @@ parameters:
     tooth.json.type: IHorse\BackendBundle\Form\Type\JsonToothType
     image.handler.class: IHorse\BackendBundle\Model\Handler\ImageHandler
     horse.json.type: IHorse\BackendBundle\Form\Type\JsonHorseType
+    product.json.type: IHorse\BackendBundle\Form\Type\JsonProductType
     expirable.action.listener.class: IHorse\BackendBundle\EventListener\ExpirableActionListener
     dental.handler.class: IHorse\BackendBundle\Model\Handler\DentalHandler
 
@@ -51,6 +52,14 @@ services:
             - @service_container
         tags:
             - { name: form.type, alias: json_tooth }
+
+    form.type.json.product:
+        class: %product.json.type%
+        arguments:
+            - @rest.handler.model
+            - @service_container
+        tags:
+            - { name: form.type, alias: json_product }
 
     expirable.action_listener:
         class: %expirable.action.listener.class%
