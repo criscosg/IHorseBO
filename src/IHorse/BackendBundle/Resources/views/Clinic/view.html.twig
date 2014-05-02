@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <td>{{ "Creación"|trans }}</td>
-                        <td>{% if clinic.created is defined %}{{ clinic.created }}{% endif %}</td>
+                        <td>{% if clinic.created is defined %}{{ clinic.created|date('d/m/Y') }}{% endif %}</td>
                     </tr>
                     <tr>
                         <td>{{ "Productos contratados"|trans }}</td>
