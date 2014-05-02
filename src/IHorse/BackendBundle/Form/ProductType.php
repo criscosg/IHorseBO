@@ -11,9 +11,10 @@ class ProductType extends AbstractType
     {
         $builder->add('product_id', 'text', array('required' => true))
             ->add('title', 'text', array('required' => true))
-            ->add('duration', 'text', array('required' => true))
-            ->add('description', 'text', array('required' => false))
-            ->add('price', 'text', array('required' => true));
+            ->add('duration', 'number', array('required' => true))
+            ->add('description', 'textarea', array('required' => false))
+            ->add('price', 'text', array('required' => true))
+            ->add('charts', 'number',  array('required' => true));
     }
 
     public function getName()

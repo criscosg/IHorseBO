@@ -34,7 +34,7 @@
             </ul>
         </li>
         <li class="submenu {%  if action == 'products_list' or action == 'new_product' or action == 'edit_product' %}active open{% endif %}">
-            <a href="#"><i class="fa fa-flask"></i> <span>{{ "Productos"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
+            <a href="#"><i class="fa fa-shopping-cart"></i> <span>{{ "Productos"|trans }}</span> <i class="arrow fa fa-chevron-right"></i></a>
             <ul>
                 <li {% if action == 'products_list' %}class="active"{% endif %}><a href="{{ path('products_list') }}">{{ "Listado"|trans }}</a></li>
                 <li {% if action == 'new_product' %}class="active"{% endif %}><a href="{{ path('new_product') }}">{{ "Nuevo"|trans }}</a></li>
