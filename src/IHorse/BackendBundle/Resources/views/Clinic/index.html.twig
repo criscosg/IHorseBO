@@ -32,6 +32,7 @@
                 <tr>
                     <th>{{ "Nombre"|trans }}</th>
                     <th>{{ "creado"|trans }}</th>
+                    <th>{{ "Producto"|trans }}</th>
                     <th>{{ "Acciones"|trans }}</th>
                 </tr>
                 </thead>
@@ -40,6 +41,7 @@
                     <tr>
                         <td>{% if clinic.name is defined %}{{ clinic.name }}{% endif %}</td>
                         <td>{% if clinic.created is defined %}{{ clinic.created |date('d/m/Y') }}{% endif %}</td>
+                        <td>{% if clinic.products is defined %}{% for product in clinic.products %}{{ product.product.title }}{% endfor %}{% endif %}</td>
                         <td class="taskOptions">
                             <a title="Ver" href="{{ path('show_clinic', { 'id': clinic.id }) }}"><i class="fa fa-eye"></i></a>
                             <a title="Modificar" href="{{ path('edit_clinic', { 'id': clinic.id }) }}"><i class="fa fa-pencil"></i></a>

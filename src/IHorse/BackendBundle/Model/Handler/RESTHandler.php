@@ -18,13 +18,17 @@ class RESTHandler
         $this->client = $client;
     }
 
-    public function getList($path, $dataName = null, $params)
+    public function getList($path, $dataName = null, $params, $security = true)
     {
         if (is_array($params)) {
             $get = StringHelper::getQueryArrayFromArray($params);
-            $request = $this->client->get(self::URL_PREFIX.$path.$get);
+            if ($security)
+                $request = $this->client->get(self::URL_PREFIX.$path.$get);
+            else $request = $this->client->get($path.$get);
         } else {
-            $request = $this->client->get(self::URL_PREFIX.$path."?access_token=".$params);
+            if ($security)
+                $request = $this->client->get(self::URL_PREFIX.$path."?access_token=".$params);
+            else $request = $this->client->get($path.$params);
         }
         $response = $request->send();
         $data = $response->json();
@@ -82,9 +86,13 @@ class RESTHandler
         return $response->json();
     }
 
-    public function delete($path, $token)
+    public function delete($path, $token = null)
     {
-        $request = $this->client->delete(self::URL_PREFIX.$path."?access_token=".$token);
+        if (!$token) {
+            $request = $this->client->delete($path);
+        } else {
+            $request = $this->client->delete(self::URL_PREFIX.$path."?access_token=".$token);;
+        }
         $response = $request->send();
 
         return $response;

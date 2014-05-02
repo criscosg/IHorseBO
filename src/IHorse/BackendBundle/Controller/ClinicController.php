@@ -4,6 +4,7 @@ namespace IHorse\BackendBundle\Controller;
 
 use IHorse\BackendBundle\Controller\IHorseController;
 use IHorse\BackendBundle\Form\ClinicType;
+use IHorse\BackendBundle\Form\ProductClinicType;
 
 class ClinicController extends IHorseController
 {
@@ -34,16 +35,18 @@ class ClinicController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $clinic = $this->get('rest.handler.model')->get('clinics/'.$id, 'clinic', $session->get('access_token'));
-        $form = $form = $this->createForm(new ClinicType(), $clinic);
+        $form = $this->createForm(new ClinicType(), $clinic);
+        $formProduct = $this->createForm(new ProductClinicType());
 
-        return $this->render('BackendBundle:Clinic:create.html.twig', array('form' => $form->createView(),'edition'=>true, 'id'=>$id));
+        return $this->render('BackendBundle:Clinic:create.html.twig', array('form' => $form->createView(),'edition' => true, 'id' => $id,
+                                                                            'formProduct' => $formProduct->createView()));
     }
 
     public function createClinicAction()
     {
         $session = $this->getRequest()->getSession();
-        $params=$this->getRequest()->request->get('clinic');
-        $clinic = $this->get('rest.handler.model')->post("clinics", array('clinic'=>$params), $session->get('access_token'));
+        $params = $this->getRequest()->request->get('clinic');
+        $clinic = $this->get('rest.handler.model')->post("clinics", array('clinic' => $params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('clinics_list'));
     }
@@ -51,8 +54,8 @@ class ClinicController extends IHorseController
     public function putClinicAction($id)
     {
         $session = $this->getRequest()->getSession();
-        $params=$this->getRequest()->request->get('clinic');
-        $clinic = $this->get('rest.handler.model')->put("clinics/".$id, array('clinic'=>$params), $session->get('access_token'));
+        $params = $this->getRequest()->request->get('clinic');
+        $clinic = $this->get('rest.handler.model')->put("clinics/".$id, array('clinic' => $params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('clinics_list'));
     }
@@ -61,6 +64,15 @@ class ClinicController extends IHorseController
     {
         $session = $this->getRequest()->getSession();
         $clinic = $this->get('rest.handler.model')->delete("clinics/".$id, $session->get('access_token'));
+
+        return $this->redirect($this->generateUrl('clinics_list'));
+    }
+
+    public function addProductAction($id)
+    {
+        $session = $this->getRequest()->getSession();
+        $params = $this->getRequest()->request->get('product');
+        $clinic = $this->get('rest.handler.model')->post("clinics/".$id.'/products', array('productClinic' => $params), $session->get('access_token'));
 
         return $this->redirect($this->generateUrl('clinics_list'));
     }
