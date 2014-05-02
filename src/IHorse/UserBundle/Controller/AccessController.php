@@ -41,10 +41,6 @@ class AccessController extends CustomController
 
     public function newPasswordAction($data = null)
     {
-        //pide al rest si es correcta la peticion de pass nueva
-        //muestra el formulario con la nueva contraseña y repite pass
-        //envia a rest la nueva pass
-        //la respuesta es mostrada
         if ($data == null) {
             $request = Request::createFromGlobals();
             $data = $request->query->get('salt');
@@ -61,10 +57,12 @@ class AccessController extends CustomController
                 if ($formPass->isValid()) {
                     $params = array('user' => array('password' => $formPass['password']->getData()), 'salt' => $saltDefault);
                     $changed = $this->get('rest.handler.model')->put('changepa', $params);
+                    $this->setTranslatedFlashMessage("Se ha guardado correctamente");
 
                     return $this->redirect($this->generateUrl('login'));
                 } else {
                     $error = true;
+                    $this->setTranslatedFlashMessage('Se ha producido un fallo','error');
 
                     return $this->render('UserBundle:Access:newPassword.html.twig',
                         array(
