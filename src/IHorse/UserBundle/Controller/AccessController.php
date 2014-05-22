@@ -6,6 +6,7 @@ use IHorse\BackendBundle\Controller\CustomController;
 use IHorse\UserBundle\Form\Type\NewPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Guzzle\Http\Exception\BadResponseException;
 
 class AccessController extends CustomController
 {
@@ -13,30 +14,33 @@ class AccessController extends CustomController
     {
         $formPass = $this->createFormBuilder()->add('email', 'email', array('required' => null))->getForm();
 
-        $peticion = $this->getRequest();
-        $candidate = null;
-        if ($peticion->getMethod() == 'POST') {
-            $formPass->submit($peticion);
+        $request = $this->getRequest();
+        $translatedMessage=null;
+        if ($request->getMethod() == 'POST') {
+            $formPass->submit($request);
             if ($formPass['email']->getData() != null) {
                 $name = $formPass['email']->getData();
                 $email = array('email' => $name);
-                //hacer post si existe ese correo
-                $iventiaUser = $this->get('rest.handler.model')->get('register', 'user', null, $email);
-                //si existe, mandar el correo
-                if ($iventiaUser) {
-                    $recover = $this->get('rest.handler.model')->post('changepas', $email);
+                try {
+                    $user = $this->get('rest.handler.model')->get('register', 'user', null, $email);
+                    if ($user) {
+                        $recover = $this->get('rest.handler.model')->post('changepas', $email);
+                        $idiom=explode('_', $user['idiom']);
+                        $request->setLocale($idiom[0]);
+                        $request->getSession()->set("_locale", $idiom[0]);
 
-                    return $this->render('UserBundle:Access:forgotPasswordInstructions.html.twig', array('email'=>$name));
-                } else {
-                    $this
-                        ->setTranslatedFlashMessage(
-                            "El correo electrónico proporcionado no pertenece a ninguna cuenta.");
+                        return $this->render('UserBundle:Access:forgotPasswordInstructions.html.twig', array('email'=>$name));
+                    } else {
+                        $translatedMessage = $this->get('translator')->trans("no_user");
+                    }
+                } catch (BadResponseException $e){
+                    $translatedMessage = $this->get('translator')->trans("no_user");
                 }
             }
         }
 
         return $this->render('UserBundle:Access:recoverPassword.html.twig',
-            array('formPass' => $formPass->createView()));
+            array('formPass' => $formPass->createView(), 'error'=>$translatedMessage));
     }
 
     public function newPasswordAction($data = null)
