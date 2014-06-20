@@ -10,11 +10,10 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('product_id', 'text', array('required' => true))
-            ->add('title', 'text', array('required' => true))
             ->add('duration', 'number', array('required' => true))
-            ->add('description', 'textarea', array('required' => false))
             ->add('price', 'text', array('required' => true))
-            ->add('charts', 'number',  array('required' => true));
+            ->add('charts', 'number',  array('required' => true))
+            ->add('translations', 'collection', array('type' => new ProdTranslationType()));
     }
 
     public function getName()
