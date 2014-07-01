@@ -1,0 +1,209 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Gráfica de las fichas dentales de los veterinarios" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Veterinarios':path('veterinaries_list')} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-pencil"></i>
+            </span>
+            <h5>{{'Buscador de fechas' | trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form class="form-horizontal" id="form-application-date" role="form" action="{{ path('show_dental_graphics') }}" method="post">
+                <div class="form-group">
+                    <label for="event_from" class="col-sm-2 control-label">{{ 'Desde'|trans }}</label>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            {{ form_widget(formulario.from, { 'attr': { 'class': 'form-control dp', 'autocomplete':'off'} }) }}
+                            <span class="input-group-addon input-group-addon-click"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="event_to" class="col-sm-2 control-label">{{ 'Hasta'|trans }}</label>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            {{ form_widget(formulario.to, { 'attr': { 'class': 'form-control dp', 'autocomplete':'off'} }) }}
+                            <span class="input-group-addon input-group-addon-click"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="event_veterinary" class="col-sm-2 control-label">{{ 'Elige veterinario'|trans }}</label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <select name="selectVeterinary">
+                                    <option value="">{{ "Todos" | trans }}</option>
+                                {% for veterinaryInList in veterinaries %}
+                                    <option value="{{ veterinaryInList.id }}" {% if veterinary is not null and veterinaryInList.id == veterinary.id %} selected="selected" {% endif %}>{{ veterinaryInList.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                {{ form_rest(formulario) }}
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-sm-10">
+                        <button id="register" type="submit" class="btn btn-primary">
+                            {{ "Aplicar"|trans }}
+                        </button>
+                        {# <img style="display:none;" class="ml15 loader pull-lef" src="{{ asset('bundles/backend/images/ajax-loader.gif') }}"> #}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="widget-box">
+        {% if veterinary is not null %}
+            <div class="widget-title">
+                <span class="icon">
+                    <i class="fa fa-th-list"></i>
+                </span>
+                <h5>{{ "El veterinario seleccionado %veterinary% ha creado un total de %dentals% fichas"|trans({'%veterinary%': veterinary.name, '%dentals%': veterinaryDentals}) }}</h5>
+            </div>
+            <div class="widget-content nopadding">
+                    <div class="chart total_dentals" style="width:90%;height:300px;">
+                    </div>
+            </div>
+        {% else %}
+            {{ "No se ha seleccionado ningún veterinario" }}
+        {% endif %}
+    </div>
+    <div class="widget-box" id="chart_all">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-bar-chart-o"></i>
+            </span>
+            <h5>{{ 'Los veterinarios han creado un total de %dentals% fichas'|trans ({ '%dentals%': countTotalDentalsInDate}) }}</h5>
+        </div>
+        <div class="widget-content">
+            <div class="chart over_all_dentals" style="width:90%;height:300px;">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/backend/js/jquery.flot.min.js')}}"></script>
+    <script type="text/javascript" src="http://www.flotcharts.org/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backend/js/jquery.flot.categories.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backend/js/jquery.flot.axislabels.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/chart.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backend/js/jquery.flot.time.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.tooltip.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/backend/js/jquery.flot.symbol.js')}}"></script>
+    <script>
+        $(function() {
+            $('.dp').datepicker(
+                {
+                    format: 'dd-mm-yyyy',
+                    weekStart: 1
+                });
+        });
+        function gd(time) {
+            return new Date(time).getTime();
+        }
+        $(document).ready(function(){
+            {% if veterinary is not null %}
+                var data = [{% for key in generalGraphics|keys %}[ '{{ key }}' ,{{ generalGraphics[key] }}]{% if not loop.last %},{% endif %}{% endfor %}];
+                var data1 = [{label: '{{ "Fichas"|trans }}',
+                    color: '#058DC7',
+                    bars: { show: true },
+                    points: { show: false },
+                    data: data
+                }];
+                $.plot('.total_dentals', data1, {
+                    grid: {
+                        hoverable: true
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: "%x | %s: %y"
+                    },
+                    bars: {
+                        barWidth: 0.6,
+                        align: "center"
+                    },
+                    xaxis: {
+                        show: true,
+                        mode: "categories",
+                        tickLength: 10
+                    },
+                    legend: {
+                        noColumns: 0,
+                        labelFormatter: function (label, series) {
+                            return "<font color=\"white\">" + label + "</font>";
+                        },
+                        backgroundColor: "#000",
+                        backgroundOpacity: 0.9,
+                        labelBoxBorderColor: "#000000",
+                        position: "nw"
+                    },
+                    yaxes: [
+                        {
+                            tickDecimals:0,
+                            show: true,
+                            axisLabel: '{{ "Unidades"|trans }}'
+                        }
+                    ]
+                });
+            {% endif %}
+
+            var data2 = [{% for key in overAllData['dentalsPerDay']|keys %}[ '{{ key }}' ,{{ overAllData['dentalsPerDay'][key] }}]{% if not loop.last %},{% endif %}{% endfor %}];
+            var data3 = [{label: '{{ "Fichas"|trans }}',
+                color: '#058DC7',
+                bars: { show: true },
+                points: { show: false },
+                data: data2
+            }];
+            $.plot('.over_all_dentals', data3, {
+                grid: {
+                    hoverable: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%x | %s: %y"
+                },
+                bars: {
+                    barWidth: 0.6,
+                    align: "center"
+                },
+                xaxis: {
+                    show: true,
+                    mode: "categories",
+                    tickLength: 10
+                },
+                legend: {
+                    noColumns: 0,
+                    labelFormatter: function (label, series) {
+                        return "<font color=\"white\">" + label + "</font>";
+                    },
+                    backgroundColor: "#000",
+                    backgroundOpacity: 0.9,
+                    labelBoxBorderColor: "#000000",
+                    position: "nw"
+                },
+                yaxes: [
+                    {
+                        tickDecimals:0,
+                        show: true,
+                        axisLabel: '{{ "Unidades"|trans }}'
+                    }
+                ]
+            });
+        });
+    </script>
+{% endblock %}

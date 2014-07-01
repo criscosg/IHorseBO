@@ -24,4 +24,8 @@ put_veterinary:
     
 delete_veterinary:
     pattern: /delete/{id}
-    defaults: { _controller: BackendBundle:Veterinary:deleteVeterinary }    
+    defaults: { _controller: BackendBundle:Veterinary:deleteVeterinary }
+
+show_dental_graphics:
+    pattern: /graphics
+    defaults: { _controller: BackendBundle:Veterinary:graphicVeterinary }
