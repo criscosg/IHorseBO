@@ -55,6 +55,14 @@
                         <td>{{ "Expira"|trans }}</td>
                         <td>{% if veterinary.expired is defined %}{{ veterinary.expired |date('d/m/Y') }}{% endif %}</td>
                     </tr>
+                    <tr>
+                        <td>{{ "Total fichas creadas por el usuario"|trans }}</td>
+                        <td>{% if veterinary.dentals is defined and veterinary.dentals|length > 0 %}{{ veterinary.dentals|length }}{% else %} 0 {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "Fichas del mes actual / Fichas máximas permitidas para este mes"|trans }}</td>
+                        <td><a href='{{ path('show_dental_graphics' }}'>{% if veterinary.dentals is defined and veterinary.dentals|length > 0 %}{{ veterinary.dentals|length }}{% else %} 0 {% endif %} / {% if totalFromProduct is defined %}{{ totalFromProduct }}{% else %} 0 {% endif %}</a></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

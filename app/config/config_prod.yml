@@ -6,6 +6,7 @@ parameters:
     ihorse.rest.web: "http://rest.dentalhorse.com/"
     ihorse.rest.oauth.id: 1_4w26blqsue808ccso4so44kc44wgsowgwsgsogswc4goc0gwg0
     ihorse.rest.oauth.secret: 4yiofcgaueckw0ggowo4kock4kk8sk0kg0gs0wg4o4gc8co0s4
+    initDateApp: '2014/01/01'
 
 #framework:
 #    validation:
