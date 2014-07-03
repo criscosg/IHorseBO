@@ -5,7 +5,11 @@ home:
 login:
     pattern: /login
     defaults: { _controller: BackendBundle:Backend:login }
-    
+
+logout:
+    pattern: /logout
+    defaults: { _controller: BackendBundle:Backend:logout }
+
 oauth_procesator:
     pattern: /oauth_procesator
     defaults: { _controller: BackendBundle:Backend:oauthProcesator }

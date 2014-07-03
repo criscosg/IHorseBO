@@ -36,9 +36,22 @@ class BackendController extends Controller
             $now->add($interval);
             $session->set('expires', $now->getTimestamp());
 
-            return $this->redirect($this->generateUrl('home'));
+            return $this->redirect($this->generateUrl('veterinaries_list'));
         }
 
         return $this->render('BackendBundle:Backend:oauth-procesator.html.twig');
+    }
+
+    public function logoutAction()
+    {
+        $request = $this->getRequest();
+        if ($request->getSession()) {
+            $session = $request->getSession();
+            $session->clear();
+            //$restRequest = $this->get('guzzle.client')->get($this->container->getParameter('ihorse.rest.uri').'oauth/v2/auth/logout');
+            //$response = $restRequest->send();
+
+            return $this->redirect($this->generateUrl('clinics_list'));
+        }
     }
 }

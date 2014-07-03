@@ -41,7 +41,7 @@
                     <tr>
                         <td>{% if clinic.name is defined %}{{ clinic.name }}{% endif %}</td>
                         <td>{% if clinic.created is defined %}{{ clinic.created |date('d/m/Y') }}{% endif %}</td>
-                        <td>{% if clinic.products is defined %}{% for product in clinic.products %}{{ product.product.title }}{% endfor %}{% endif %}</td>
+                        <td>{% if clinic.products is defined %}{% for product in clinic.products %}{% if product.product.translations|length > 0 %}{{ product.product.translations.title }}{% else %}{{ "no hay traducciones para el producto"|trans }}{% endif %}{% endfor %}{% endif %}</td>
                         <td class="taskOptions">
                             <a title="Ver" href="{{ path('show_clinic', { 'id': clinic.id }) }}"><i class="fa fa-eye"></i></a>
                             <a title="Modificar" href="{{ path('edit_clinic', { 'id': clinic.id }) }}"><i class="fa fa-pencil"></i></a>
