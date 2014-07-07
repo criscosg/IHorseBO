@@ -152,7 +152,7 @@ class VeterinaryController extends IHorseController
         }
         $expired = new \DateTime($product['expired']);
 
-        return array('countDental' => $count, 'totalDentalFromProduct' => $product['product']['charts'], 'productExpired' => $expired->format('Y/m/d'));
+        return array('countDental' => $count, 'totalDentalFromProduct' => $product['product']['charts'], 'productExpired' => $expired->format('Y/m/d'), 'product' => $product['product']);
     }
 
     private function countDentals($veterinary, $dateFrom = null, $dateTo = null)
@@ -257,7 +257,8 @@ class VeterinaryController extends IHorseController
             $dateArray->modify('+1 day');
         }
         $return = array('dentalsPerDay' => $dentalsPerDay, 'totalDentals' => $countTotalDentals,
-                        'veterinariesWithDentals' => $countVeterinariesWithDentals, 'veterinariesDates' => $veterinariesDates,
+                        'veterinariesWithDentals' => $countVeterinariesWithDentals,
+                        'veterinariesDates' => $veterinariesDates,
                         'countTotalDentalsInDate' => $countTotalDentalsInDate);
 
         return $return;

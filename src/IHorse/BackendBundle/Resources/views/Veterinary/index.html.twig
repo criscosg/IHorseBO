@@ -32,9 +32,9 @@
                 <div class="widget-content clearfix">
                     <div class="span4">
                         <ul class="site-stats">
-                            <li><i class="icon-pencil"></i> <strong>{{ totalDentals }}</strong> <small>Fichas Totales</small></li>
-                            <li><i class="icon-picture"></i> <strong>{{ (totalDentals/(veterinaries|length))| number_format(2) }}</strong> <small>Fichas totales por usuario</small></li>
-                            <li><i class="icon-briefcase"></i> <strong>{{ veterinariesWithDentals }} / {{ veterinaries|length }}</strong> <small>Veterinarios que han creado fichas dentales</small></li>
+                            <li><i class="icon-pencil"></i> <strong>{{ totalDentals }}</strong> <small>{{ "Fichas totales creadas" }}</small></li>
+                            <li><i class="icon-picture"></i> <strong>{{ (totalDentals/(veterinaries|length))| number_format(2) }}</strong> <small>{{ "Media de fichas creadas por usuario"|trans }}</small></li>
+                            <li><i class="icon-briefcase"></i> <strong>{{ veterinariesWithDentals }} / {{ veterinaries|length }}</strong> <small>{{ "Relación de veterinarios con fichas frente al total de veterinarios"|trans }}</small></li>
                         </ul>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     <th>{{ "Creado"|trans }}</th>
                     <th>{{ "Expira"|trans }}</th>
                     <th>{{ "Clínica"|trans }}</th>
-                    <th>{{ "Fichas creadas este mes"|trans }}</th>
+                    <th>{{ "Fichas creadas este mes - Producto"|trans }}</th>
                     <th>{{ "Acciones"|trans }}</th>
                 </tr>
                 </thead>
@@ -77,21 +77,23 @@
                         <td>{% if veterinary.clinic is defined %}<a href="{{ path('show_clinic', {'id': veterinary.clinic.id}) }}"> {{ veterinary.clinic.name }}</a>{% endif %}</td>
                         <td>
                             {% if veterinariesDates[veterinary.id].productExpired is not null and veterinariesDates[veterinary.id].productExpired | date('Y/m/d') > ('now' | date('Y/m/d')) %}
-                            <a href='{{ path('show_dental_graphics') }}'>
-                                {% if veterinariesDates[veterinary.id].countDental is not null %}
-                                    {{ veterinariesDates[veterinary.id].countDental }}
-                                {% else %}
-                                    0
-                                {% endif %}
-                                /
-                                {% if veterinariesDates[veterinary.id].totalDentalFromProduct is not null %}
-                                    {{ veterinariesDates[veterinary.id].totalDentalFromProduct }}
-                                {% else %}
-                                    0
-                                {% endif %}
-                            </a>
-                            {% else %}
+                                <a href='{{ path('show_dental_graphics') }}'>
+                                    {% if veterinariesDates[veterinary.id].countDental is not null %}
+                                        {{ veterinariesDates[veterinary.id].countDental }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                    /
+                                    {% if veterinariesDates[veterinary.id].totalDentalFromProduct is not null %}
+                                        {{ veterinariesDates[veterinary.id].totalDentalFromProduct }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                </a>
                                 {{ "-" }}
+                                <a href='{{ path('edit_product',{'id':veterinariesDates[veterinary.id].product.id }) }}'>
+                                    {{ veterinariesDates[veterinary.id].product.translations[0].title }}
+                                </a>
                             {% endif %}
                         </td>
                         <td class="taskOptions">
