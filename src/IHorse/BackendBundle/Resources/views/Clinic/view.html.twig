@@ -41,7 +41,7 @@
                     </tr>
                     <tr>
                         <td>{{ "Productos contratados"|trans }}</td>
-                        <td>{% if clinic.products is defined %}{% for product in clinic.products %}{{ product.product.title }}-{{ product.expired|date('d/m/Y') }}<br>{% endfor %}{% endif %}</td>
+                        <td>{% if clinic.products is defined %}{% for product in clinic.products %}{{ product.product.translations }}-{{ product.expired|date('d/m/Y') }}<br>{% endfor %}{% endif %}</td>
                     </tr>
                 </tbody>
             </table>

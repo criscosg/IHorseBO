@@ -35,6 +35,7 @@
                         <th>{{ "Duración"|trans }}</th>
                         <th>{{ "Descripción"|trans }}</th>
                         <th>{{ "Precio"|trans }}</th>
+                        <th>{{ "Fichas"|trans }}</th>
                         <th>{{ "Acciones"|trans }}</th>
                     </tr>
                 </thead>
@@ -46,6 +47,7 @@
                         <td>{% if product.duration is defined %}{{ product.duration }}{% endif %}</td>
                         <td>{% if product.description is defined %}{{ product.description }}{% endif %}</td>
                         <td>{% if product.price is defined %}{{ product.price }}{% endif %}</td>
+                        <td>{% if product.charts is defined %}{{ product.charts|length }}{% endif %}</td>
                         <td class="taskOptions">
                             <a title="Modificar" href="{{ path('edit_product', { 'id': product.id }) }}"><i class="fa fa-pencil"></i></a>
                             <a title="Borrar" class="delete" href="{{ path('delete_product', { 'id': product.id }) }}"><i class="fa fa-trash-o"></i></a>
